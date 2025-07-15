@@ -14,6 +14,9 @@
   --color-main-background: #dbeafe;
   --color-white-text: #fff;
   --color-dark-text: #374151;
+  --color-mainBlue: #2563eb;
+
+  --shadow-for-white-background-frame: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 @media (prefers-color-scheme: dark) {
