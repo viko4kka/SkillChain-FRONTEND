@@ -6,7 +6,7 @@ export default function WhiteBackgroundFrame({
   children: ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-start bg-white-text h-[230px] w-[340px] rounded-lg shadow-for-white-background-frame">
+    <div className="bg-white-text 500:w-[450px] shadow-for-white-background-frame flex h-full w-[340px] flex-col items-center justify-start rounded-lg sm:w-[600px] lg:w-[850px]">
       {children}
     </div>
   );
