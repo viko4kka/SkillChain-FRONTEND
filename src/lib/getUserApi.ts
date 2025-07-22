@@ -22,7 +22,7 @@ export async function getUserById(id: number): Promise<User | undefined> {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("lipa", error);
+    console.error(error);
   }
 }
 
