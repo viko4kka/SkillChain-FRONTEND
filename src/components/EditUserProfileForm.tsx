@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useUserUpdateDataById } from "@/hooks/useUserUpdateDataById";
 import { User } from "./UserFrameInProfilePage";
+import Button from "./Button";
 
 interface UpdateUserProfileInput {
   onCloseModal?: () => void;
@@ -79,9 +80,9 @@ function EditUserProfileForm({
 
   return (
     <div className="flex h-full w-full flex-col px-4">
-      <div className="flex flex-row items-center justify-between">
+      {/* <div className="flex flex-row items-center justify-between">
        
-      </div>
+      </div> */}
 
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -155,7 +156,7 @@ function EditUserProfileForm({
             <input
               type="text"
               disabled={isUpdatingUserData}
-              {...register("linkedinUrl", )}
+              {...register("linkedinUrl")}
               placeholder="Enter linkedin url"
               className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
             />
@@ -178,20 +179,22 @@ function EditUserProfileForm({
         </div>
 
         <div className="my-2 flex flex-row justify-end gap-x-2">
-          <button
+          <Button
             type="button"
             onClick={() => onCloseModal?.()}
-            className="bg-main-background text-mainBlue hover:bg-mainLightBlueHover rounded-sm px-3.5 py-1.5 text-sm transition-colors"
+            variant="secondary"
+            size="md"
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
             type="submit"
             disabled={isUpdatingUserData}
-            className="bg-mainBlue hover:bg-mainBlueHover rounded-sm px-3.5 py-1.5 text-sm text-white transition-colors"
+            variant="primary"
+            size="md"
           >
             Save
-          </button>
+          </Button>
         </div>
       </form>
     </div>

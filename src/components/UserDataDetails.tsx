@@ -49,18 +49,31 @@ function UserDataDetails({
         </div>
       </div>
       <div className="flex flex-row items-center justify-start gap-x-2 sm:gap-x-4 lg:gap-x-6">
-        <Button variant="darkBlueButtonMetaMaskMobile">
-          Connect with MetaMask
-        </Button>
+        <div className="w-[90px] sm:w-[100px] lg:hidden">
+          <Button variant="primary" size="sm" fullWidth>
+            <span className="text-center text-xs leading-tight">
+              Connect with MetaMask
+            </span>
+          </Button>
+        </div>
 
-        <Modal title="Edit your Profile"
+        <div className="hidden w-[130px] lg:block">
+          <Button variant="primary" size="md" fullWidth>
+            <span className="text-center text-sm leading-tight">
+              Connect with MetaMask
+            </span>
+          </Button>
+        </div>
+
+        <Modal
+          title="Edit your Profile"
           button={
             <button>
               <GoPencil className="text-mainBlue text-lg sm:text-xl lg:text-2xl" />
             </button>
           }
         >
-          {(closeModal) => (
+          {({ closeModal }) => (
             <EditUserProfileForm
               onCloseModal={closeModal}
               initialData={{

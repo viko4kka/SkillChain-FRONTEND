@@ -55,9 +55,8 @@ export async function editUserDataById({
 
     const data = await response.json();
 
-
     return data;
   } catch (error) {
-    console.error( error);
+    console.error(error);
   }
 }

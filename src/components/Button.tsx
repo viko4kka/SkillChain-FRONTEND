@@ -1,31 +1,57 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 
-interface ButtonProps {
+const button = cva(
+  "flex flex-row items-center justify-center rounded-lg transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 whitespace-normal text-center",
+  {
+    variants: {
+      variant: {
+        simple: "bg-transparent text-mainBlue hover:bg-main-background",
+        primary: "bg-mainBlue text-white hover:bg-mainBlueHover",
+        secondary:
+          "bg-main-background text-mainBlue hover:bg-mainLightBlueHover",
+      },
+      size: {
+        sm: "py-1 px-3 text-sm",
+        md: "py-1.5 px-3.5 text-base",
+      },
+      fullWidth: {
+        true: "w-full",
+        false: "",
+      },
+    },
+    defaultVariants: {
+      variant: "primary",
+      size: "md",
+      fullWidth: false,
+    },
+  },
+);
+
+interface ButtonProps extends VariantProps<typeof button> {
   children: ReactNode;
   onClick?: () => void;
-  variant?:
-    | "lightButtonMobile"
-    | "darkBlueButtonMobile"
-    | "darkBlueButtonMetaMaskMobile";
+  type?: "button" | "submit" | "reset";
+  fullWidth?: boolean;
+  disabled?: boolean;
 }
 
 export default function Button({
   children,
   onClick,
-  variant = "lightButtonMobile",
+  variant,
+  size,
+  fullWidth = false,
+  type = "button",
+  disabled = false,
 }: ButtonProps) {
-  const styles = "flex flex-row items-center rounded-lg transition-all";
-  const variants = {
-    lightButtonMobile:
-      "bg-main-background text-mainBlue text-sm hover:bg-mainLightBlueHover py-1.5 px-3.5",
-    darkBlueButtonMobile:
-      "bg-mainBlue text-sm text-white hover:bg-mainBlueHover py-1.5 px-3.5 ",
-    darkBlueButtonMetaMaskMobile:
-      "bg-mainBlue w-[105px] h-[40px] lg:w-[120px] lg:h-[40px]  text-white text-xs lg:text-sm lg:py-6  hover:bg-mainBlueHover",
-  };
-
   return (
-    <button onClick={onClick} className={`${styles} ${variants[variant]}`}>
+    <button
+      onClick={onClick}
+      className={button({ variant, size, fullWidth })}
+      type={type}
+      disabled={disabled}
+    >
       <div className="flex items-center gap-x-0.5">{children}</div>
     </button>
   );

@@ -3,6 +3,11 @@
 import Image from "next/image";
 import { FaLinkedinIn } from "react-icons/fa";
 
+const handleLinkedInLoginButton = () => {
+  console.log("LinkedIn login button clicked");
+  window.location.href = "http://localhost:3001/auth/linkedin";
+};
+
 function LoginFrame() {
   return (
     <div className="my-6 flex flex-col items-center justify-center gap-y-2">
@@ -22,7 +27,10 @@ function LoginFrame() {
         Here, you can approve your friends’ skills, showcase your own or find
         the perfect person for your project or company
       </p>
-      <button className="bg-mainBlue hover:bg-mainBlueHover mt-6 flex flex-row items-center gap-x-2 rounded-lg px-3.5 py-1.5 text-white lg:px-4.5 lg:py-2 lg:text-lg">
+      <button
+        onClick={handleLinkedInLoginButton}
+        className="bg-mainBlue hover:bg-mainBlueHover mt-6 flex cursor-pointer flex-row items-center gap-x-2 rounded-lg px-3.5 py-1.5 text-white lg:px-4.5 lg:py-2 lg:text-lg"
+      >
         <span className="text-lg lg:text-xl">
           <FaLinkedinIn />
         </span>

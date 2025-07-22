@@ -2,12 +2,18 @@
 import React, { useState } from "react";
 import { VscClose } from "react-icons/vsc";
 
+interface ChildrenFunction {
+  closeModal: () => void;
+}
+
 export default function Modal({
   children,
   button,
   title,
 }: {
-  children: React.ReactNode | ((closeModal: () => void) => React.ReactNode);
+  children:
+    | React.ReactNode
+    | ((closeModal: ChildrenFunction) => React.ReactNode);
   button: React.ReactNode;
   title: string;
 }) {
@@ -43,7 +49,9 @@ export default function Modal({
                 </button>
               </div>
 
-              {typeof children === "function" ? children(closeModal) : children}
+              {typeof children === "function"
+                ? children({ closeModal })
+                : children}
             </div>
           </div>
         </div>

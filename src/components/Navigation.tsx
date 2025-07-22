@@ -2,6 +2,7 @@ import Link from "next/link";
 import LogoSkillChain from "./LogoSkillChain";
 import { BsPerson } from "react-icons/bs";
 import { GoSearch } from "react-icons/go";
+import SignInButton from "./auth/SignInButton";
 
 export default function Navigation() {
   return (
@@ -32,6 +33,9 @@ export default function Navigation() {
               </span>
               Profile
             </Link>
+          </li>
+          <li>
+            <SignInButton />
           </li>
         </div>
       </ul>
