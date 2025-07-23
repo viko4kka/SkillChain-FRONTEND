@@ -1,6 +1,5 @@
 "use client";
 
-// Jest to komponent kliencki, bo tutaj są interakcje
 
 import useUserById from "@/hooks/useUserById";
 import Link from "next/link";

@@ -80,7 +80,6 @@ function EditUserProfileForm({
 
   return (
     <div className="flex h-full w-full flex-col px-4">
-
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="mt-4 flex flex-col gap-y-3"
