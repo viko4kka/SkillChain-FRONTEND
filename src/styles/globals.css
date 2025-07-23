@@ -1,4 +1,8 @@
 @import "tailwindcss";
+/* @plugin "flyonui";
+@import "./node_modules/flyonui/variants.css"; /* Require only if you want to use FlyonUI JS component */
+
+/* @source "./node_modules/flyonui/dist/index.js"; Require only if you want to use FlyonUI JS component */
 
 :root {
   --background: #ffffff;
@@ -12,8 +16,16 @@
   --font-mono: var(--font-geist-mono);
 
   --color-main-background: #dbeafe;
+  --color-mainLightBlueHover: #bfdefe;
   --color-white-text: #fff;
   --color-dark-text: #374151;
+  --color-mainBlue: #2563eb;
+  --color-mainBlueHover: #1d4ed8;
+
+  --shadow-for-white-background-frame: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+  --breakpoint-500: 500px;
+  --breakpoint-900: 900px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,6 +33,37 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-mainBlue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-mainBlueHover);
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+.animate-slide {
+  animation: slide 1.2s linear infinite;
 }
 
 html,

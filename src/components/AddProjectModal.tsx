@@ -26,10 +26,13 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
         {/* X close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-lg"
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-lg "
           aria-label="Zamknij modal"
         >
-          <FiX size={24} />
+          <FiX
+            size={24}
+            className="text-dark-text hover:text-mainBlue transition-all duration-300"
+          />
         </button>
 
         {/* Header */}
