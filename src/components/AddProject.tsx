@@ -28,7 +28,7 @@ export default function AddProject({
         }}
         aria-label="Dodaj projekt"
       >
-        <FiPlus size={32} color="var(--color-mainBlue)" />
+        <FiPlus size={20} color="var(--color-mainBlue)" />
       </button>
 
       <AddProjectModal

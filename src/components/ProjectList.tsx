@@ -1,40 +1,28 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+"use client";
+
+import React from "react";
 import ProjectCard from "./ProjectCard";
-import { Project } from "../types";
+import useProjectsByUserId from "@/hooks/useProjectsByUserId";
+import WhiteBackgroundFrame from "./WhiteBackgroundFrame";
+import ProjectsHeaderList from "./ProjectHeaderList";
 
-const api = axios.create({
-  baseURL: "http://localhost:3001/",
-});
+interface ProjectListProps {
+  userId: number;
+}
 
-const ProjectList: React.FC = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
+  const { projects, isLoading } = useProjectsByUserId(userId);
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const res = await api.get<Project[]>("/projects/user/1");
-        setProjects(res.data);
-      } catch (err) {
-        console.error("Błąd przy pobieraniu projektów:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
-
-  if (loading) return <div>Ładowanie projektów...</div>;
-  if (projects.length === 0) return <div>Brak projektów.</div>;
+  if (isLoading) return <div>Ładowanie projektów...</div>;
+  if (!projects || projects.length === 0) return <div>Brak projektów.</div>;
 
   return (
-    <div className="flex flex-col gap-4 p-6">
+    <WhiteBackgroundFrame>
+      <ProjectsHeaderList />
       {projects.map((project) => (
         <ProjectCard key={project.id} project={project} />
       ))}
-    </div>
+    </WhiteBackgroundFrame>
   );
 };
 
