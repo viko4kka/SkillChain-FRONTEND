@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  linkedinId   String?        @unique
+  firstName    String
+  lastName     String
+  description  String?
+  job          String?
+  gitUrl       String?
+  linkedinUrl  String?
+  email        String?
+  imgUrl       String?
+  Project      Project[]
+  UserLanguage UserLanguage[]
+  skills       UserSkill[]
+
+  @@map("User")
+}
+
+model Skill {
+  id    Int         @id @default(autoincrement())
+  name  String
+  users UserSkill[]
+
+  @@map("Skill")
+}
+
+model UserSkill {
+  skillId     Int
+  description String?
+  userId      Int
+  skill       Skill   @relation(fields: [skillId], references: [id])
+  user        User    @relation(fields: [userId], references: [id])
+
+  @@id([userId, skillId])
+  @@map("UserSkill")
+}
+
+model Language {
+  id           Int            @id @default(autoincrement())
+  name         String
+  UserLanguage UserLanguage[]
+}
+
+model Project {
+  id          Int     @id @default(autoincrement())
+  idUser      Int
+  projectName String
+  description String
+  githubLink  String?
+  websiteLink String?
+  User        User    @relation(fields: [idUser], references: [id])
+}
+
+model UserLanguage {
+  userId     Int
+  languageId Int
+  Language   Language @relation(fields: [languageId], references: [id])
+  User       User     @relation(fields: [userId], references: [id])
+
+  @@id([userId, languageId])
+}

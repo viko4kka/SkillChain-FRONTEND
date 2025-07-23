@@ -1,4 +1,5 @@
 import SearchFrame from "@/components/SearchFrame";
+import UserList from "@/components/UserList";
 import WhiteBackgroundFrame from "@/components/WhiteBackgroundFrame";
 
 export default function Page() {
@@ -8,6 +9,7 @@ export default function Page() {
         <WhiteBackgroundFrame>
           <SearchFrame />
         </WhiteBackgroundFrame>
+        <UserList />
       </div>
     </div>
   );
