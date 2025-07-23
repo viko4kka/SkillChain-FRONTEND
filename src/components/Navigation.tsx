@@ -2,19 +2,31 @@ import Link from "next/link";
 import LogoSkillChain from "./LogoSkillChain";
 import { BsPerson } from "react-icons/bs";
 import { GoSearch } from "react-icons/go";
+import SignInButton from "./auth/SignInButton";
 
 export default function Navigation() {
   return (
-    <nav className="z-10 ">
-      <ul className="flex  items-center justify-between px-6 py-4 sm:px-12 lg:px-[120px]">
+    <nav className="z-10">
+      <ul className="flex items-center justify-between px-6 py-4 sm:px-12 lg:px-[120px]">
         <li>
           <LogoSkillChain />
         </li>
         <div className="flex flex-row items-center gap-x-2 lg:gap-x-6">
           <li>
             <Link
+              href="/search"
+              className="text-dark-text hover:bg-main-background flex flex-row items-center gap-x-1.5 rounded-sm px-2 py-1 transition-all duration-300 sm:text-lg lg:px-3 lg:py-1.5"
+            >
+              <span className="sm:text-xl">
+                <GoSearch />
+              </span>
+              Search
+            </Link>
+          </li>
+          <li>
+            <Link
               href="/profile"
-              className="text-dark-text flex flex-row items-center gap-x-1.5 hover:bg-main-background rounded-sm py-1 px-2 lg:py-1.5 lg:px-3 transition-all duration-300 sm:text-lg "
+              className="text-dark-text hover:bg-main-background flex flex-row items-center gap-x-1.5 rounded-sm px-2 py-1 transition-all duration-300 sm:text-lg lg:px-3 lg:py-1.5"
             >
               <span className="sm:text-xl">
                 <BsPerson />
@@ -23,15 +35,7 @@ export default function Navigation() {
             </Link>
           </li>
           <li>
-            <Link
-              href="/search"
-              className="text-dark-text flex flex-row items-center gap-x-1.5 hover:bg-main-background rounded-sm py-1 px-2 lg:py-1.5 lg:px-3 transition-all duration-300 sm:text-lg"
-            >
-              <span className="sm:text-xl">
-                <GoSearch />
-              </span>
-              Search
-            </Link>
+            <SignInButton />
           </li>
         </div>
       </ul>

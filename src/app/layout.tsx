@@ -1,5 +1,8 @@
+import QueryProvider from "@/components/QueryProvider";
 import Header from "../components/Header";
-import "../styles/globals.css";
+import "./../styles/globals.css";
+import { Toaster } from "react-hot-toast";
+
 
 export const metadata = {
   title: {
@@ -16,9 +19,31 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className=" bg-main-background  h-screen w-full overflow-hidden">
-        <Header />
-        <main>{children}</main>
+      <body className="bg-main-background h-screen w-full overflow-hidden">
+        <QueryProvider>
+          <Header />
+          <main>{children}</main>
+        </QueryProvider>
+        <Toaster
+          position="top-center"
+          gutter={12}
+          containerStyle={{ margin: "8px" }}
+          toastOptions={{
+            success: {
+              duration: 3000,
+            },
+            error: {
+              duration: 3000,
+            },
+            style: {
+              zIndex: 1000,
+              fontSize: "16px",
+              maxWidth: "500px",
+              padding: "16px 24px",
+            },
+            className: "bg-white text-black",
+          }}
+        />
       </body>
     </html>
   );
