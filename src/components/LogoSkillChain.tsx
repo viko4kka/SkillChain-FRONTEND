@@ -2,12 +2,12 @@ import Image from "next/image";
 
 export default function LogoSkillChain() {
   return (
-    <div>
+    <div className={`relative h-[55px] w-[55px]`}>
       <Image
         src="/logo-skillchain.svg"
-        height="55"
-        width="55"
+        fill
         alt="SkillChain"
+        className="object-contain"
       />
     </div>
   );
