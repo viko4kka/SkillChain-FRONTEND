@@ -1,10 +1,16 @@
+"use client";
+
+import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
-import LogoSkillChain from "./LogoSkillChain";
 import { BsPerson } from "react-icons/bs";
 import { GoSearch } from "react-icons/go";
 import SignInButton from "./auth/SignInButton";
+import LogoSkillChain from "./LogoSkillChain";
+import LogOutButton from "./LogOut";
 
 export default function Navigation() {
+  const { user } = useAuth();
+
   return (
     <nav className="z-10">
       <ul className="flex items-center justify-between px-6 py-4 sm:px-12 lg:px-[120px]">
@@ -34,9 +40,7 @@ export default function Navigation() {
               Profile
             </Link>
           </li>
-          <li>
-            <SignInButton />
-          </li>
+          <li>{user ? <LogOutButton /> : <SignInButton />}</li>
         </div>
       </ul>
     </nav>

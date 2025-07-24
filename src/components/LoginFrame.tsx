@@ -4,7 +4,6 @@ import Image from "next/image";
 import { FaLinkedinIn } from "react-icons/fa";
 
 const handleLinkedInLoginButton = () => {
-  console.log("LinkedIn login button clicked");
   window.location.href = "http://localhost:3001/auth/linkedin";
 };
 

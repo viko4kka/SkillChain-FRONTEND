@@ -14,6 +14,7 @@ interface UserDataDetailsProps {
   linkedinUrl?: string;
   description?: string;
   id: number;
+  imgUrl?: string;
 }
 
 function UserDataDetails({
@@ -24,13 +25,14 @@ function UserDataDetails({
   linkedinUrl,
   description,
   id,
+  imgUrl,
 }: UserDataDetailsProps) {
   return (
     <>
       {" "}
       <div className="relative h-[70px] w-[70px] rounded-full sm:h-[90px] sm:w-[90px] lg:h-[120px] lg:w-[120px]">
         <Image
-          src="/person.jpg"
+          src={imgUrl || "/person.jpg"}
           fill
           className="border-main-background overflow-hidden rounded-full border-2 object-cover"
           alt="Profile Picture"
