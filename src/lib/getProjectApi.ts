@@ -41,3 +41,28 @@ export async function postProject(
     return null;
   }
 }
+
+export async function editProjectById(
+  id: number,
+  updatedData: Partial<AddProject>,
+): Promise<Project | null> {
+  try {
+    const response = await fetch(`http://localhost:3001/projects/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Błąd podczas edytowania projektu:", error);
+    return null;
+  }
+}
