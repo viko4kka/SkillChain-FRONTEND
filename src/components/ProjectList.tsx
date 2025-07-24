@@ -12,16 +12,18 @@ interface ProjectListProps {
 
 const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
   const { projects, isLoading } = useProjectsByUserId(userId);
-
-  if (isLoading) return <div>Ładowanie projektów...</div>;
-  if (!projects || projects.length === 0) return <div>Brak projektów.</div>;
-
   return (
     <WhiteBackgroundFrame>
       <ProjectsHeaderList />
-      {projects.map((project) => (
-        <ProjectCard key={project.id} project={project} />
-      ))}
+      {isLoading ? (
+        <div>Ładowanie projektów...</div>
+      ) : !projects || projects.length === 0 ? (
+        <div>Brak projektów.</div>
+      ) : (
+        projects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))
+      )}
     </WhiteBackgroundFrame>
   );
 };

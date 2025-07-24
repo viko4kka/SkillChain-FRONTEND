@@ -5,3 +5,10 @@ export interface Project {
   githubLink: string;
   websiteLink: string;
 }
+
+export interface AddProject {
+  projectName: string;
+  description: string;
+  githubLink: string;
+  websiteLink: string;
+}
