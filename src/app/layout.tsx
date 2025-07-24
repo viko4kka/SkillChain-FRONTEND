@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-main-background h-screen w-full overflow-hidden">
+      <body className="bg-main-background h-screen w-full">
         <QueryProvider>
           <Header />
           <main>{children}</main>
