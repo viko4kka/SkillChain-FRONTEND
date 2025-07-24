@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useProjectUpdateDataById } from "@/hooks/useProjectUpdateDataById";
 import { AddProject, Project } from "@/types";
 import Button from "./Button";
+import { FiX } from "react-icons/fi";
 
 interface UpdateProjectInput {
   onCloseModal?: () => void;
@@ -65,6 +66,21 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
 
   return (
     <div className="flex h-full w-full flex-col px-4">
+      <div className="mb-2 flex items-center justify-between">
+        <h2 className="text-dark-text text-xl font-bold md:text-2xl">
+          Edit project
+        </h2>
+        <button
+          onClick={onCloseModal}
+          className="text-lg text-gray-500 hover:text-gray-700"
+          aria-label="Zamknij modal"
+        >
+          <FiX
+            size={24}
+            className="text-dark-text hover:text-mainBlue transition-all duration-300"
+          />
+        </button>
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="mt-4 flex flex-col gap-y-3"
@@ -105,7 +121,7 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
 
         <div className="group flex w-full flex-col items-start">
           <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
-            Github Link
+            Github URL
           </label>
           <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
             <input
@@ -120,7 +136,7 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
 
         <div className="group flex w-full flex-col items-start">
           <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
-            Website Link
+            Website URL
           </label>
           <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
             <input

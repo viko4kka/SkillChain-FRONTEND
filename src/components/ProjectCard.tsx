@@ -21,7 +21,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           onClick={handleEditClick}
         />
       </div>
-      <p className="mt-1 text-sm text-gray-500">{project.description}</p>
+      <p className="text-dark-text mt-1 text-sm">{project.description}</p>
       <div className="mt-2 flex flex-col gap-1 text-sm text-blue-600">
         <a
           href={project.githubLink}
