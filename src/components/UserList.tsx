@@ -33,10 +33,11 @@ export default function UserList() {
 
   // Load initial users
   useEffect(() => {
-    if (users.length === 0) {
+    if (users.length === 0 && !loading) {
       loadUsers();
     }
-  }, [users.length, loadUsers]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Intentionally empty - we only want this to run once on mount
 
   // Handle refresh
   const handleRefresh = useCallback(() => {
@@ -67,9 +68,8 @@ export default function UserList() {
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Discover Talent</h1>
+      {/* Header - Removed "Discover Talent" text */}
+      <div className="flex justify-end items-center mb-8">
         <button
           onClick={handleRefresh}
           disabled={loading}

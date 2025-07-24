@@ -1,22 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 
-// Type definition for user with skills
-type UserWithSkills = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string | null;
-  imgUrl: string | null;
-  job: string | null;
-  description: string | null;
-  skills: {
-    skill: {
-      name: string;
-    };
-  }[];
-};
-
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
@@ -24,8 +8,8 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get("limit") || "10");
     const skip = (page - 1) * limit;
 
-    // Get users with their skills
-    const users = (await prisma.user.findMany({
+    // Get users with their skills (removing location for now)
+    const users = await prisma.user.findMany({
       skip,
       take: limit,
       include: {
@@ -34,46 +18,25 @@ export async function GET(request: NextRequest) {
             skill: true,
           },
         },
+        location: true, // Include location relation
       },
       orderBy: {
         id: "asc",
       },
-    })) as UserWithSkills[];
+    });
 
     // Get total count for pagination
     const totalUsers = await prisma.user.count();
     const hasMore = skip + limit < totalUsers;
 
-    // Simple location mapping based on user ID
-    const getLocationForUser = (userId: number): string => {
-      const locations = [
-        "San Francisco, CA",
-        "New York, NY",
-        "Austin, TX",
-        "Seattle, WA",
-        "Denver, CO",
-        "Boston, MA",
-        "Los Angeles, CA",
-        "Chicago, IL",
-        "Phoenix, AZ",
-        "Miami, FL",
-        "Portland, OR",
-        "San Diego, CA",
-        "Atlanta, GA",
-        "Nashville, TN",
-        "Salt Lake City, UT",
-      ];
-      return locations[(userId - 1) % locations.length] || "Remote";
-    };
-
     // Transform data to match your frontend interface
-    const transformedUsers = users.map((user: UserWithSkills) => ({
+    const transformedUsers = users.map((user) => ({
       id: user.id.toString(),
       name: `${user.firstName} ${user.lastName}`,
       email: user.email,
       avatar: user.imgUrl,
       title: user.job,
-      location: getLocationForUser(user.id),
+      location: user.location ? user.location.name : "Remote",
       experience: "Experienced",
       verified: Math.random() > 0.5, // Random verification status
       skills: user.skills.map((userSkill) => userSkill.skill.name),

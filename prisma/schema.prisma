@@ -8,19 +8,23 @@ datasource db {
 }
 
 model User {
-  id           Int            @id @default(autoincrement())
-  linkedinId   String?        @unique
-  firstName    String
-  lastName     String
-  description  String?
-  job          String?
-  gitUrl       String?
-  linkedinUrl  String?
-  email        String?
-  imgUrl       String?
-  Project      Project[]
-  UserLanguage UserLanguage[]
-  skills       UserSkill[]
+  id             Int            @id @default(autoincrement())
+  linkedinId     String?        @unique
+  firstName      String
+  lastName       String
+  description    String?
+  job            String?
+  gitUrl         String?
+  linkedinUrl    String?
+  email          String?
+  imgUrl         String?
+  locationId     Int?
+  githubVisits   Int            @default(0)
+  linkedinVisits Int            @default(0)
+  Project        Project[]
+  location       Location?      @relation(fields: [locationId], references: [id])
+  UserLanguage   UserLanguage[]
+  skills         UserSkill[]
 
   @@map("User")
 }
@@ -48,6 +52,14 @@ model Language {
   id           Int            @id @default(autoincrement())
   name         String
   UserLanguage UserLanguage[]
+}
+
+model Location {
+  id    Int    @id @default(autoincrement())
+  name  String
+  users User[]
+
+  @@map("Location")
 }
 
 model Project {

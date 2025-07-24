@@ -58,7 +58,7 @@ export const useUsers = () => {
         setLoading(false);
       }
     },
-    [loading, page]
+    [loading, page] // Remove dependency on loadUsers itself
   );
 
   const loadMore = useCallback(() => {

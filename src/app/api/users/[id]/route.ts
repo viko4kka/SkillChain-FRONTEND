@@ -1,22 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 
-// Type definition for user with skills
-type UserWithSkills = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string | null;
-  imgUrl: string | null;
-  job: string | null;
-  description: string | null;
-  skills: {
-    skill: {
-      name: string;
-    };
-  }[];
-};
-
 interface Params {
   id: string;
 }
@@ -45,34 +29,23 @@ export async function GET(
             skill: true,
           },
         },
+        location: true,
       },
-    })) as UserWithSkills | null;
+    })) as {
+      id: number;
+      firstName: string;
+      lastName: string;
+      email: string | null;
+      imgUrl: string | null;
+      job: string | null;
+      description: string | null;
+      location: { id: number; name: string } | null;
+      skills: { skill: { name: string } }[];
+    } | null;
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
-
-    // Simple location mapping based on user ID
-    const getLocationForUser = (userId: number): string => {
-      const locations = [
-        "San Francisco, CA",
-        "New York, NY",
-        "Austin, TX",
-        "Seattle, WA",
-        "Denver, CO",
-        "Boston, MA",
-        "Los Angeles, CA",
-        "Chicago, IL",
-        "Phoenix, AZ",
-        "Miami, FL",
-        "Portland, OR",
-        "San Diego, CA",
-        "Atlanta, GA",
-        "Nashville, TN",
-        "Salt Lake City, UT",
-      ];
-      return locations[(userId - 1) % locations.length] || "Remote";
-    };
 
     // Transform data to match your frontend interface
     const transformedUser = {
@@ -81,7 +54,7 @@ export async function GET(
       email: user.email,
       avatar: user.imgUrl,
       title: user.job,
-      location: getLocationForUser(user.id),
+      location: user.location ? user.location.name : "Remote",
       experience: "Experienced",
       verified: Math.random() > 0.5, // Random verification status
       skills: user.skills.map((userSkill) => userSkill.skill.name),
