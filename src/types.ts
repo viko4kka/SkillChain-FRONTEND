@@ -9,6 +9,6 @@ export interface Project {
 export interface AddProject {
   projectName: string;
   description: string;
-  githubLink: string;
-  websiteLink: string;
+  githubLink?: string;
+  websiteLink?: string;
 }
