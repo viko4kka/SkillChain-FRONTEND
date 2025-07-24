@@ -6,6 +6,7 @@ import { useProjectUpdateDataById } from "@/hooks/useProjectUpdateDataById";
 import { AddProject, Project } from "@/types";
 import Button from "./Button";
 import { FiX } from "react-icons/fi";
+import { useProjectDelete } from "@/hooks/useProjectDelete";
 
 interface UpdateProjectInput {
   onCloseModal?: () => void;
@@ -20,6 +21,7 @@ interface UpdateProjectInput {
 
 function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
   const { editProjectDataById, isLoading } = useProjectUpdateDataById();
+  const { deleteProject, isLoading: isDeleting } = useProjectDelete();
 
   const { register, handleSubmit, reset } = useForm<AddProject>({
     defaultValues: {
@@ -62,6 +64,17 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
     }
 
     onCloseModal?.();
+  }
+
+  async function handleDeleteProject() {
+    if (!initialData?.id) {
+      console.error("Initial data ID is missing");
+      return;
+    }
+    const success = await deleteProject(initialData.id);
+    if (success) {
+      onCloseModal?.();
+    }
   }
 
   return (
@@ -149,23 +162,33 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
           </div>
         </div>
 
-        <div className="my-2 flex flex-row justify-end gap-x-2">
-          <Button
+        <div className="my-2 flex flex-row items-center justify-between gap-x-2">
+          <button
             type="button"
-            onClick={() => onCloseModal?.()}
-            variant="secondary"
-            size="md"
+            className="text-mainBlue text-sm font-semibold hover:underline"
+            disabled={isLoading || isDeleting}
+            onClick={handleDeleteProject}
           >
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            disabled={isLoading}
-            variant="primary"
-            size="md"
-          >
-            Save
-          </Button>
+            Delete project
+          </button>
+          <div className="flex flex-row gap-x-2">
+            <Button
+              type="button"
+              onClick={() => onCloseModal?.()}
+              variant="secondary"
+              size="md"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              disabled={isLoading}
+              variant="primary"
+              size="md"
+            >
+              Save
+            </Button>
+          </div>
         </div>
       </form>
     </div>
