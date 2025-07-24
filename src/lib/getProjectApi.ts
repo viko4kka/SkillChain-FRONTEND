@@ -66,3 +66,20 @@ export async function editProjectById(
     return null;
   }
 }
+
+export async function deleteProjectById(id: number): Promise<boolean> {
+  try {
+    const response = await fetch(`http://localhost:3001/projects/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Błąd podczas usuwania projektu:", error);
+    return false;
+  }
+}
