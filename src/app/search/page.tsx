@@ -9,8 +9,15 @@ export default function Page() {
         <WhiteBackgroundFrame>
           <SearchFrame />
         </WhiteBackgroundFrame>
+      <div className="mt-[0px] space-y-4 px-2 py-8">
+        <div style={{ marginLeft: "5mm" }}>
+          <WhiteBackgroundFrame>
+            <SearchFrame />
+          </WhiteBackgroundFrame>
+        </div>
         <UserList />
       </div>
+    </div>
     </div>
   );
 }

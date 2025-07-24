@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import "./../styles/globals.css";
 import { Toaster } from "react-hot-toast";
 
-
 export const metadata = {
   title: {
     default: "SkillChain",
@@ -19,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-main-background h-screen w-full overflow-hidden">
+      <body className="bg-main-background h-screen w-full">
         <QueryProvider>
           <Header />
           <main>{children}</main>
