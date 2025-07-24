@@ -1,19 +1,17 @@
 "use client";
-
 import { useState } from "react";
 import AddProjectModal from "@/components/AddProjectModal";
 import { FiPlus } from "react-icons/fi";
+import useProjectPost from "@/hooks/useProjectPost";
 
-export default function AddProject({
-  iconColor = "#007bff",
-}: {
-  iconColor?: string;
-}) {
+export default function AddProject() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { addProject, isLoading } = useProjectPost();
 
   const handleAddProject = (data: any) => {
-    console.log("Dodany projekt:", data);
-    setIsModalOpen(false);
+    addProject(data, {
+      onSuccess: () => setIsModalOpen(false),
+    });
   };
 
   return (
