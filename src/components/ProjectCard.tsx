@@ -15,7 +15,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
     <div className="w-full border-b border-gray-200 p-4">
       <div className="flex items-center gap-2">
-        <h2 className="text-lg font-semibold">{project.projectName}</h2>
+        <h2 className="text-dark-text font-semibold">{project.projectName}</h2>
         <FiEdit2
           className="cursor-pointer text-blue-600"
           onClick={handleEditClick}

@@ -5,8 +5,8 @@ import { FiX } from "react-icons/fi";
 type ProjectFormInputs = {
   projectName: string;
   description: string;
-  githubLink: string;
-  websiteLink: string;
+  githubLink: string | null;
+  websiteLink: string | null;
 };
 
 type Props = {
@@ -16,12 +16,23 @@ type Props = {
 };
 
 const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
-  const { register, handleSubmit, reset } = useForm<ProjectFormInputs>();
+  const { register, handleSubmit, reset } = useForm<ProjectFormInputs>({
+    defaultValues: {
+      projectName: "",
+      description: "",
+      githubLink: null,
+      websiteLink: null,
+    },
+  });
 
   if (!isOpen) return null;
 
   const handleFormSubmit = (data: ProjectFormInputs) => {
-    onSubmit(data);
+    onSubmit({
+      ...data,
+      githubLink: data.githubLink === "" ? null : data.githubLink,
+      websiteLink: data.websiteLink === "" ? null : data.websiteLink,
+    });
     reset();
   };
 
