@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import { Project } from "../types";
 import EditProjectForm from "./EditProjectForm";
+import { BiLinkExternal } from "react-icons/bi";
 
 interface ProjectCardProps {
   project: Project;
@@ -13,7 +14,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const handleEditClick = () => setIsEditOpen(true);
 
   return (
-    <div className="w-full border-b border-gray-200 p-4">
+    <div className="w-full border-b border-gray-200 px-4 py-5 sm:px-10 md:px-15">
       <div className="flex items-center gap-2">
         <h2 className="text-dark-text font-semibold">{project.projectName}</h2>
         <FiEdit2
@@ -22,22 +23,29 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         />
       </div>
       <p className="text-dark-text mt-1 text-sm">{project.description}</p>
-      <div className="mt-2 flex flex-col gap-1 text-sm text-blue-600">
+      <div className="mt-2 flex flex-row gap-4 text-sm text-blue-600">
         <a
           href={project.githubLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:underline"
+          className="flex items-center gap-1 hover:underline"
+          title={project.githubLink || ""}
         >
-          {project.githubLink}
+          GitHub <BiLinkExternal size={16} />
         </a>
         <a
           href={project.websiteLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:underline"
+          className="flex items-center gap-1 hover:underline"
+          title={project.websiteLink || ""}
         >
-          {project.websiteLink}
+          {project.websiteLink
+            ? project.websiteLink
+                .replace(/^https?:\/\/(www\.)?/, "")
+                .split("/")[0]
+            : ""}
+          <BiLinkExternal size={16} />
         </a>
       </div>
 
