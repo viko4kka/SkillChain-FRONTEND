@@ -60,3 +60,31 @@ export async function editUserDataById({
     console.error(error);
   }
 }
+
+export async function fetchMe(): Promise<User> {
+  const res = await fetch("http://localhost:3001/auth/me", {
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    if (res.status === 403) {
+      throw new Error("Unauthorized");
+    }
+    throw new Error("Network response was not ok");
+  }
+
+  return await res.json();
+}
+
+export async function logOut() {
+  const response = await fetch("http://localhost:3001/auth/logout", {
+    method: "POST",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Logout failed");
+  }
+
+  return response.json();
+}

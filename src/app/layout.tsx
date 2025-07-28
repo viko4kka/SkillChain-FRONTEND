@@ -21,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-main-background h-screen w-full overflow-hidden">
         <QueryProvider>
+          
           <Header />
           <main>{children}</main>
         </QueryProvider>
