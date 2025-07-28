@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
 import UserFrameInProfilePage from "@/components/UserFrameInProfilePage";
-import ProjectList from "@/components/ProjectList";
+// import ProjectList from "@/components/ProjectList";
 
 export default function ProfilePage() {
   const { user, isAuthenticated } = useAuth();
@@ -25,7 +25,7 @@ export default function ProfilePage() {
         <UserFrameInProfilePage id={user.id} />
       </div>
       <br />
-      <ProjectList userId={user.id} />
+      {/* <ProjectList userId={user.id} /> */}
     </div>
   );
 }
