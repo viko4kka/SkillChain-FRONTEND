@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+//src/app/profile.page.tsx
+>>>>>>> ce256d0 (login, logout, authorization)
 "use client";
 
 import { useEffect } from "react";
