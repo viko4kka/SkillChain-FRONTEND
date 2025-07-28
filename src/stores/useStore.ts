@@ -8,6 +8,7 @@ type StoreProps = {
   user: User | null;
   setUser: (user: User | null) => void;
   isAuthenticated: boolean;
+  setIsAuthenticated: (isAuthenticated: boolean) => void;
 };
 
 export const useStore = create<StoreProps>()(
@@ -16,6 +17,7 @@ export const useStore = create<StoreProps>()(
       user: null,
       setUser: (user) => set({ user, isAuthenticated: !!user }),
       isAuthenticated: false,
+      setIsAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
     }),
     {
       name: "user-storage",

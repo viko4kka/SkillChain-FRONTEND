@@ -17,7 +17,7 @@ export default function ProfilePage() {
     }
   }, [isAuthenticated, user]);
 
-  if (!user) return null; 
+  if (!user) return null;
 
   return (
     <div className="flex h-screen flex-col items-center justify-start">

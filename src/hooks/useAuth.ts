@@ -1,20 +1,37 @@
 "use client";
 
+import { logOut } from "@/lib/getUserApi";
 import { useStore } from "@/stores/useStore";
-import { User } from "@/components/UserFrameInProfilePage";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const useAuth = () => {
-  const user = useStore((state) => state.user);
-  const isAuthenticated = useStore((state) => state.isAuthenticated);
-  const setUser = useStore((state) => state.setUser);
+  const { user, isAuthenticated, setUser, setIsAuthenticated } = useStore();
+  const router = useRouter();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const login = (user: User) => setUser(user);
-  const logout = () => setUser(null);
+  const logout = async () => {
+    setIsLoggingOut(true);
+
+    try {
+      await logOut();
+      console.log("Backend logout successful");
+    } catch (error) {
+      console.error("Backend logout failed:", error);
+    } finally {
+      setUser(null);
+      setIsAuthenticated(false);
+      localStorage.clear();
+      sessionStorage.clear();
+      router.push("/");
+      setIsLoggingOut(false);
+    }
+  };
 
   return {
     user,
     isAuthenticated,
-    login,
+    isLoggingOut,
     logout,
   };
 };

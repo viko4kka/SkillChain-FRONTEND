@@ -61,7 +61,6 @@ export async function editUserDataById({
   }
 }
 
-
 export async function fetchMe(): Promise<User> {
   const res = await fetch("http://localhost:3001/auth/me", {
     credentials: "include",
@@ -75,4 +74,17 @@ export async function fetchMe(): Promise<User> {
   }
 
   return await res.json();
+}
+
+export async function logOut() {
+  const response = await fetch("http://localhost:3001/auth/logout", {
+    method: "POST",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Logout failed");
+  }
+
+  return response.json();
 }
