@@ -16,7 +16,7 @@ const useAuth = () => {
 
     try {
       await logOut();
-      console.log("Backend logout successful");
+    
     } catch (error) {
       console.error("Backend logout failed:", error);
     } finally {

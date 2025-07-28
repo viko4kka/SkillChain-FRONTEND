@@ -21,8 +21,12 @@ export interface User {
   linkedinId?: string;
 }
 
-export default function UserFrameInProfilePage({ id }: { id: number }) {
-  const { userDataById, isLoading } = useUserById(id);
+export default function UserFrameInProfilePage({
+  id,
+}: {
+  id: number | undefined;
+}) {
+  const { userDataById, isLoading } = useUserById(id );
 
   if (isLoading || !userDataById) {
     return (
