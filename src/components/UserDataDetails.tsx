@@ -13,7 +13,7 @@ interface UserDataDetailsProps {
   gitUrl?: string;
   linkedinUrl?: string;
   description?: string;
-  id: number;
+  id: number | undefined;
   imgUrl?: string;
 }
 
@@ -79,7 +79,7 @@ function UserDataDetails({
             <EditUserProfileForm
               onCloseModal={closeModal}
               initialData={{
-                id: id,
+                id: id ,
                 firstName,
                 lastName,
                 job: job || "",

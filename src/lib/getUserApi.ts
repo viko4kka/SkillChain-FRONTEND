@@ -12,7 +12,9 @@ interface UserUpdateData {
   };
 }
 
-export async function getUserById(id: number): Promise<User | undefined> {
+export async function getUserById(
+  id: number | undefined,
+): Promise<User | undefined> {
   try {
     const response = await fetch(`http://localhost:3001/users/${id}`);
     if (!response.ok) {
