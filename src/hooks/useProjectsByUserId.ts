@@ -2,10 +2,14 @@ import { getProjectsByUserId } from "@/lib/getProjectApi";
 import { useQuery } from "@tanstack/react-query";
 import { Project } from "@/types";
 
-export default function useProjectsByUserId(userId: number) {
+export default function useProjectsByUserId(
+  userId: number,
+  perPage: number,
+  page: number,
+) {
   const { data: projects, isLoading } = useQuery<Project[]>({
-    queryKey: ["projectsByUserId", userId],
-    queryFn: () => getProjectsByUserId(userId),
+    queryKey: ["projectsByUserId", userId, perPage, page],
+    queryFn: () => getProjectsByUserId(userId, perPage, page),
   });
   console.log(projects);
   return { projects, isLoading };

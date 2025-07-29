@@ -1,83 +1,62 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import ProjectCard from "./ProjectCard";
+import useProjectsByUserId from "@/hooks/useProjectsByUserId";
 import WhiteBackgroundFrame from "./WhiteBackgroundFrame";
 import ProjectsHeaderList from "./ProjectHeaderList";
 import Spinner from "./Spinner";
 import { getProjectsByUserId } from "@/lib/getProjectApi";
-import { Project } from "@/types";
 
 interface ProjectListProps {
   userId: number;
 }
 
-const PER_PAGE = 2;
+const DEFAULT_PER_PAGE = 3;
 
 const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const loader = useRef<HTMLDivElement | null>(null);
+  const [showAll, setShowAll] = useState(false);
+  const [allProjects, setAllProjects] = useState<any[] | null>(null);
 
-  useEffect(() => {
-    setProjects([]);
-    setPage(1);
-    setHasMore(true);
-  }, [userId]);
+  const { projects, isLoading } = useProjectsByUserId(
+    userId,
+    DEFAULT_PER_PAGE,
+    1,
+  );
 
-  useEffect(() => {
-    if (!hasMore) return;
-    const fetchProjects = async () => {
-      setIsLoading(true);
-      const newProjects = await getProjectsByUserId(userId, PER_PAGE, page);
-      if (newProjects.length < PER_PAGE) setHasMore(false);
-      setProjects((prev) => [...prev, ...newProjects]);
-      setIsLoading(false);
-    };
-    fetchProjects();
-  }, [page, userId, hasMore]);
+  const handleShowAll = async () => {
+    setShowAll(true);
+    const all = await getProjectsByUserId(userId, 50, 1);
+    setAllProjects(all);
+  };
 
-  useEffect(() => {
-    if (!hasMore || isLoading) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setPage((prev) => prev + 1);
-        }
-      },
-      { threshold: 1 },
-    );
-    if (loader.current) {
-      observer.observe(loader.current);
-    }
-    return () => {
-      if (loader.current) observer.unobserve(loader.current);
-    };
-  }, [hasMore, isLoading]);
+  const displayedProjects = showAll && allProjects ? allProjects : projects;
 
   return (
     <WhiteBackgroundFrame>
       <ProjectsHeaderList />
-      {isLoading && projects.length === 0 ? (
-        <div className="flex h-[100px] w-full items-center justify-center">
+      {isLoading && !showAll ? (
+        <div className="flex h-[300px] w-full items-center justify-center">
           <Spinner />
         </div>
-      ) : projects.length === 0 ? (
+      ) : !displayedProjects || displayedProjects.length === 0 ? (
         <div>Brak projektów.</div>
       ) : (
-        <div className="max-h-[500px] w-full overflow-y-auto">
-          {projects.map((project) => (
+        <>
+          {displayedProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
-          <div ref={loader} />
-          {isLoading && (
-            <div className="flex h-[100px] w-full items-center justify-center">
-              <Spinner />
+          {!showAll && (
+            <div className="my-4 flex justify-center">
+              <button
+                className="text-mainBlue cursor-pointer text-sm font-bold sm:text-base"
+                onClick={handleShowAll}
+              >
+                Show all projects
+              </button>
             </div>
           )}
-        </div>
+        </>
       )}
     </WhiteBackgroundFrame>
   );
