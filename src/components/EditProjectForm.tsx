@@ -49,15 +49,24 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
       return;
     }
 
+    // Zamiana pustych stringów na undefined
+    const updatedData = {
+      projectName: data.projectName,
+      description: data.description,
+      githubLink:
+        !data.githubLink || data.githubLink.trim() === ""
+          ? undefined
+          : data.githubLink,
+      websiteLink:
+        !data.websiteLink || data.websiteLink.trim() === ""
+          ? undefined
+          : data.websiteLink,
+    };
+
     editProjectDataById(
       {
         id: initialData.id,
-        updatedData: {
-          projectName: data.projectName,
-          description: data.description,
-          githubLink: data.githubLink,
-          websiteLink: data.websiteLink,
-        },
+        updatedData,
       },
       {
         onSuccess: () => {
