@@ -16,7 +16,12 @@ type Props = {
 };
 
 const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
-  const { register, handleSubmit, reset } = useForm<ProjectFormInputs>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ProjectFormInputs>({
     defaultValues: {
       projectName: "",
       description: "",
@@ -67,11 +72,24 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
                 type="text"
                 {...register("projectName", {
                   required: "This field is required",
+                  minLength: {
+                    value: 3,
+                    message: "Project name must be at least 3 characters",
+                  },
+                  maxLength: {
+                    value: 50,
+                    message: "Project name must be at most 50 characters",
+                  },
                 })}
                 placeholder="Enter project name"
                 className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
               />
             </div>
+            {errors.projectName && (
+              <span className="mt-1 text-xs text-red-500">
+                {errors.projectName.message}
+              </span>
+            )}
           </div>
 
           <div className="group flex w-full flex-col items-start">
@@ -82,12 +100,25 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
               <textarea
                 {...register("description", {
                   required: "This field is required",
+                  minLength: {
+                    value: 10,
+                    message: "Description must be at least 10 characters",
+                  },
+                  maxLength: {
+                    value: 500,
+                    message: "Description must be at most 500 characters",
+                  },
                 })}
                 placeholder="Enter description"
                 rows={4}
                 className="text-dark-text h-[50px] max-h-[120px] w-full resize-y bg-transparent p-2 text-sm focus:outline-none"
               />
             </div>
+            {errors.description && (
+              <span className="mt-1 text-xs text-red-500">
+                {errors.description.message}
+              </span>
+            )}
           </div>
 
           <div className="group flex w-full flex-col items-start">
@@ -97,11 +128,25 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
             <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
               <input
                 type="url"
-                {...register("githubLink")}
+                {...register("githubLink", {
+                  validate: (value) =>
+                    !value ||
+                    value.startsWith("https://github.com/") ||
+                    "Github link must start with https://github.com/",
+                  maxLength: {
+                    value: 100,
+                    message: "Github link must be at most 100 characters",
+                  },
+                })}
                 placeholder="Enter github link"
                 className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
               />
             </div>
+            {errors.githubLink && (
+              <span className="mt-1 text-xs text-red-500">
+                {errors.githubLink.message}
+              </span>
+            )}
           </div>
 
           <div className="group flex w-full flex-col items-start">
@@ -111,11 +156,26 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
             <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
               <input
                 type="url"
-                {...register("websiteLink")}
+                {...register("websiteLink", {
+                  pattern: {
+                    value:
+                      /^(https?:\/\/)?([\w\-]+\.)+[\w\-]+(\/[\w\-./?%&=]*)?$/,
+                    message: "Website link must be a valid URL",
+                  },
+                  maxLength: {
+                    value: 100,
+                    message: "Website link must be at most 100 characters",
+                  },
+                })}
                 placeholder="Enter website link"
                 className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
               />
             </div>
+            {errors.websiteLink && (
+              <span className="mt-1 text-xs text-red-500">
+                {errors.websiteLink.message}
+              </span>
+            )}
           </div>
 
           <div className="my-2 flex flex-row justify-end gap-x-2">

@@ -23,7 +23,12 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
   const { editProjectDataById, isLoading } = useProjectUpdateDataById();
   const { deleteProject, isLoading: isDeleting } = useProjectDelete();
 
-  const { register, handleSubmit, reset } = useForm<AddProject>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<AddProject>({
     defaultValues: {
       projectName: initialData?.projectName || "",
       description: initialData?.description || "",
@@ -118,11 +123,24 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
               disabled={isLoading}
               {...register("projectName", {
                 required: "This field is required",
+                minLength: {
+                  value: 3,
+                  message: "Project name must be at least 3 characters",
+                },
+                maxLength: {
+                  value: 50,
+                  message: "Project name must be at most 50 characters",
+                },
               })}
               placeholder="Enter project name"
               className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
+          {errors.projectName && (
+            <span className="mt-1 text-xs text-red-500">
+              {errors.projectName.message}
+            </span>
+          )}
         </div>
 
         <div className="group flex w-full flex-col items-start">
@@ -134,12 +152,25 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
               disabled={isLoading}
               {...register("description", {
                 required: "This field is required",
+                minLength: {
+                  value: 10,
+                  message: "Description must be at least 10 characters",
+                },
+                maxLength: {
+                  value: 500,
+                  message: "Description must be at most 500 characters",
+                },
               })}
               placeholder="Enter description"
               rows={4}
               className="text-dark-text h-[50px] max-h-[120px] w-full resize-y bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
+          {errors.description && (
+            <span className="mt-1 text-xs text-red-500">
+              {errors.description.message}
+            </span>
+          )}
         </div>
 
         <div className="group flex w-full flex-col items-start">
@@ -150,11 +181,25 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
             <input
               type="url"
               disabled={isLoading}
-              {...register("githubLink")}
+              {...register("githubLink", {
+                validate: (value) =>
+                  !value ||
+                  value.startsWith("https://github.com/") ||
+                  "Github link must start with https://github.com/",
+                maxLength: {
+                  value: 100,
+                  message: "Github link must be at most 100 characters",
+                },
+              })}
               placeholder="Enter github link"
               className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
+          {errors.githubLink && (
+            <span className="mt-1 text-xs text-red-500">
+              {errors.githubLink.message}
+            </span>
+          )}
         </div>
 
         <div className="group flex w-full flex-col items-start">
@@ -165,11 +210,26 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
             <input
               type="url"
               disabled={isLoading}
-              {...register("websiteLink")}
+              {...register("websiteLink", {
+                pattern: {
+                  value:
+                    /^(https?:\/\/)?([\w\-]+\.)+[\w\-]+(\/[\w\-./?%&=]*)?$/,
+                  message: "Website link must be a valid URL",
+                },
+                maxLength: {
+                  value: 100,
+                  message: "Website link must be at most 100 characters",
+                },
+              })}
               placeholder="Enter website link"
               className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
+          {errors.websiteLink && (
+            <span className="mt-1 text-xs text-red-500">
+              {errors.websiteLink.message}
+            </span>
+          )}
         </div>
 
         <div className="my-2 flex flex-row items-center justify-between gap-x-2">
