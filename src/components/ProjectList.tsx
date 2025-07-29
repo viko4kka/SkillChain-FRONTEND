@@ -44,7 +44,11 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
 
   return (
     <WhiteBackgroundFrame>
-      <ProjectsHeaderList />
+      <ProjectsHeaderList
+        AddProjectProps={{
+          onProjectAdded: handleProjectUpdated, // przekazujesz funkcję odświeżania
+        }}
+      />
       {isLoading && !showAll ? (
         <div className="flex h-[300px] w-full items-center justify-center">
           <Spinner />

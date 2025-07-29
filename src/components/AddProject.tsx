@@ -4,13 +4,20 @@ import AddProjectModal from "@/components/AddProjectModal";
 import { FiPlus } from "react-icons/fi";
 import useProjectPost from "@/hooks/useProjectPost";
 
-export default function AddProject() {
+export default function AddProject({
+  onProjectAdded,
+}: {
+  onProjectAdded?: () => void;
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { addProject, isLoading } = useProjectPost();
 
   const handleAddProject = (data: any) => {
     addProject(data, {
-      onSuccess: () => setIsModalOpen(false),
+      onSuccess: () => {
+        setIsModalOpen(false);
+        if (onProjectAdded) onProjectAdded(); // dodaj wywołanie po sukcesie
+      },
     });
   };
 
