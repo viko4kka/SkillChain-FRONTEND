@@ -1,5 +1,6 @@
 import ProjectList from "@/components/ProjectList";
 import UserFrameInProfilePage from "@/components/UserFrameInProfilePage";
+import ProjectList from "@/components/ProjectList";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = await params;
