@@ -1,4 +1,5 @@
 "use client";
+const API_DOMAIN = process.env.NEXT_PUBLIC_API_DOMAIN;
 
 import { AddProject, Project } from "@/types";
 
@@ -9,7 +10,7 @@ export async function getProjectsByUserId(
 ): Promise<Project[]> {
   try {
     const response = await fetch(
-      `http://localhost:3001/projects/user/${userId}?perPage=${perPage}&page=${page}`,
+      `${API_DOMAIN}/projects/user/${userId}?perPage=${perPage}&page=${page}`,
     );
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
@@ -26,7 +27,7 @@ export async function postProject(
   project: AddProject,
 ): Promise<AddProject | null> {
   try {
-    const response = await fetch("http://localhost:3001/projects", {
+    const response = await fetch(`${API_DOMAIN}/projects`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +52,7 @@ export async function editProjectById(
   updatedData: Partial<AddProject>,
 ): Promise<Project | null> {
   try {
-    const response = await fetch(`http://localhost:3001/projects/${id}`, {
+    const response = await fetch(`${API_DOMAIN}/projects/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +74,7 @@ export async function editProjectById(
 
 export async function deleteProjectById(id: number): Promise<boolean> {
   try {
-    const response = await fetch(`http://localhost:3001/projects/${id}`, {
+    const response = await fetch(`${API_DOMAIN}/projects/${id}`, {
       method: "DELETE",
     });
 
