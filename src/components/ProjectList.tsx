@@ -54,7 +54,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
         </div>
       )}
       {!isLoading && (!displayedProjects || displayedProjects.length === 0) && (
-        <div>Brak projektów.</div>
+        <div>No projects found.</div>
       )}
       {!isLoading && displayedProjects && displayedProjects.length > 0 && (
         <>

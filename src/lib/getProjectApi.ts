@@ -42,7 +42,7 @@ export async function postProject(
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Błąd podczas dodawania projektu:", error);
+    console.error("Error while adding project:", error);
     return null;
   }
 }
@@ -67,7 +67,7 @@ export async function editProjectById(
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Błąd podczas edytowania projektu:", error);
+    console.error("Error while editing project:", error);
     return null;
   }
 }
@@ -84,7 +84,7 @@ export async function deleteProjectById(id: number): Promise<boolean> {
 
     return true;
   } catch (error) {
-    console.error("Błąd podczas usuwania projektu:", error);
+    console.error("Error while deleting project:", error);
     return false;
   }
 }
