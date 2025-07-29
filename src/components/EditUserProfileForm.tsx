@@ -9,7 +9,7 @@ import Button from "./Button";
 interface UpdateUserProfileInput {
   onCloseModal?: () => void;
   initialData?: {
-    id: number;
+    id?: number;
     firstName: string;
     lastName: string;
     job: string;

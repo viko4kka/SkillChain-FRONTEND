@@ -1,6 +1,5 @@
 "use client";
 
-
 import useUserById from "@/hooks/useUserById";
 import Link from "next/link";
 import { CiLocationOn } from "react-icons/ci";
@@ -14,6 +13,7 @@ export interface User {
   id: number;
   firstName: string;
   lastName: string;
+  imgUrl: string;
   description?: string;
   job?: string;
   gitUrl?: string;
@@ -21,7 +21,11 @@ export interface User {
   linkedinId?: string;
 }
 
-export default function UserFrameInProfilePage({ id }: { id: number }) {
+export default function UserFrameInProfilePage({
+  id,
+}: {
+  id: number | undefined;
+}) {
   const { userDataById, isLoading } = useUserById(id);
 
   if (isLoading || !userDataById) {
@@ -32,7 +36,7 @@ export default function UserFrameInProfilePage({ id }: { id: number }) {
     );
   }
 
-  const { firstName, lastName, job, gitUrl, linkedinUrl, description } =
+  const { firstName, lastName, job, gitUrl, linkedinUrl, description, imgUrl } =
     userDataById;
 
   return (
@@ -45,8 +49,7 @@ export default function UserFrameInProfilePage({ id }: { id: number }) {
             lastName={lastName}
             job={job}
             gitUrl={gitUrl}
-            linkedinUrl={linkedinUrl}
-            description={description}
+            imgUrl={imgUrl}
           />
         </div>
 
