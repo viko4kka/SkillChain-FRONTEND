@@ -2,16 +2,20 @@
 
 import { AddProject, Project } from "@/types";
 
-export async function getProjectsByUserId(userId: number): Promise<Project[]> {
+export async function getProjectsByUserId(
+  userId: number,
+  perPage: number,
+  page: number,
+): Promise<Project[]> {
   try {
     const response = await fetch(
-      `http://localhost:3001/projects/user/${userId}`,
+      `http://localhost:3001/projects/user/${userId}?perPage=${perPage}&page=${page}`,
     );
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
     const data = await response.json();
-    return data;
+    return data.data;
   } catch (error) {
     console.error(error);
     return [];
