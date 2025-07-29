@@ -25,12 +25,7 @@ export default function AddProject({
     <div>
       <button
         onClick={() => setIsModalOpen(true)}
-        style={{
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          padding: 0,
-        }}
+        className="cursor-pointer border-none bg-transparent p-0"
         aria-label="Dodaj projekt"
       >
         <FiPlus className="text-mainBlue text-lg sm:text-xl lg:text-2xl" />
