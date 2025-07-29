@@ -48,13 +48,15 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
           onProjectAdded: handleProjectUpdated,
         }}
       />
-      {isLoading && !showAll ? (
+      {isLoading && !showAll && (
         <div className="flex h-[300px] w-full items-center justify-center">
           <Spinner />
         </div>
-      ) : !displayedProjects || displayedProjects.length === 0 ? (
+      )}
+      {!isLoading && (!displayedProjects || displayedProjects.length === 0) && (
         <div>Brak projektów.</div>
-      ) : (
+      )}
+      {!isLoading && displayedProjects && displayedProjects.length > 0 && (
         <>
           {displayedProjects.map((project) => (
             <ProjectCard
