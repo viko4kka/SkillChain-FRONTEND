@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write \"src/**/*.ts\""
   },
   "dependencies": {
     "@tanstack/react-query": "^5.83.0",
@@ -19,6 +20,7 @@
     "react-hook-form": "^7.60.0",
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
+    "zustand": "^5.0.6",
     "react-spinners": "^0.17.0"
   },
   "devDependencies": {
