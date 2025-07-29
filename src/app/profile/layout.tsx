@@ -1,7 +1,12 @@
+"use client";
+
+import WalletProvider from "@/app/walletProvider";
+
+
 export default function ProfileLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <WalletProvider>{children}</WalletProvider>;
 }

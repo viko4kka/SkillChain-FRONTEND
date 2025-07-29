@@ -1,10 +1,11 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { CiLocationOn } from "react-icons/ci";
-import Button from "./Button";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Modal from "./Modal";
 import { GoPencil } from "react-icons/go";
 import EditUserProfileForm from "./EditUserProfileForm";
+import { useAccount, useSignMessage } from "wagmi";
 
 interface UserDataDetailsProps {
   firstName: string;
@@ -27,6 +28,36 @@ function UserDataDetails({
   id,
   imgUrl,
 }: UserDataDetailsProps) {
+    const { address, isConnected } = useAccount();
+    const { signMessageAsync } = useSignMessage();
+    const [userId, setUserId] = React.useState<number | null>(null);
+    useEffect(() => {
+      const fetchUserId = async () => {
+        const res = await fetch("http://localhost:3001/auth/me", {
+          credentials: "include",
+        });
+        const data = await res.json();
+        setUserId(data.id);
+      };
+      fetchUserId();
+    }, []);
+
+    useEffect(() => {
+      const saveWallet = async () => {
+        if (isConnected && address && userId) {
+          const message = JSON.stringify({ id: userId });
+          const signature = await signMessageAsync({ message });
+          await fetch("http://localhost:3001/users/wallet", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ address, signature }),
+            credentials: "include",
+          });
+        }
+      };
+      saveWallet();
+    }, [isConnected, address, userId]);
+    
   return (
     <>
       {" "}
@@ -50,21 +81,14 @@ function UserDataDetails({
           Rzeszów, Polska
         </div>
       </div>
-      <div className="flex flex-row items-center justify-start gap-x-2 sm:gap-x-4 lg:gap-x-6">
-        <div className="w-[90px] sm:w-[100px] lg:hidden">
-          <Button variant="primary" size="sm" fullWidth>
-            <span className="text-center text-xs leading-tight">
-              Connect with MetaMask
-            </span>
-          </Button>
-        </div>
-
-        <div className="hidden w-[130px] lg:block">
-          <Button variant="primary" size="md" fullWidth>
-            <span className="text-center text-sm leading-tight">
-              Connect with MetaMask
-            </span>
-          </Button>
+      <div className="mt-2 flex flex-row flex-wrap items-center justify-start gap-x-2 gap-y-2 sm:gap-x-4 lg:gap-x-6">
+        <div className="max-w-full min-w-[90px]">
+          <ConnectButton
+            label="Connect Wallet"
+            accountStatus={{ smallScreen: "avatar", largeScreen: "address" }}
+            chainStatus={{ smallScreen: "icon", largeScreen: "icon" }}
+            showBalance={{ smallScreen: false, largeScreen: false }}
+          />
         </div>
 
         <Modal
