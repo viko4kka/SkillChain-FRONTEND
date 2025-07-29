@@ -4,8 +4,24 @@ import { WagmiProvider } from "wagmi";
 import { RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import config from "@/rainbowKitConfig";
+import { useDisconnect } from "wagmi";
+import useMe from "@/hooks/useMe";
+import { useEffect } from "react";
 
 const queryClient = new QueryClient();
+
+function WalletAutoDisconnect() {
+  const { disconnect } = useDisconnect();
+  const { me, isLoading } = useMe();
+
+  useEffect(() => {
+    if (!isLoading && !me) {
+      disconnect();
+    }
+  }, [me, isLoading, disconnect]);
+
+  return null;
+}
 
 export default function WalletProvider({
   children,
@@ -16,7 +32,6 @@ export default function WalletProvider({
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
-          initialChain={11155111}
           modalSize="compact"
           theme={lightTheme({
             borderRadius: "medium",
@@ -24,6 +39,7 @@ export default function WalletProvider({
             fontStack: "system",
           })}
         >
+          <WalletAutoDisconnect />
           {children}
         </RainbowKitProvider>
       </QueryClientProvider>

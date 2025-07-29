@@ -28,36 +28,39 @@ function UserDataDetails({
   id,
   imgUrl,
 }: UserDataDetailsProps) {
-    const { address, isConnected } = useAccount();
-    const { signMessageAsync } = useSignMessage();
-    const [userId, setUserId] = React.useState<number | null>(null);
-    useEffect(() => {
-      const fetchUserId = async () => {
-        const res = await fetch("http://localhost:3001/auth/me", {
+  const { address, isConnected } = useAccount();
+  const { signMessageAsync } = useSignMessage();
+  const [savedAddress, setSavedAddress] = React.useState<string | null>(null);
+  const [userId, setUserId] = React.useState<number | null>(null);
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const res = await fetch("http://localhost:3001/auth/me", {
+        credentials: "include",
+      });
+      const data = await res.json();
+      setUserId(data.id);
+      setSavedAddress(data.walletAddress);
+      console.log(data);
+    };
+    fetchUserId();
+  }, []);
+
+  useEffect(() => {
+    const saveWallet = async () => {
+      if (isConnected && address && userId && !savedAddress) {
+        const message = JSON.stringify({ id: userId });
+        const signature = await signMessageAsync({ message });
+        await fetch("http://localhost:3001/users/wallet", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ walletAddress:address, signature }),
           credentials: "include",
         });
-        const data = await res.json();
-        setUserId(data.id);
-      };
-      fetchUserId();
-    }, []);
+      }
+    };
+    saveWallet();
+  }, [isConnected, address, userId, savedAddress]);
 
-    useEffect(() => {
-      const saveWallet = async () => {
-        if (isConnected && address && userId) {
-          const message = JSON.stringify({ id: userId });
-          const signature = await signMessageAsync({ message });
-          await fetch("http://localhost:3001/users/wallet", {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ address, signature }),
-            credentials: "include",
-          });
-        }
-      };
-      saveWallet();
-    }, [isConnected, address, userId]);
-    
   return (
     <>
       {" "}
