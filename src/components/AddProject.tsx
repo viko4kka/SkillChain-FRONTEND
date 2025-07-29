@@ -10,7 +10,7 @@ export default function AddProject({
   onProjectAdded?: () => void;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { addProject, isLoading } = useProjectPost();
+  const { addProject } = useProjectPost();
 
   const handleAddProject = (data: any) => {
     addProject(data, {
