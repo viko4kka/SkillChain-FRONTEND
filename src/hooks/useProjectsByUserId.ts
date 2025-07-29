@@ -7,10 +7,14 @@ export default function useProjectsByUserId(
   perPage: number,
   page: number,
 ) {
-  const { data: projects, isLoading } = useQuery<Project[]>({
+  const {
+    data: projects,
+    isLoading,
+    refetch,
+  } = useQuery<Project[]>({
     queryKey: ["projectsByUserId", userId, perPage, page],
     queryFn: () => getProjectsByUserId(userId, perPage, page),
   });
   console.log(projects);
-  return { projects, isLoading };
+  return { projects, isLoading, refetch };
 }

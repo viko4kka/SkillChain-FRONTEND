@@ -6,12 +6,21 @@ import { BiLinkExternal } from "react-icons/bi";
 
 interface ProjectCardProps {
   project: Project;
+  onProjectUpdated?: () => void; // dodaj ten prop
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  project,
+  onProjectUpdated,
+}) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
 
   const handleEditClick = () => setIsEditOpen(true);
+
+  const handleCloseModal = () => {
+    setIsEditOpen(false);
+    if (onProjectUpdated) onProjectUpdated(); // wywołaj po zamknięciu modala
+  };
 
   return (
     <div className=":px-15 w-full border-b border-gray-200 px-4 py-5 sm:px-10 lg:px-15">
@@ -31,7 +40,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           className="flex items-center gap-1 hover:underline"
           title={project.githubLink || ""}
         >
-          GitHub <BiLinkExternal size={16} />
+          {project.githubLink && (
+            <>
+              GitHub <BiLinkExternal size={16} />
+            </>
+          )}
         </a>
         <a
           href={project.websiteLink}
@@ -45,7 +58,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                 .replace(/^https?:\/\/(www\.)?/, "")
                 .split("/")[0]
             : ""}
-          <BiLinkExternal size={16} />
+          {project.websiteLink && <BiLinkExternal size={16} />}
         </a>
       </div>
 
@@ -54,7 +67,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           <div className="relative w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
             <EditProjectForm
               initialData={project}
-              onCloseModal={() => setIsEditOpen(false)}
+              onCloseModal={handleCloseModal} // użyj nowej funkcji
             />
           </div>
         </div>

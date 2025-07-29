@@ -18,7 +18,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
   const [showAll, setShowAll] = useState(false);
   const [allProjects, setAllProjects] = useState<any[] | null>(null);
 
-  const { projects, isLoading } = useProjectsByUserId(
+  const { projects, isLoading, refetch } = useProjectsByUserId(
     userId,
     DEFAULT_PER_PAGE,
     1,
@@ -28,6 +28,16 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
     setShowAll(true);
     const all = await getProjectsByUserId(userId, 50, 1);
     setAllProjects(all);
+  };
+
+  // Dodaj funkcję do odświeżania projektów
+  const handleProjectUpdated = async () => {
+    if (showAll) {
+      const all = await getProjectsByUserId(userId, 50, 1);
+      setAllProjects(all);
+    } else {
+      if (refetch) refetch(); // jeśli twój hook udostępnia refetch
+    }
   };
 
   const displayedProjects = showAll && allProjects ? allProjects : projects;
@@ -44,7 +54,11 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
       ) : (
         <>
           {displayedProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard
+              key={project.id}
+              project={project}
+              onProjectUpdated={handleProjectUpdated}
+            />
           ))}
           {!showAll && (
             <div className="my-4 flex justify-center">

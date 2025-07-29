@@ -49,8 +49,8 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
       return;
     }
 
-    try {
-      editProjectDataById({
+    editProjectDataById(
+      {
         id: initialData.id,
         updatedData: {
           projectName: data.projectName,
@@ -58,12 +58,13 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
           githubLink: data.githubLink,
           websiteLink: data.websiteLink,
         },
-      });
-    } catch (error) {
-      console.error(error);
-    }
-
-    onCloseModal?.();
+      },
+      {
+        onSuccess: () => {
+          onCloseModal?.();
+        },
+      },
+    );
   }
 
   async function handleDeleteProject() {
