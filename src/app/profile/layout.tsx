@@ -1,5 +1,3 @@
-"use client";
-
 import { AuthGuard } from "@/guards/AuthGuard";
 
 export default function ProfileLayout({

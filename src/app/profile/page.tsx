@@ -1,11 +1,10 @@
-
 "use client";
 
 import UserFrameInProfilePage from "@/components/UserFrameInProfilePage";
-import useAuth from "@/hooks/useAuth";
+import { useStore } from "@/stores/useStore";
 
 export default function ProfilePage() {
-  const { user } = useAuth();
+  const user = useStore((state) => state.user);
 
   return (
     <div className="flex h-screen flex-col items-center justify-start">
