@@ -32,34 +32,34 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         />
       </div>
       <p className="text-dark-text mt-1 text-sm">{project.description}</p>
-      <div className="mt-2 flex flex-row gap-4 text-sm text-blue-600">
-        <a
-          href={project.githubLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1 hover:underline"
-          title={project.githubLink || ""}
-        >
-          {project.githubLink && (
-            <>
-              GitHub <BiLinkExternal size={16} />
-            </>
-          )}
-        </a>
-        <a
-          href={project.websiteLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1 hover:underline"
-          title={project.websiteLink || ""}
-        >
-          {project.websiteLink
-            ? project.websiteLink
+      <div className="mt-2 flex flex-row text-sm text-blue-600">
+        {project.githubLink && (
+          <a
+            href={project.githubLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 hover:underline"
+            title={project.githubLink || ""}
+          >
+            GitHub <BiLinkExternal size={16} />
+          </a>
+        )}
+        {project.websiteLink && (
+          <a
+            href={project.websiteLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`flex items-center gap-1 hover:underline ${project.githubLink ? "ml-4" : ""}`}
+            title={project.websiteLink || ""}
+          >
+            {
+              project.websiteLink
                 .replace(/^https?:\/\/(www\.)?/, "")
                 .split("/")[0]
-            : ""}
-          {project.websiteLink && <BiLinkExternal size={16} />}
-        </a>
+            }
+            <BiLinkExternal size={16} />
+          </a>
+        )}
       </div>
 
       {isEditOpen && (
