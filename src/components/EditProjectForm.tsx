@@ -54,7 +54,6 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
       return;
     }
 
-    // Zamiana pustych stringów na undefined
     const updatedData = {
       projectName: data.projectName,
       description: data.description,

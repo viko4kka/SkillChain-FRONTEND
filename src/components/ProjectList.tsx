@@ -30,13 +30,12 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
     setAllProjects(all);
   };
 
-  // Dodaj funkcję do odświeżania projektów
   const handleProjectUpdated = async () => {
     if (showAll) {
       const all = await getProjectsByUserId(userId, 50, 1);
       setAllProjects(all);
     } else {
-      if (refetch) refetch(); // jeśli twój hook udostępnia refetch
+      if (refetch) refetch();
     }
   };
 
@@ -46,7 +45,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
     <WhiteBackgroundFrame>
       <ProjectsHeaderList
         AddProjectProps={{
-          onProjectAdded: handleProjectUpdated, // przekazujesz funkcję odświeżania
+          onProjectAdded: handleProjectUpdated,
         }}
       />
       {isLoading && !showAll ? (

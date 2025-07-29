@@ -6,7 +6,7 @@ import { BiLinkExternal } from "react-icons/bi";
 
 interface ProjectCardProps {
   project: Project;
-  onProjectUpdated?: () => void; // dodaj ten prop
+  onProjectUpdated?: () => void;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -19,7 +19,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
   const handleCloseModal = () => {
     setIsEditOpen(false);
-    if (onProjectUpdated) onProjectUpdated(); // wywołaj po zamknięciu modala
+    if (onProjectUpdated) onProjectUpdated();
   };
 
   return (
@@ -67,7 +67,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <div className="relative w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
             <EditProjectForm
               initialData={project}
-              onCloseModal={handleCloseModal} // użyj nowej funkcji
+              onCloseModal={handleCloseModal}
             />
           </div>
         </div>

@@ -16,7 +16,7 @@ export default function AddProject({
     addProject(data, {
       onSuccess: () => {
         setIsModalOpen(false);
-        if (onProjectAdded) onProjectAdded(); // dodaj wywołanie po sukcesie
+        if (onProjectAdded) onProjectAdded();
       },
     });
   };
