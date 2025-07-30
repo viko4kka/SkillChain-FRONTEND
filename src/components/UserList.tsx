@@ -10,7 +10,7 @@ interface LocationData {
   name?: string;
   city?: string;
   country?: string;
-  [key: string]: any; // Allow for other properties
+  [key: string]: any; 
 }
 
 export default function UserList() {

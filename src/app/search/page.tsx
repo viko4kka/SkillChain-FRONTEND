@@ -11,7 +11,7 @@ export default function Page() {
             <SearchFrame />
           </WhiteBackgroundFrame>
         </div>
-        <UserList/>
+         <UserList/> 
       </div>
     </div>
   );

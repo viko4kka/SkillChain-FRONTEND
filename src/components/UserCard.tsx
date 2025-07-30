@@ -25,7 +25,6 @@ interface UserCardProps {
 
 export default function UserCard({ user }: UserCardProps) {
   console.log("UserCard rendering with data:", user);
-
   return (
     <div style={{ marginTop: "1cm" }}>
       <WhiteBackgroundFrame>
@@ -45,7 +44,7 @@ export default function UserCard({ user }: UserCardProps) {
           >
             {/* Left: Avatar */}
             <div className="flex w-32 flex-shrink-0 flex-col items-center">
-              <Image
+              {/* <Image
                 src={
                   user.avatar ||
                   `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.id}`
@@ -66,7 +65,15 @@ export default function UserCard({ user }: UserCardProps) {
                     target.alt = user.name || "User profile";
                   }
                 }}
-              />
+              /> */}
+              <div className="relative h-[70px] w-[70px] rounded-full sm:h-[90px] sm:w-[90px] lg:h-[120px] lg:w-[120px]">
+                      <Image
+                        src={user.imgUrl || "/person.jpg"}
+                        fill
+                        className="border-main-background overflow-hidden rounded-full border-2 object-cover"
+                        alt="Profile Picture"
+                      />
+                    </div>
             </div>
 
             {/* Middle: Name, Title, Location, Skills */}
@@ -98,7 +105,7 @@ export default function UserCard({ user }: UserCardProps) {
                         {skill}
                       </span>
                     ))}
-                  {user.skills.length > 3 && (
+                  {user.skills.split(",").length > 3 && (
                     <span
                       className="rounded-full px-3 py-1 text-xs font-medium whitespace-nowrap text-blue-600"
                       style={{ backgroundColor: "#DBEAFE" }}
@@ -116,7 +123,7 @@ export default function UserCard({ user }: UserCardProps) {
               style={{ marginRight: "1cm", marginTop: "7mm" }}
             >
               <Link
-                href={`/user/${user.id}`}
+                href={`/profile/${user.id}`}
                 className="inline-flex items-center rounded-lg bg-blue-600 px-5 py-2 text-sm text-white transition-colors duration-200 hover:bg-blue-700"
                 style={{ fontFamily: "Inter, sans-serif", fontWeight: "400" }}
               >
@@ -200,12 +207,12 @@ export default function UserCard({ user }: UserCardProps) {
                     {skill}
                   </span>
                 ))}
-              {user.skills.length > 3 && (
+              {user.skills.split(",").length > 3 && (
                 <span
                   className="rounded-full px-3 py-1 text-xs font-medium whitespace-nowrap text-blue-600"
                   style={{ backgroundColor: "#DBEAFE" }}
                 >
-                  +{user.skills.length - 3} more
+                  +{user.skills.split(",").length - 3} more
                 </span>
               )}
             </div>
@@ -214,7 +221,7 @@ export default function UserCard({ user }: UserCardProps) {
           {/* See Details Button - left aligned at bottom */}
           <div className="mt-1">
             <Link
-              href={`/user/${user.id}`}
+              href={`/profile/${user.id}`}
               className="inline-flex items-center rounded-lg bg-blue-600 px-3 py-1.5 text-sm text-white transition-colors duration-200 hover:bg-blue-700"
             >
               <span>See details</span>
