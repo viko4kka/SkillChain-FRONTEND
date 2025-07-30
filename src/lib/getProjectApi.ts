@@ -33,6 +33,7 @@ export async function postProject(
         "Content-Type": "application/json",
       },
       body: JSON.stringify(project),
+      credentials: "include",
     });
 
     if (!response.ok) {
@@ -58,6 +59,7 @@ export async function editProjectById(
         "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedData),
+      credentials: "include",
     });
 
     if (!response.ok) {
@@ -76,6 +78,7 @@ export async function deleteProjectById(id: number): Promise<boolean> {
   try {
     const response = await fetch(`${API_DOMAIN}/projects/${id}`, {
       method: "DELETE",
+      credentials: "include",
     });
 
     if (!response.ok) {
