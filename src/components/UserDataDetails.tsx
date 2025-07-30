@@ -32,6 +32,16 @@ function UserDataDetails({
   const { signMessageAsync } = useSignMessage();
   const [savedAddress, setSavedAddress] = React.useState<string | null>(null);
   const [userId, setUserId] = React.useState<number | null>(null);
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopy = async () => {
+    if (savedAddress) {
+      await navigator.clipboard.writeText(savedAddress);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
+  };
+
   useEffect(() => {
     const fetchUserId = async () => {
       const res = await fetch("http://localhost:3001/auth/me", {
@@ -88,11 +98,21 @@ function UserDataDetails({
         </div>
       </div>
       <div className="mt-2 flex flex-row flex-wrap items-center justify-start gap-x-2 gap-y-2 sm:gap-x-4 lg:gap-x-6">
-        <div className="max-w-full min-w-[90px]">
+        <div className="relative max-w-full min-w-[90px]">
           {savedAddress ? (
-            <span className="inline-block max-w-full cursor-pointer rounded-lg border border-[#2563EB] bg-[#2563EB]/10 px-4 py-2 font-mono text-sm break-all text-[#2563EB] shadow transition duration-200 hover:bg-[#2563EB] hover:text-white hover:shadow-lg sm:text-base md:px-5 md:py-2 md:text-lg">
-              {savedAddress.slice(0, 5)}...{savedAddress.slice(-3)}
-            </span>
+            <>
+              <span
+                className="inline-block max-w-full cursor-pointer rounded-lg border border-[#2563EB] bg-[#2563EB]/10 px-4 py-2 font-mono text-sm break-all text-[#2563EB] shadow transition duration-200 hover:bg-[#2563EB] hover:text-white hover:shadow-lg sm:text-base md:px-5 md:py-2 md:text-lg"
+                onClick={handleCopy}
+              >
+                {savedAddress.slice(0, 5)}...{savedAddress.slice(-3)}
+              </span>
+              {copied && (
+                <span className="absolute top-0 left-1/2 z-50 -translate-x-1/2 -translate-y-[140%] rounded bg-[#2563EB] px-2 py-1 text-xs text-white shadow">
+                  Copied!
+                </span>
+              )}
+            </>
           ) : (
             <ConnectButton
               label="Connect Wallet"
