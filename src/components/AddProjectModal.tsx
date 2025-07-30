@@ -1,6 +1,12 @@
 import { useForm } from "react-hook-form";
 import Button from "./Button";
 import { FiX } from "react-icons/fi";
+import {
+  projectNameValidation,
+  descriptionValidation,
+  githubLinkValidation,
+  websiteLinkValidation,
+} from "@/utils/projectValidation";
 
 type ProjectFormInputs = {
   projectName: string;
@@ -35,8 +41,6 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
   const handleFormSubmit = (data: ProjectFormInputs) => {
     onSubmit({
       ...data,
-      githubLink: data.githubLink === "" ? null : data.githubLink,
-      websiteLink: data.websiteLink === "" ? null : data.websiteLink,
     });
     reset();
   };
@@ -70,17 +74,7 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
             <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
               <input
                 type="text"
-                {...register("projectName", {
-                  required: "This field is required",
-                  minLength: {
-                    value: 3,
-                    message: "Project name must be at least 3 characters",
-                  },
-                  maxLength: {
-                    value: 50,
-                    message: "Project name must be at most 50 characters",
-                  },
-                })}
+                {...register("projectName", projectNameValidation)}
                 placeholder="Enter project name"
                 className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
               />
@@ -98,17 +92,7 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
             </label>
             <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
               <textarea
-                {...register("description", {
-                  required: "This field is required",
-                  minLength: {
-                    value: 10,
-                    message: "Description must be at least 10 characters",
-                  },
-                  maxLength: {
-                    value: 500,
-                    message: "Description must be at most 500 characters",
-                  },
-                })}
+                {...register("description", descriptionValidation)}
                 placeholder="Enter description"
                 rows={4}
                 className="text-dark-text h-[50px] max-h-[120px] w-full resize-y bg-transparent p-2 text-sm focus:outline-none"
@@ -128,16 +112,7 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
             <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
               <input
                 type="url"
-                {...register("githubLink", {
-                  validate: (value) =>
-                    !value ||
-                    value.startsWith("https://github.com/") ||
-                    "Github link must start with https://github.com/",
-                  maxLength: {
-                    value: 100,
-                    message: "Github link must be at most 100 characters",
-                  },
-                })}
+                {...register("githubLink", githubLinkValidation)}
                 placeholder="Enter github link"
                 className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
               />
@@ -156,17 +131,7 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
             <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
               <input
                 type="url"
-                {...register("websiteLink", {
-                  pattern: {
-                    value:
-                      /^(https?:\/\/)?([\w\-]+\.)+[\w\-]+(\/[\w\-./?%&=]*)?$/,
-                    message: "Website link must be a valid URL",
-                  },
-                  maxLength: {
-                    value: 100,
-                    message: "Website link must be at most 100 characters",
-                  },
-                })}
+                {...register("websiteLink", websiteLinkValidation)}
                 placeholder="Enter website link"
                 className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
               />
