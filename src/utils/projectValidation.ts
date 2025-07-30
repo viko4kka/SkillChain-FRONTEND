@@ -1,5 +1,3 @@
-import { RegisterOptions } from "react-hook-form";
-
 export const projectNameValidation = {
   required: "This field is required",
   minLength: {
@@ -24,7 +22,7 @@ export const descriptionValidation = {
   },
 };
 export const githubLinkValidation = {
-  validate: (value: any) =>
+  validate: (value: string | null) =>
     !value ||
     value.startsWith("https://github.com/") ||
     "Github link must start with https://github.com/",
