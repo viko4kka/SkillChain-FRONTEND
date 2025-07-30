@@ -7,6 +7,7 @@ import WhiteBackgroundFrame from "./WhiteBackgroundFrame";
 import ProjectsHeaderList from "./ProjectHeaderList";
 import Spinner from "./Spinner";
 import { getProjectsByUserId } from "@/lib/getProjectApi";
+import { Project } from "@/types";
 
 interface ProjectListProps {
   userId: number;
@@ -16,7 +17,7 @@ const DEFAULT_PER_PAGE = 3;
 
 const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
   const [showAll, setShowAll] = useState(false);
-  const [allProjects, setAllProjects] = useState<any[] | null>(null);
+  const [allProjects, setAllProjects] = useState<Project[] | null>(null);
 
   const { projects, isLoading, refetch } = useProjectsByUserId(
     userId,
