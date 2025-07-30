@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useProjectUpdateDataById } from "@/hooks/useProjectUpdateDataById";
 import { AddProject } from "@/types";
-import Button from "./Button";
+import Button from "../Button";
 import { FiX } from "react-icons/fi";
 import { useProjectDelete } from "@/hooks/useProjectDelete";
 import {

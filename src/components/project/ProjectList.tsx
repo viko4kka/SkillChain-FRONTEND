@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import useProjectsByUserId from "@/hooks/useProjectsByUserId";
-import WhiteBackgroundFrame from "./WhiteBackgroundFrame";
+import WhiteBackgroundFrame from "../WhiteBackgroundFrame";
 import ProjectsHeaderList from "./ProjectHeaderList";
-import Spinner from "./Spinner";
+import Spinner from "../Spinner";
 import { getProjectsByUserId } from "@/lib/getProjectApi";
 import { Project } from "@/types";
 

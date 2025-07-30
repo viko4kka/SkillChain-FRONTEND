@@ -1,5 +1,5 @@
 import UserFrameInProfilePage from "@/components/UserFrameInProfilePage";
-import ProjectList from "@/components/ProjectList";
+import ProjectList from "@/components/project/ProjectList";
 
 export default async function Page({
   params,

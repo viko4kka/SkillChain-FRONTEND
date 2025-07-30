@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import Button from "./Button";
+import Button from "../Button";
 import { FiX } from "react-icons/fi";
 import {
   projectNameValidation,

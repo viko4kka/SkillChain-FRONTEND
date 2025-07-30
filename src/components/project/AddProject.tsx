@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import AddProjectModal from "@/components/AddProjectModal";
+import AddProjectModal from "@/components/project/AddProjectModal";
 import { FiPlus } from "react-icons/fi";
 import useProjectPost from "@/hooks/useProjectPost";
 

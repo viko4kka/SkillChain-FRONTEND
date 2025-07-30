@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
-import { Project } from "../types";
+import { Project } from "../../types";
 import EditProjectForm from "./EditProjectForm";
 import { BiLinkExternal } from "react-icons/bi";
 
