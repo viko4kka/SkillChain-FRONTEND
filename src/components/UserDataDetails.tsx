@@ -8,6 +8,7 @@ import { GoPencil } from "react-icons/go";
 import EditUserProfileForm from "./EditUserProfileForm";
 import { useAccount, useSignMessage } from "wagmi";
 import toast from "react-hot-toast";
+import { useSaveWallet } from "@/hooks/useSaveWallet";
 
 interface UserDataDetailsProps {
   firstName: string;
@@ -33,6 +34,7 @@ function UserDataDetails({
   const { address, isConnected } = useAccount();
   const { signMessageAsync } = useSignMessage();
   const { me } = useMe();
+  const saveWallet = useSaveWallet();
   const savedAddress = me?.walletAddress ?? null;
   const userId = me?.id ?? null;
 
@@ -45,22 +47,20 @@ function UserDataDetails({
   };
 
   useEffect(() => {
-    const saveWallet = async () => {
+    const handleSaveWallet = async () => {
       if (isConnected && address && userId && !savedAddress) {
         const message = JSON.stringify({ id: userId });
         const signature = await signMessageAsync({
           message,
           account: address!,
         });
-        await fetch("http://localhost:3001/users/wallet", {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ walletAddress: address, signature }),
-          credentials: "include",
+        saveWallet.mutate({
+          walletAddress: address,
+          signature,
         });
       }
-    };``
-    saveWallet();
+    };
+    handleSaveWallet();
   }, [isConnected, address, userId, savedAddress]);
 
   return (
