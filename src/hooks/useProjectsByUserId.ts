@@ -15,6 +15,5 @@ export default function useProjectsByUserId(
     queryKey: ["projectsByUserId", userId, perPage, page],
     queryFn: () => getProjectsByUserId(userId, perPage, page),
   });
-  console.log(projects);
   return { projects, isLoading, refetch };
 }
