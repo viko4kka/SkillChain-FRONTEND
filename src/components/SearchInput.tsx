@@ -1,11 +1,16 @@
+"use client";
+
 import { GoSearch } from "react-icons/go";
 
-function SearchInput() {
-  //   const [inputText, setInputText] = useState("");
+interface SearchInputProps {
+  value: string;
+  onChange: (value: string) => void;
+}
 
-  //   const handleInputChange = (e) => {
-  //     setInputText(e.target.value);
-  //   };
+function SearchInput({ value, onChange }: SearchInputProps) {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
 
   return (
     <div className="border-dark-text/20 mt-6 flex w-full items-center rounded-sm border px-1 transition">
@@ -14,7 +19,8 @@ function SearchInput() {
       </span>
       <input
         type="text"
-        // onChange={handleInputChange} 
+        value={value}
+        onChange={handleInputChange}
         className="text-dark-text/60 w-full bg-transparent px-1 py-2 text-sm focus:outline-none"
         placeholder="Search person by first name or last name..."
       />
