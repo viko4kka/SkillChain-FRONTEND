@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { WALLET_ENDPOINT } from "../enviroments/config";
 
 interface SaveWalletArgs {
   walletAddress: string;
@@ -10,7 +11,7 @@ export function useSaveWallet() {
 
   return useMutation({
     mutationFn: async ({ walletAddress, signature }: SaveWalletArgs) => {
-      const res = await fetch("http://localhost:3001/users/wallet", {
+      const res = await fetch(WALLET_ENDPOINT, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ walletAddress, signature }),

@@ -1,6 +1,6 @@
 "use client";
 
-import WalletProvider from "@/app/walletProvider";
+import WalletProvider from "@/app/providers/walletProvider";
 import { AuthGuard } from "@/guards/AuthGuard";
 
 export default function ProfileLayout({
