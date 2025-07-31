@@ -15,24 +15,16 @@ const DEFAULT_PER_PAGE = 3;
 const SHOW_ALL_PER_PAGE = 50;
 
 const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
-  const [pagination, setPagination] = useState({
-    all: false,
-    perPage: DEFAULT_PER_PAGE,
-  });
+  const [showAll, setShowAll] = useState(false);
   const { projects, isLoading, refetch } = useProjectsByUserId(
     userId,
-    pagination.perPage,
+    showAll ? SHOW_ALL_PER_PAGE : DEFAULT_PER_PAGE,
     1,
   );
+
   const handleShowAll = async () => {
-    setPagination((prev) => ({
-      all: !prev.all,
-      perPage: prev.all ? DEFAULT_PER_PAGE : SHOW_ALL_PER_PAGE,
-    }));
+    setShowAll((prev) => !prev);
   };
-  React.useEffect(() => {
-    refetch();
-  }, [pagination.all]);
 
   const handleProjectUpdated = () => {
     refetch();
@@ -45,7 +37,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
           onProjectAdded: handleProjectUpdated,
         }}
       />
-      {isLoading && !pagination.all && (
+      {isLoading && !showAll && (
         <div className="flex h-[300px] w-full items-center justify-center">
           <Spinner />
         </div>
@@ -62,7 +54,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
               onProjectUpdated={handleProjectUpdated}
             />
           ))}
-          {!pagination.all && (
+          {!showAll && (
             <div className="my-4 flex justify-center">
               <button
                 className="text-mainBlue cursor-pointer text-sm font-bold sm:text-base"
