@@ -203,7 +203,7 @@ export default function UserList() {
 
           // Add some default skills for testing if none exist
           const displaySkills =
-            userSkills.length > 0 ? userSkills : `React,JavaScript,TypeScript`;
+            userSkills.length > 0 ? userSkills : ``;
 
           // Map each user with enhanced data
           const fullUser = {
