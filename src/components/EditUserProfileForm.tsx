@@ -89,7 +89,7 @@ function EditUserProfileForm({
   }
 
   return (
-    <div className="flex h-full w-full flex-col px-4">
+    <div className="flex h-[500px] w-full flex-col px-4">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="mt-4 flex flex-col gap-y-3"
@@ -166,7 +166,7 @@ function EditUserProfileForm({
           )}
         </div>
 
-        <div className="group flex w-full flex-col items-start">
+        {/* <div className="group flex w-full flex-col items-start">
           <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
             LinkedIn URL
           </label>
@@ -179,7 +179,7 @@ function EditUserProfileForm({
               className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
-        </div>
+        </div> */}
 
         <div className="group flex w-full flex-col items-start">
           <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
