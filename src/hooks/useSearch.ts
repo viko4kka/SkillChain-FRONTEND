@@ -1,13 +1,20 @@
+"use client";
+
 import { User } from "@/components/UserFrameInProfilePage";
-import { getSearchApi } from "@/lib/getSearchApi";
+import { searchUsers } from "@/lib/getSearchApi";
 import { useQuery } from "@tanstack/react-query";
 
-export default function useSearch(searchQuery: string) {
-  const { data: searchResult, isLoading } = useQuery<User[]>({
-    queryKey: ["search", searchQuery],
-    queryFn: () => getSearchApi(searchQuery),
-    enabled: !!searchQuery,
+export default function useSearch(debouncedSearchQuery: string) {
+  const {
+    data: searchResult,
+    isLoading,
+    error,
+  } = useQuery<User[]>({
+    queryKey: ["search", debouncedSearchQuery],
+    queryFn: () => searchUsers(debouncedSearchQuery),
+    enabled: !!debouncedSearchQuery,
   });
 
-  return { searchResult, isLoading };
+  console.log('dziala useSearch')
+  return { searchResult, isLoading, error };
 }
