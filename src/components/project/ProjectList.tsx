@@ -21,7 +21,6 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
     showAll ? SHOW_ALL_PER_PAGE : DEFAULT_PER_PAGE,
     1,
   );
-
   const handleShowAll = async () => {
     setShowAll((prev) => !prev);
   };
