@@ -6,6 +6,7 @@ import useProjectsByUserId from "@/hooks/useProjectsByUserId";
 import WhiteBackgroundFrame from "../WhiteBackgroundFrame";
 import ProjectsHeaderList from "./ProjectHeaderList";
 import Spinner from "../Spinner";
+import { useStore } from "@/stores/useStore";
 
 interface ProjectListProps {
   userId: number;
@@ -15,6 +16,9 @@ const DEFAULT_PER_PAGE = 3;
 const SHOW_ALL_PER_PAGE = 50;
 
 const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
+  const { isAuthenticated, user } = useStore();
+  const canEdit = isAuthenticated && user?.id === userId;
+
   const [showAll, setShowAll] = useState(false);
   const { projects, isLoading, refetch } = useProjectsByUserId(
     userId,
@@ -35,6 +39,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
         AddProjectProps={{
           onProjectAdded: handleProjectUpdated,
         }}
+        canEdit={canEdit}
       />
       {isLoading && !showAll && (
         <div className="flex h-[300px] w-full items-center justify-center">
@@ -51,6 +56,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
               key={project.id}
               project={project}
               onProjectUpdated={handleProjectUpdated}
+              canEdit={canEdit}
             />
           ))}
           {!showAll && (

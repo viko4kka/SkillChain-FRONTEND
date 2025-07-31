@@ -5,6 +5,7 @@ import Button from "./Button";
 import Modal from "./Modal";
 import { GoPencil } from "react-icons/go";
 import EditUserProfileForm from "./EditUserProfileForm";
+import { useStore } from "@/stores/useStore";
 
 interface UserDataDetailsProps {
   firstName: string;
@@ -27,6 +28,9 @@ function UserDataDetails({
   id,
   imgUrl,
 }: UserDataDetailsProps) {
+  const { isAuthenticated, user } = useStore();
+  const canEdit = isAuthenticated && user?.id === id;
+
   return (
     <>
       {" "}
@@ -66,30 +70,31 @@ function UserDataDetails({
             </span>
           </Button>
         </div>
-
-        <Modal
-          title="Edit your Profile"
-          button={
-            <button>
-              <GoPencil className="text-mainBlue text-lg sm:text-xl lg:text-2xl" />
-            </button>
-          }
-        >
-          {({ closeModal }) => (
-            <EditUserProfileForm
-              onCloseModal={closeModal}
-              initialData={{
-                id: id,
-                firstName,
-                lastName,
-                job: job || "",
-                gitUrl: gitUrl || "",
-                linkedinUrl: linkedinUrl || "",
-                description: description || "",
-              }}
-            />
-          )}
-        </Modal>
+        {canEdit && (
+          <Modal
+            title="Edit your Profile"
+            button={
+              <button>
+                <GoPencil className="text-mainBlue text-lg sm:text-xl lg:text-2xl" />
+              </button>
+            }
+          >
+            {({ closeModal }) => (
+              <EditUserProfileForm
+                onCloseModal={closeModal}
+                initialData={{
+                  id: id,
+                  firstName,
+                  lastName,
+                  job: job || "",
+                  gitUrl: gitUrl || "",
+                  linkedinUrl: linkedinUrl || "",
+                  description: description || "",
+                }}
+              />
+            )}
+          </Modal>
+        )}
       </div>
     </>
   );
