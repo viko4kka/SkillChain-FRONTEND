@@ -19,6 +19,7 @@ export interface User {
   gitUrl?: string;
   linkedinUrl?: string;
   linkedinId?: string;
+  walletAddress?: string;
 }
 
 export default function UserFrameInProfilePage({
