@@ -24,5 +24,5 @@ export interface User {
   email: string;
   imgUrl?: string;
   locationId?: number;
-  skills?: string[]; // Add this if you store skills as an array
+  skills?: string[]; 
 }

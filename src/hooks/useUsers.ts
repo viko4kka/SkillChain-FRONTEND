@@ -15,19 +15,19 @@ export interface User {
   imgUrl?: string;
   locationId?: number;
   skills?: string;
-  locationName?: string; // Added for UserList
-  // Add other user fields as needed
+  locationName?: string; 
+  
 }
 
 export interface UsersResponse {
   users: User[];
-  hasMore: boolean; // Add this to match the implementation
+  hasMore: boolean; 
 }
 
-// Updated API function with proper error handling
+
 export async function fetchUsers(page = 1, limit = 10): Promise<UsersResponse> {
   try {
-    // Use the same pattern as locations - without query parameters
+    
     const response = await fetch(`http://localhost:3001/users`);
 
     if (!response.ok) {
@@ -47,7 +47,7 @@ export async function fetchUsers(page = 1, limit = 10): Promise<UsersResponse> {
       allUsers = data.users || data || [];
     }
 
-    // Always do client-side pagination to ensure consistency
+   
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
     const paginatedUsers = allUsers.slice(startIndex, endIndex);
@@ -98,7 +98,7 @@ export const useUsers = () => {
         if (isLoadMore) {
           setPage((prevPage) => prevPage + 1);
         } else {
-          setPage(2); // Next page will be 2 after initial load
+          setPage(2); 
         }
       } catch (err) {
         setError(

@@ -81,7 +81,7 @@ export default function UserList() {
     if (users.length === 0 && !loading) {
       loadUsers();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []); // Intentionally empty - we only want this to run once on mount
 
   // Handle refresh
@@ -102,7 +102,7 @@ export default function UserList() {
     });
   }, [users.length, loading, hasMore, error]);
 
-  // Cleanup intersection observer
+  
   useEffect(() => {
     return () => {
       if (observer.current) {
@@ -124,7 +124,7 @@ export default function UserList() {
         locations.map((loc) => loc.id),
       );
 
-      // Try with both string and number comparison
+      
       const location = locations.find(
         (loc) =>
           loc.id === locationId ||
@@ -162,7 +162,7 @@ export default function UserList() {
 
   return (
     <div className="mx-auto max-w-6xl p-6">
-      {/* Header - Removed "Discover Talent" text */}
+    
       <div className="mb-8 flex items-center justify-end">
         <button
           onClick={handleRefresh}
@@ -197,7 +197,7 @@ export default function UserList() {
         {users.map((user, index) => {
           console.log("User before mapping:", user);
 
-          // Make sure we have skills, with fallback to empty array
+          
           const userSkills = user.skills || "";
           console.log("User skills:", userSkills);
 
@@ -212,7 +212,7 @@ export default function UserList() {
             title: user.job,
             location: user.locationName,
             avatar: user.imgUrl,
-            skills: displaySkills, // Ensure we always have skills to display
+            skills: displaySkills, 
           };
 
           console.log("Full user with skills:", fullUser.skills);

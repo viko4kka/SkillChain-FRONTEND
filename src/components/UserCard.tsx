@@ -1,6 +1,6 @@
 "use client";
 
-import { User as UserType } from "@/types";
+
 import Link from "next/link";
 import Image from "next/image";
 import { BsGeoAlt, BsArrowRight } from "react-icons/bs";
@@ -16,10 +16,10 @@ interface UserCardProps {
     imgUrl?: string;
     locationId?: number;
     skills?: string;
-    name: string; // Added by UserList
-    title?: string; // Added by UserList
-    location?: string; // Added by UserList
-    avatar?: string; // Added by UserList
+    name: string;
+    title?: string; 
+    location?: string; 
+    avatar?: string; 
   };
 }
 
@@ -33,39 +33,18 @@ export default function UserCard({ user }: UserCardProps) {
           <div
             className="flex w-full flex-row items-center"
             style={{
-              minHeight: "120px", // Makes card taller
-              paddingTop: "32px", // More space above
-              paddingBottom: "32px", // More space below
-              background: "#fff", // White background
-              borderRadius: "16px", // Rounded corners
-              boxShadow: "0 4px 16px rgba(0,0,0,0.08)", // Subtle shadow
-              flexWrap: "wrap", // allow wrapping for skills row
+              minHeight: "120px", 
+              paddingTop: "32px", 
+              paddingBottom: "32px", 
+              background: "#fff", 
+              borderRadius: "16px", 
+              boxShadow: "0 4px 16px rgba(0,0,0,0.08)", 
+              flexWrap: "wrap", 
             }}
           >
-            {/* Left: Avatar */}
+            {/*  Avatar */}
             <div className="flex w-32 flex-shrink-0 flex-col items-center">
-              {/* <Image
-                src={
-                  user.avatar ||
-                  `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.id}`
-                }
-                alt={`Profile picture of ${user.name || "user"}`}
-                width={88}
-                height={88}
-                className="h-22 w-22 rounded-full border-2 border-gray-200 object-cover"
-                unoptimized={true}
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                    user.name,
-                  )}&background=0D8ABC&color=fff&size=88`;
-
-                  // Ensure alt text is present even after src change
-                  if (!target.alt) {
-                    target.alt = user.name || "User profile";
-                  }
-                }}
-              /> */}
+              
               <div className="relative h-[70px] w-[70px] rounded-full sm:h-[90px] sm:w-[90px] lg:h-[120px] lg:w-[120px]">
                       <Image
                         src={user.imgUrl || "/person.jpg"}
@@ -90,7 +69,7 @@ export default function UserCard({ user }: UserCardProps) {
                   <span className="text-sm">{user.location}</span>
                 </div>
               )}
-              {/* Skills row: now inside the card */}
+              {/* Skills row*/}
               {user.skills && user.skills.length > 0 && (
                 <div className="mt-3 flex flex-wrap gap-2">
                   {user.skills
@@ -117,7 +96,7 @@ export default function UserCard({ user }: UserCardProps) {
               )}
             </div>
 
-            {/* Right: See Details Button */}
+            {/* See Details Button */}
             <div
               className="flex h-full flex-shrink-0 flex-col items-end justify-center"
               style={{ marginRight: "1cm", marginTop: "7mm" }}
@@ -155,7 +134,7 @@ export default function UserCard({ user }: UserCardProps) {
                     user.name,
                   )}&background=0D8ABC&color=fff&size=56`;
 
-                  // Ensure alt text is present even after src change
+                  
                   if (!target.alt) {
                     target.alt = `Profile picture of ${user.name || "user"}`;
                   }
@@ -192,7 +171,7 @@ export default function UserCard({ user }: UserCardProps) {
             </div>
           </div>
 
-          {/* Skills - below user info */}
+          {/* Skills */}
           {user.skills && user.skills.length > 0 && (
             <div className="mb-3 flex flex-wrap gap-2">
               {user.skills
@@ -218,7 +197,7 @@ export default function UserCard({ user }: UserCardProps) {
             </div>
           )}
 
-          {/* See Details Button - left aligned at bottom */}
+          {/* See Details Button */}
           <div className="mt-1">
             <Link
               href={`/profile/${user.id}`}
