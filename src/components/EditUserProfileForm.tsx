@@ -9,6 +9,7 @@ import {
   jobValidation,
   gitUrlValidation,
   descriptionValidation,
+  linkedinLinkValidation,
 } from "@/utils/userProfileValidation";
 
 interface UpdateUserProfileInput {
@@ -166,7 +167,7 @@ function EditUserProfileForm({
           )}
         </div>
 
-        {/* <div className="group flex w-full flex-col items-start">
+        <div className="group flex w-full flex-col items-start">
           <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
             LinkedIn URL
           </label>
@@ -174,12 +175,17 @@ function EditUserProfileForm({
             <input
               type="text"
               disabled={isUpdatingUserData}
-              {...register("linkedinUrl")}
+              {...register("linkedinUrl", linkedinLinkValidation)}
               placeholder="Enter linkedin url"
               className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
-        </div> */}
+          {errors.linkedinUrl && (
+            <span className="mt-1 text-xs text-red-500">
+              {errors.linkedinUrl.message}
+            </span>
+          )}
+        </div>
 
         <div className="group flex w-full flex-col items-start">
           <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">

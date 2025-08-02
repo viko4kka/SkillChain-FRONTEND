@@ -20,6 +20,17 @@ export const gitUrlValidation = {
   },
 };
 
+export const linkedinLinkValidation = {
+  validate: (value: string | undefined) =>
+    !value ||
+    value.startsWith("https://linkedin.com/") ||
+    "LinkedIn link must start with https://linkedin.com/",
+  maxLength: {
+    value: 100,
+    message: "LinkedIn link must be at most 100 characters",
+  },
+};
+
 export const descriptionValidation = {
   minLength: {
     value: 10,
