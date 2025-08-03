@@ -1,15 +1,22 @@
-import { getAllSkillsApi } from "@/lib/getSkillApi";
+import { getAllSkillsApi } from "@/lib/getSearchApi";
 import { useQuery } from "@tanstack/react-query";
-import { SkillList } from "@/types";
 
-export default function useAllSkills() {
-  const {
-    data: skills,
-    isLoading,
-    refetch,
-  } = useQuery<SkillList[]>({
+type SkillOptions = {
+  data: {
+    id: number;
+    name: string;
+  }[];
+};
+
+export function useAllSkills() {
+  const { data: allSkills, isLoading } = useQuery<SkillOptions>({
     queryKey: ["allSkills"],
-    queryFn: getAllSkillsApi,
+    queryFn: async () => getAllSkillsApi(),
   });
-  return { skills, isLoading, refetch };
+
+  
+  return {
+    allSkills,
+    isLoading,
+  };
 }

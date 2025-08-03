@@ -13,7 +13,6 @@ export default function useDebounce({ value, delay }: useDebounceProps) {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedValue(value);
-      console.log("dziala debounce");
     }, delay);
 
     return () => {

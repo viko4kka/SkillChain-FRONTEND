@@ -1,22 +1,17 @@
 "use client";
 
-import useUsers from "@/hooks/useUsers";
 import UserCard from "@/components/UserCard";
+import { DisplayUser } from "@/hooks/useUsers";
 
-export default function UsersList() {
-  const { users, isLoading, error } = useUsers();
+interface UsersListProps {
+  users: DisplayUser[];
+}
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading users</div>;
-
+export default function UsersList({ users }: UsersListProps) {
   return (
     <div>
       {users?.map((user) => (
-        <UserCard
-          key={user.id}
-          firstName={user.firstName}
-          lastName={user.lastName}
-        />
+        <UserCard key={user.id} user={user} />
       ))}
     </div>
   );
