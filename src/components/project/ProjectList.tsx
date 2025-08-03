@@ -12,7 +12,7 @@ interface ProjectListProps {
   userId: number;
 }
 
-const DEFAULT_PER_PAGE = 3;
+const DEFAULT_PER_PAGE = 4;
 const SHOW_ALL_PER_PAGE = 50;
 
 const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
@@ -33,6 +33,16 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
     refetch();
   };
 
+    const showButton =
+    !showAll &&
+    projects &&
+    projects.length >= DEFAULT_PER_PAGE;
+
+  const displayedProjects =
+    showButton && projects
+      ? projects.slice(0, 3)
+      : projects;
+
   return (
     <WhiteBackgroundFrame>
       <ProjectsHeaderList
@@ -51,7 +61,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
       )}
       {!isLoading && projects && projects.length > 0 && (
         <>
-          {projects.map((project) => (
+          {displayedProjects?.map((project) => (
             <ProjectCard
               key={project.id}
               project={project}
@@ -59,7 +69,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
               canEdit={canEdit}
             />
           ))}
-          {!showAll && (
+          {showButton && (
             <div className="my-4 flex justify-center">
               <button
                 className="text-mainBlue cursor-pointer text-sm font-bold sm:text-base"
