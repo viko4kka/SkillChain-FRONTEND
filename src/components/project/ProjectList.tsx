@@ -12,7 +12,7 @@ interface ProjectListProps {
   userId: number;
 }
 
-const DEFAULT_PER_PAGE = 4;
+const DEFAULT_PER_PAGE = 3;
 const SHOW_ALL_PER_PAGE = 50;
 
 const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
@@ -20,7 +20,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
   const canEdit = isAuthenticated && user?.id === userId;
 
   const [showAll, setShowAll] = useState(false);
-  const { projects, isLoading, refetch } = useProjectsByUserId(
+  const { data, isLoading, refetch } = useProjectsByUserId(
     userId,
     showAll ? SHOW_ALL_PER_PAGE : DEFAULT_PER_PAGE,
     1,
@@ -32,16 +32,6 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
   const handleProjectUpdated = () => {
     refetch();
   };
-
-    const showButton =
-    !showAll &&
-    projects &&
-    projects.length >= DEFAULT_PER_PAGE;
-
-  const displayedProjects =
-    showButton && projects
-      ? projects.slice(0, 3)
-      : projects;
 
   return (
     <WhiteBackgroundFrame>
@@ -56,12 +46,12 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
           <Spinner />
         </div>
       )}
-      {!isLoading && (!projects || projects.length === 0) && (
+      {!isLoading && (!data || data.itemsCount === 0) && (
         <div>No projects found.</div>
       )}
-      {!isLoading && projects && projects.length > 0 && (
+      {!isLoading && data && data.itemsCount > 0 && (
         <>
-          {displayedProjects?.map((project) => (
+          {data.projects?.map((project) => (
             <ProjectCard
               key={project.id}
               project={project}
@@ -69,7 +59,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
               canEdit={canEdit}
             />
           ))}
-          {showButton && (
+          {data.itemsCount > 3 && !showAll && (
             <div className="my-4 flex justify-center">
               <button
                 className="text-mainBlue cursor-pointer text-sm font-bold sm:text-base"
