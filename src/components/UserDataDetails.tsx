@@ -7,7 +7,6 @@ import useMe from "@/hooks/useMe";
 import { GoPencil } from "react-icons/go";
 import EditUserProfileForm from "./EditUserProfileForm";
 import { useAccount, useSignMessage } from "wagmi";
-import toast from "react-hot-toast";
 import { useSaveWallet } from "@/hooks/useSaveWallet";
 import { WalletAddressDisplay } from "./WalletAddressDisplay";
 
@@ -41,14 +40,6 @@ function UserDataDetails({
   const saveWallet = useSaveWallet();
   const savedAddress = me?.walletAddress ?? null;
   const userId = me?.id ?? null;
-
-  // const handleCopy = async () => {
-  //   if (savedAddress) {
-  //     await navigator.clipboard.writeText(savedAddress);
-  //     toast.dismiss("copy-toast");
-  //     toast.success("Copied!", { id: "copy-toast" });
-  //   }
-  // };
 
   useEffect(() => {
     const handleSaveWallet = async () => {
