@@ -149,7 +149,7 @@ function EditUserProfileForm({
 
         <div className="group flex w-full flex-col items-start">
           <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
-            Git URL
+            GitHub URL
           </label>
           <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
             <input
