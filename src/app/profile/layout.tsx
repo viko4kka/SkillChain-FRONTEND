@@ -1,3 +1,6 @@
+"use client";
+
+import WalletProvider from "@/app/providers/walletProvider";
 import { AuthGuard } from "@/guards/AuthGuard";
 
 export default function ProfileLayout({
@@ -5,5 +8,9 @@ export default function ProfileLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <AuthGuard>{children}</AuthGuard>;
+  return (
+    <AuthGuard>
+      <WalletProvider>{children}</WalletProvider>;
+    </AuthGuard>
+  );
 }
