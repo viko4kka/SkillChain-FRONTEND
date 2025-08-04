@@ -51,6 +51,7 @@ export default function UserFrameInProfilePage({
             job={job}
             gitUrl={gitUrl}
             imgUrl={imgUrl}
+            walletAddress={userDataById.walletAddress}
           />
         </div>
 

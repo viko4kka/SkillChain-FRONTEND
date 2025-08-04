@@ -9,6 +9,7 @@ import EditUserProfileForm from "./EditUserProfileForm";
 import { useAccount, useSignMessage } from "wagmi";
 import toast from "react-hot-toast";
 import { useSaveWallet } from "@/hooks/useSaveWallet";
+import { WalletAddressDisplay } from "./WalletAddressDisplay";
 
 interface UserDataDetailsProps {
   firstName: string;
@@ -19,6 +20,7 @@ interface UserDataDetailsProps {
   description?: string;
   id: number | undefined;
   imgUrl?: string;
+  walletAddress?: string;
 }
 
 function UserDataDetails({
@@ -30,6 +32,7 @@ function UserDataDetails({
   description,
   id,
   imgUrl,
+  walletAddress,
 }: UserDataDetailsProps) {
   const { address, isConnected } = useAccount();
   const { signMessageAsync } = useSignMessage();
@@ -39,13 +42,13 @@ function UserDataDetails({
   const savedAddress = me?.walletAddress ?? null;
   const userId = me?.id ?? null;
 
-  const handleCopy = async () => {
-    if (savedAddress) {
-      await navigator.clipboard.writeText(savedAddress);
-      toast.dismiss("copy-toast");
-      toast.success("Copied!", { id: "copy-toast" });
-    }
-  };
+  // const handleCopy = async () => {
+  //   if (savedAddress) {
+  //     await navigator.clipboard.writeText(savedAddress);
+  //     toast.dismiss("copy-toast");
+  //     toast.success("Copied!", { id: "copy-toast" });
+  //   }
+  // };
 
   useEffect(() => {
     const handleSaveWallet = async () => {
@@ -90,22 +93,22 @@ function UserDataDetails({
       <div className="mt-2 flex flex-row flex-wrap items-center justify-start gap-x-2 gap-y-2 sm:gap-x-4 lg:gap-x-6">
         <div className="relative max-w-full min-w-[90px]">
           {isOwnProfile ? (
-             savedAddress ? (
-            <span
-              className="inline-block max-w-full cursor-pointer rounded-lg border border-[#2563EB] bg-[#2563EB]/10 px-4 py-2 font-mono text-sm break-all text-[#2563EB] shadow transition duration-200 select-none hover:bg-[#2563EB] hover:text-white hover:shadow-lg sm:text-base md:px-5 md:py-2 md:text-lg"
-              onClick={handleCopy}
-            >
-              {savedAddress.slice(0, 5)}...{savedAddress.slice(-3)}
-            </span>
-          ) : (
-            <ConnectButton
-              label="Connect Wallet"
-              accountStatus={{ smallScreen: "avatar", largeScreen: "address" }}
-              chainStatus={{ smallScreen: "icon", largeScreen: "icon" }}
-              showBalance={{ smallScreen: false, largeScreen: false }}
-            />
-          )
-        ) : null}
+            savedAddress ? (
+              <WalletAddressDisplay walletAddress={savedAddress} />
+            ) : (
+              <ConnectButton
+                label="Connect Wallet"
+                accountStatus={{
+                  smallScreen: "avatar",
+                  largeScreen: "address",
+                }}
+                chainStatus={{ smallScreen: "icon", largeScreen: "icon" }}
+                showBalance={{ smallScreen: false, largeScreen: false }}
+              />
+            )
+          ) : walletAddress ? (
+            <WalletAddressDisplay walletAddress={walletAddress} />
+          ) : null}
         </div>
 
         <Modal
