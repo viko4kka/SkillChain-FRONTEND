@@ -46,16 +46,5 @@ export default function useUsers(
       getUsers(debouncedSearchQuery, skillId, languageId, locationId),
   });
 
-  console.log(
-    "params:",
-    debouncedSearchQuery,
-    "skillId:",
-    skillId,
-    "languageId:",
-    languageId,
-    "locationId:",
-    locationId,
-  );
-
   return { users, isLoading, error };
 }

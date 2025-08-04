@@ -9,10 +9,12 @@ interface UsersListProps {
 
 export default function UsersList({ users }: UsersListProps) {
   return (
-    <div>
+    <ul>
       {users?.map((user) => (
-        <UserCard key={user.id} user={user} />
+        <li key={user.id}>
+          <UserCard user={user} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
