@@ -1,10 +1,13 @@
-import Search from "@/components/Search";
+import SearchFrame from "@/components/SearchFrame";
+import WhiteBackgroundFrame from "@/components/WhiteBackgroundFrame";
 
 export default function Page() {
   return (
     <div className="flex h-screen flex-col items-center justify-start">
       <div className="mt-[40px] px-4">
-        <Search />
+        <WhiteBackgroundFrame>
+          <SearchFrame />
+        </WhiteBackgroundFrame>
       </div>
     </div>
   );

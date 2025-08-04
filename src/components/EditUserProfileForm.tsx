@@ -51,9 +51,15 @@ function EditUserProfileForm({
   }, [initialData, reset]);
 
   function onSubmit(data: User) {
-    if (!initialData) return;
+    if (!initialData) {
+      console.error("Initial data is not provided");
+      return;
+    }
 
-    if (!initialData.id) return;
+    if (!initialData.id) {
+      console.error("Initial data ID is missing");
+      return;
+    }
 
     try {
       editUserDataById({
