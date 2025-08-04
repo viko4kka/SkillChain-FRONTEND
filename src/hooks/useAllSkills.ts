@@ -13,8 +13,6 @@ export function useAllSkills() {
     queryKey: ["allSkills"],
     queryFn: async () => getAllSkillsApi(),
   });
-
-  
   return {
     allSkills,
     isLoading,

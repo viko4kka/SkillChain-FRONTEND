@@ -8,24 +8,21 @@ export async function getUsers(
   languageId: number | null,
   locationId: number | null,
 ): Promise<DisplayUser[]> {
-  let url = `${API_DOMAIN}/users?`;
+  const params = new URLSearchParams();
 
   if (searchQuery && searchQuery.trim() !== "") {
-    url += `search=${encodeURIComponent(searchQuery)}&`;
+    params.append("search", searchQuery);
   }
-
   if (skillId) {
-    url += `skillId=${skillId}&`;
+    params.append("skillId", skillId.toString());
   }
-
   if (languageId) {
-    url += `languageId=${languageId}&`;
+    params.append("languageId", languageId.toString());
   }
-
   if (locationId) {
-    url += `locationId=${locationId}`;
+    params.append("locationId", locationId.toString());
   }
-
+  const url = `${API_DOMAIN}/users?${params.toString()}`;
   const response = await fetch(url);
 
   if (!response.ok) {
