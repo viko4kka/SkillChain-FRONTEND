@@ -11,6 +11,7 @@ import WhiteBackgroundFrame from "./WhiteBackgroundFrame";
 
 export interface Confirmation {
   skillId: number;
+  approverId: number;
 }
 
 export interface User {
