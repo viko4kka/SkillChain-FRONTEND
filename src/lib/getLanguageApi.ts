@@ -85,3 +85,21 @@ export async function editLanguageById(
     return null;
   }
 }
+
+export async function deleteLanguageById(id: number): Promise<boolean> {
+  try {
+    const response = await fetch(`${API_DOMAIN}/languages/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Error while deleting project:", error);
+    return false;
+  }
+}

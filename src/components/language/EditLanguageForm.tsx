@@ -6,6 +6,7 @@ import { AddLanguageInput, EditLanguage } from "@/types";
 import Button from "../Button";
 import { FiX } from "react-icons/fi";
 import { useLanguageUpdateDataById } from "@/hooks/useLanguageUpdateDataById";
+import { useLanguageDelete } from "@/hooks/useLanguageDelete";
 
 interface UpdateLanguageInput {
   onCloseModal?: () => void;
@@ -18,6 +19,7 @@ interface UpdateLanguageInput {
 
 function EditLanguageForm({ onCloseModal, initialData }: UpdateLanguageInput) {
   const { editLanguageDataById, isLoading } = useLanguageUpdateDataById();
+  const { deleteLanguage, isLoading: isDeleting } = useLanguageDelete();
 
   const {
     register,
@@ -61,6 +63,17 @@ function EditLanguageForm({ onCloseModal, initialData }: UpdateLanguageInput) {
     );
   }
 
+  async function handleDeleteLanguage() {
+    if (!initialData?.id) {
+      console.error("Initial data ID is missing");
+      return;
+    }
+    const success = await deleteLanguage(initialData.id);
+    if (success) {
+      onCloseModal?.();
+    }
+  }
+
   return (
     <div className="flex h-full w-full flex-col px-4">
       <div className="mb-2 flex items-center justify-between">
@@ -94,23 +107,33 @@ function EditLanguageForm({ onCloseModal, initialData }: UpdateLanguageInput) {
             />
           </div>
         </div>
-        <div className="flex flex-row gap-x-2">
-          <Button
+        <div className="my-2 flex flex-row items-center justify-between gap-x-2">
+          <button
             type="button"
-            onClick={() => onCloseModal?.()}
-            variant="secondary"
-            size="md"
+            className="text-mainBlue text-sm font-semibold hover:underline"
+            disabled={isLoading || isDeleting}
+            onClick={handleDeleteLanguage}
           >
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            disabled={isLoading}
-            variant="primary"
-            size="md"
-          >
-            Save
-          </Button>
+            Delete language
+          </button>
+          <div className="flex flex-row gap-x-2">
+            <Button
+              type="button"
+              onClick={() => onCloseModal?.()}
+              variant="secondary"
+              size="md"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              disabled={isLoading}
+              variant="primary"
+              size="md"
+            >
+              Save
+            </Button>
+          </div>
         </div>
       </form>
     </div>
