@@ -4,6 +4,7 @@ import { FiX } from "react-icons/fi";
 import { AddLanguageInput } from "@/types";
 import SelectLanguage from "../SelectLanguage";
 import { useState } from "react";
+import { descriptionValidation } from "@/utils/languageValidation";
 
 type LanguageFormInputs = {
   id: number;
@@ -76,12 +77,17 @@ const AddLanguageModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
             </label>
             <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
               <textarea
-                {...register("description")}
+                {...register("description", descriptionValidation)}
                 placeholder="Enter description"
                 rows={4}
                 className="text-dark-text h-[50px] max-h-[120px] w-full resize-y bg-transparent p-2 text-sm focus:outline-none"
               />
             </div>
+            {errors.description && (
+              <span className="mt-1 text-xs text-red-500">
+                {errors.description.message}
+              </span>
+            )}
           </div>
           <div className="my-2 flex flex-row justify-end gap-x-2">
             <Button

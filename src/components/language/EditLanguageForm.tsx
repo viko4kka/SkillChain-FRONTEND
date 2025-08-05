@@ -7,6 +7,7 @@ import Button from "../Button";
 import { FiX } from "react-icons/fi";
 import { useLanguageUpdateDataById } from "@/hooks/useLanguageUpdateDataById";
 import { useLanguageDelete } from "@/hooks/useLanguageDelete";
+import { descriptionValidation } from "@/utils/languageValidation";
 
 interface UpdateLanguageInput {
   onCloseModal?: () => void;
@@ -101,11 +102,16 @@ function EditLanguageForm({ onCloseModal, initialData }: UpdateLanguageInput) {
           </label>
           <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
             <textarea
-              {...register("description")}
+              {...register("description", descriptionValidation)}
               className="text-dark-text h-[50px] max-h-[120px] w-full resize-y bg-transparent p-2 text-sm focus:outline-none"
               placeholder="Description"
             />
           </div>
+          {errors.description && (
+            <span className="mt-1 text-xs text-red-500">
+              {errors.description.message}
+            </span>
+          )}
         </div>
         <div className="my-2 flex flex-row items-center justify-between gap-x-2">
           <button
