@@ -9,6 +9,10 @@ import UserDataDetails from "./UserDataDetails";
 import Spinner from "./Spinner";
 import WhiteBackgroundFrame from "./WhiteBackgroundFrame";
 
+export interface Confirmation {
+  skillId: number;
+}
+
 export interface User {
   id: number;
   firstName: string;
@@ -20,6 +24,7 @@ export interface User {
   linkedinUrl?: string;
   linkedinId?: string;
   walletAddress?: string;
+  receivedConfirmations?: Confirmation[];
 }
 
 export default function UserFrameInProfilePage({
