@@ -21,13 +21,9 @@ type UserLocationType = {
 };
 
 export interface DisplayUser extends User {
-  userSkills: {
-    skill: UserSkillType;
-  }[];
+  userSkills: UserSkillType[];
   location: UserLocationType;
-  userLanguages: {
-    language: UserLanguageType;
-  }[];
+  userLanguages: UserLanguageType[];
 }
 
 export default function useUsers(
