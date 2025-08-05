@@ -5,6 +5,12 @@ import { useForm } from "react-hook-form";
 import { useUserUpdateDataById } from "@/hooks/useUserUpdateDataById";
 import { User } from "./UserFrameInProfilePage";
 import Button from "./Button";
+import {
+  jobValidation,
+  gitUrlValidation,
+  descriptionValidation,
+  linkedinLinkValidation,
+} from "@/utils/userProfileValidation";
 
 interface UpdateUserProfileInput {
   onCloseModal?: () => void;
@@ -26,7 +32,12 @@ function EditUserProfileForm({
   const { editUserDataById, isLoading: isUpdatingUserData } =
     useUserUpdateDataById();
 
-  const { register, handleSubmit, reset } = useForm<User>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<User>({
     defaultValues: {
       firstName: initialData?.firstName || "",
       lastName: initialData?.lastName || "",
@@ -79,7 +90,7 @@ function EditUserProfileForm({
   }
 
   return (
-    <div className="flex h-full w-full flex-col px-4">
+    <div className="flex h-[500px] w-full flex-col px-4">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="mt-4 flex flex-col gap-y-3"
@@ -91,10 +102,11 @@ function EditUserProfileForm({
           <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
             <input
               type="text"
-              disabled={isUpdatingUserData}
-              {...register("firstName", { required: "This field is required" })}
+              readOnly
+              title="You cannot edit this field"
+              {...register("firstName")}
               placeholder="Enter first name"
-              className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
+              className="text-dark-text w-full cursor-not-allowed bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
         </div>
@@ -106,10 +118,11 @@ function EditUserProfileForm({
           <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
             <input
               type="text"
-              disabled={isUpdatingUserData}
-              {...register("lastName", { required: "This field is required" })}
+              readOnly
+              title="You cannot edit this field"
+              {...register("lastName")}
               placeholder="Enter last name"
-              className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
+              className="text-dark-text w-full cursor-not-allowed bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
         </div>
@@ -122,26 +135,36 @@ function EditUserProfileForm({
             <input
               type="text"
               disabled={isUpdatingUserData}
-              {...register("job")}
+              {...register("job", jobValidation)}
               placeholder="Enter job"
               className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
+          {errors.job && (
+            <span className="mt-1 text-xs text-red-500">
+              {errors.job.message}
+            </span>
+          )}
         </div>
 
         <div className="group flex w-full flex-col items-start">
           <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
-            Git URL
+            GitHub URL
           </label>
           <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
             <input
               type="text"
               disabled={isUpdatingUserData}
-              {...register("gitUrl")}
+              {...register("gitUrl", gitUrlValidation)}
               placeholder="Enter git url"
               className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
+          {errors.gitUrl && (
+            <span className="mt-1 text-xs text-red-500">
+              {errors.gitUrl.message}
+            </span>
+          )}
         </div>
 
         <div className="group flex w-full flex-col items-start">
@@ -152,11 +175,16 @@ function EditUserProfileForm({
             <input
               type="text"
               disabled={isUpdatingUserData}
-              {...register("linkedinUrl")}
+              {...register("linkedinUrl", linkedinLinkValidation)}
               placeholder="Enter linkedin url"
               className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
+          {errors.linkedinUrl && (
+            <span className="mt-1 text-xs text-red-500">
+              {errors.linkedinUrl.message}
+            </span>
+          )}
         </div>
 
         <div className="group flex w-full flex-col items-start">
@@ -166,12 +194,17 @@ function EditUserProfileForm({
           <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
             <textarea
               disabled={isUpdatingUserData}
-              {...register("description")}
+              {...register("description", descriptionValidation)}
               placeholder="Enter description"
               rows={4}
               className="text-dark-text h-[50px] max-h-[120px] w-full resize-y bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
+          {errors.description && (
+            <span className="mt-1 text-xs text-red-500">
+              {errors.description.message}
+            </span>
+          )}
         </div>
 
         <div className="my-2 flex flex-row justify-end gap-x-2">

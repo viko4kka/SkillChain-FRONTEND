@@ -37,7 +37,7 @@ export default function UserFrameInProfilePage({
     );
   }
 
-  const { firstName, lastName, job, gitUrl, linkedinUrl, description, imgUrl } =
+  const { firstName, lastName, job, gitUrl, linkedinUrl, description, imgUrl, walletAddress } =
     userDataById;
 
   return (
@@ -51,7 +51,9 @@ export default function UserFrameInProfilePage({
             job={job}
             gitUrl={gitUrl}
             imgUrl={imgUrl}
-            walletAddress={userDataById.walletAddress}
+            walletAddress={walletAddress}
+            description={description}
+            linkedinUrl={linkedinUrl}
           />
         </div>
 

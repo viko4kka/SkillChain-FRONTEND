@@ -2,12 +2,27 @@
 const API_DOMAIN = process.env.NEXT_PUBLIC_API_DOMAIN;
 
 import { AddProject, Project } from "@/types";
+interface ProjectsResponse {
+  data: Project[];
+  maxPage: number;
+  page: number;
+  perPage: number;
+  itemsCount: number;
+}
+
+interface PaginatedProjects {
+  projects: Project[];
+  maxPage: number;
+  page: number;
+  perPage: number;
+  itemsCount: number;
+}
 
 export async function getProjectsByUserId(
   userId: number,
   perPage: number,
   page: number,
-): Promise<Project[]> {
+): Promise<PaginatedProjects> {
   try {
     const response = await fetch(
       `${API_DOMAIN}/projects/user/${userId}?perPage=${perPage}&page=${page}`,
@@ -15,11 +30,23 @@ export async function getProjectsByUserId(
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-    const data = await response.json();
-    return data.data;
+    const data = (await response.json()) as ProjectsResponse;
+    return {
+      projects: data.data,
+      maxPage: data.maxPage,
+      page: data.page,
+      perPage: data.perPage,
+      itemsCount: data.itemsCount,
+    };
   } catch (error) {
     console.error(error);
-    return [];
+    return {
+      projects: [],
+      maxPage: 0,
+      page: 0,
+      perPage: 0,
+      itemsCount: 0,
+    };
   }
 }
 
