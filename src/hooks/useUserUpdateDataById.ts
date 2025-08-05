@@ -15,7 +15,6 @@ export function useUserUpdateDataById() {
         linkedinUrl?: string;
       };
     }) => {
-   
       const result = await editUserDataByIdApi(editUserData);
       return result;
     },
