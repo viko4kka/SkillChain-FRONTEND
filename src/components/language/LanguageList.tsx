@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import WhiteBackgroundFrame from "../WhiteBackgroundFrame";
 import Spinner from "../Spinner";
 import { useStore } from "@/stores/useStore";
@@ -27,6 +27,7 @@ const LanguageList: React.FC<LanguageListProps> = ({ userId }) => {
         AddLanguageProps={{
           onProjectAdded: handleLanguageUpdated,
         }}
+        canEdit={canEdit}
       />
       {isLoading && (
         <div className="flex h-[300px] w-full items-center justify-center">
@@ -43,6 +44,7 @@ const LanguageList: React.FC<LanguageListProps> = ({ userId }) => {
               key={language.id}
               language={language}
               onLanguageUpdated={handleLanguageUpdated}
+              canEdit={canEdit}
             />
           ))}
         </>

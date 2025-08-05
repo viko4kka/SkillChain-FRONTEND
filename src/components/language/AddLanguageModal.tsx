@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import Button from "../Button";
 import { FiX } from "react-icons/fi";
-import { AddLanguageInput } from "@/types";
 import SelectLanguage from "../SelectLanguage";
 import { useState } from "react";
 import { descriptionValidation } from "@/utils/languageValidation";

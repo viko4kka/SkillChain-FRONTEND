@@ -6,11 +6,13 @@ import EditLanguageForm from "./EditLanguageForm";
 interface LanguageCardProps {
   language: Language;
   onLanguageUpdated?: () => void;
+  canEdit: boolean;
 }
 
 const LanguageCard: React.FC<LanguageCardProps> = ({
   language,
   onLanguageUpdated,
+  canEdit,
 }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
 
@@ -24,10 +26,12 @@ const LanguageCard: React.FC<LanguageCardProps> = ({
     <div className=":px-15 w-full border-b border-gray-200 px-4 py-5 sm:px-10 lg:px-15">
       <div className="flex items-center gap-2">
         <h2 className="text-dark-text font-semibold">{language.name}</h2>
-        <FiEdit2
-          className="cursor-pointer text-blue-600"
-          onClick={handleEditClick}
-        />
+        {canEdit && (
+          <FiEdit2
+            className="cursor-pointer text-blue-600"
+            onClick={handleEditClick}
+          />
+        )}
       </div>
       <p className="text-dark-text mt-1 text-sm">{language.description}</p>
       {isEditOpen && (
