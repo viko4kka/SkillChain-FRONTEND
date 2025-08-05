@@ -1,3 +1,4 @@
+import Select from "@/components/Select";
 import UserFrameInProfilePage from "@/components/UserFrameInProfilePage";
 import LanguageList from "@/components/language/LanguageList";
 import ProjectList from "@/components/project/ProjectList";
@@ -19,6 +20,7 @@ export default async function Page({
       <ProjectList userId={userId} />
       <br />
       <LanguageList userId={userId} />
+      <Select />
     </div>
   );
 }

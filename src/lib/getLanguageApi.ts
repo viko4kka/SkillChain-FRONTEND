@@ -14,7 +14,7 @@ export async function getAllLanguagesApi() {
   }
 
   const data = await response.json();
-  return data;
+  return data.data;
 }
 
 export async function getLanguagesByUserId(

@@ -24,3 +24,8 @@ export interface AddLanguageInput {
   id: number;
   description: string | null;
 }
+
+export interface LanguageList {
+  id: number;
+  name: string;
+}
