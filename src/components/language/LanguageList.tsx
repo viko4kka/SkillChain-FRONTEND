@@ -39,7 +39,11 @@ const LanguageList: React.FC<LanguageListProps> = ({ userId }) => {
       {!isLoading && languages && languages.length > 0 && (
         <>
           {languages.map((language) => (
-            <LanguageCard key={language.id} language={language} />
+            <LanguageCard
+              key={language.id}
+              language={language}
+              onLanguageUpdated={handleLanguageUpdated}
+            />
           ))}
         </>
       )}

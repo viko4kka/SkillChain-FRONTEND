@@ -1,6 +1,6 @@
 "use client";
 
-import { AddLanguageInput, Language } from "@/types";
+import { AddLanguageInput, EditLanguage, Language } from "@/types";
 
 const API_DOMAIN = process.env.NEXT_PUBLIC_API_DOMAIN;
 
@@ -56,6 +56,32 @@ export async function postLanguage(
     return data;
   } catch (error) {
     console.error("Error while adding language:", error);
+    return null;
+  }
+}
+
+export async function editLanguageById(
+  id: number,
+  updatedData: Partial<EditLanguage>,
+): Promise<Language | null> {
+  try {
+    const response = await fetch(`${API_DOMAIN}/languages/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedData),
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error while editing language:", error);
     return null;
   }
 }

@@ -29,3 +29,7 @@ export interface LanguageList {
   id: number;
   name: string;
 }
+
+export interface EditLanguage {
+  description: string | null;
+}
