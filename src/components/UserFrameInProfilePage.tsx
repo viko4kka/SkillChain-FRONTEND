@@ -51,6 +51,8 @@ export default function UserFrameInProfilePage({
             job={job}
             gitUrl={gitUrl}
             imgUrl={imgUrl}
+            description={description}
+            linkedinUrl={linkedinUrl}
           />
         </div>
 
