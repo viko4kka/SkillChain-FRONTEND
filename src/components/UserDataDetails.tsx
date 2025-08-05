@@ -6,6 +6,7 @@ import Modal from "./Modal";
 import useMe from "@/hooks/useMe";
 import { GoPencil } from "react-icons/go";
 import EditUserProfileForm from "./EditUserProfileForm";
+import { useStore } from "@/stores/useStore";
 import { useAccount, useSignMessage } from "wagmi";
 import toast from "react-hot-toast";
 import { useSaveWallet } from "@/hooks/useSaveWallet";
@@ -31,6 +32,8 @@ function UserDataDetails({
   id,
   imgUrl,
 }: UserDataDetailsProps) {
+  const { isAuthenticated, user } = useStore();
+  const canEdit = isAuthenticated && user?.id === id;
   const { address, isConnected } = useAccount();
   const { signMessageAsync } = useSignMessage();
   const { me } = useMe();
@@ -107,30 +110,31 @@ function UserDataDetails({
           )
         ) : null}
         </div>
-
-        <Modal
-          title="Edit your Profile"
-          button={
-            <button>
-              <GoPencil className="text-mainBlue text-lg sm:text-xl lg:text-2xl" />
-            </button>
-          }
-        >
-          {({ closeModal }) => (
-            <EditUserProfileForm
-              onCloseModal={closeModal}
-              initialData={{
-                id: id,
-                firstName,
-                lastName,
-                job: job || "",
-                gitUrl: gitUrl || "",
-                linkedinUrl: linkedinUrl || "",
-                description: description || "",
-              }}
-            />
-          )}
-        </Modal>
+        {canEdit && (
+          <Modal
+            title="Edit your Profile"
+            button={
+              <button>
+                <GoPencil className="text-mainBlue text-lg sm:text-xl lg:text-2xl" />
+              </button>
+            }
+          >
+            {({ closeModal }) => (
+              <EditUserProfileForm
+                onCloseModal={closeModal}
+                initialData={{
+                  id: id,
+                  firstName,
+                  lastName,
+                  job: job || "",
+                  gitUrl: gitUrl || "",
+                  linkedinUrl: linkedinUrl || "",
+                  description: description || "",
+                }}
+              />
+            )}
+          </Modal>
+        )}
       </div>
     </>
   );
