@@ -2,10 +2,12 @@
 
 import useMe from "@/hooks/useMe";
 import useUserById from "@/hooks/useUserById";
-import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useWriteContract, useAccount, useConnect } from "wagmi";
 import { abi } from "../abi/abi";
 import Button from "./Button";
 import toast from "react-hot-toast";
+import { injected } from "wagmi/connectors";
+import { config } from "@/wagmiConfig";
 
 export default function ApproveButton({
   id,
@@ -14,11 +16,13 @@ export default function ApproveButton({
   id: number;
   skillId: number;
 }) {
+  const { isConnected } = useAccount();
+  const { connectAsync } = useConnect({ config });
   const { writeContractAsync } = useWriteContract();
   const { me } = useMe();
   const { userDataById, isLoading } = useUserById(id);
-  const myWalletAddress = me?.walletAddress;
 
+  const myWalletAddress = me?.walletAddress;
   const alreadyConfirmed = userDataById?.receivedConfirmations?.some(
     (confirmation: { skillId: number }) => confirmation.skillId === skillId,
   );
@@ -35,25 +39,32 @@ export default function ApproveButton({
 
   const handleApprove = async () => {
     try {
+      if (!isConnected) {
+        await connectAsync({ connector: injected() });
+      }
       const hash = await writeContractAsync({
-        abi: abi,
-        address: process.env.CONTRACT_ADDRESS as `0x${string}`,
+        abi,
+        address: "0x39D31d1Fa395c1Ce96454B4F93011a7656824692",
         functionName: "mintSkill",
-        args: [userDataById.walletAddress, skillId],
+        args: [userDataById.walletAddress, 6],
       });
       await fetch("/api/skills/confirmation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          skillId,
+        body: JSON.stringify({
+          skillId: 6,
           receiverWallet: userDataById.walletAddress,
-          txnHash: hash
+          txnHash: hash,
         }),
       });
-    } catch {
+      toast.success("Skill approved!");
+    } catch (error) {
+      console.error("Error approving skill:", error);
       toast.error("Failed to approve skill");
     }
-
-    return <Button onClick={handleApprove}>Approve</Button>;
   };
+
+  return (
+    <Button onClick={handleApprove}>Approve</Button>
+  );
 }
