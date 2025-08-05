@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import EditLanguageForm from "./EditLanguageForm";
 
-
 interface LanguageCardProps {
   language: Language;
   onLanguageUpdated?: () => void;
@@ -24,14 +23,13 @@ const LanguageCard: React.FC<LanguageCardProps> = ({
   return (
     <div className=":px-15 w-full border-b border-gray-200 px-4 py-5 sm:px-10 lg:px-15">
       <div className="flex items-center gap-2">
-        <h2 className="text-dark-text font-semibold">
-          {language.name} - {language.description}
-        </h2>
+        <h2 className="text-dark-text font-semibold">{language.name}</h2>
         <FiEdit2
           className="cursor-pointer text-blue-600"
           onClick={handleEditClick}
         />
       </div>
+      <p className="text-dark-text mt-1 text-sm">{language.description}</p>
       {isEditOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 sm:px-6">
           <div className="relative w-full max-w-md rounded-xl bg-white p-6 shadow-xl">

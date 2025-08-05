@@ -2,8 +2,7 @@
 
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useProjectUpdateDataById } from "@/hooks/useProjectUpdateDataById";
-import { AddLanguageInput, AddProject, EditLanguage } from "@/types";
+import { AddLanguageInput, EditLanguage } from "@/types";
 import Button from "../Button";
 import { FiX } from "react-icons/fi";
 import { useLanguageUpdateDataById } from "@/hooks/useLanguageUpdateDataById";
@@ -83,11 +82,18 @@ function EditLanguageForm({ onCloseModal, initialData }: UpdateLanguageInput) {
         onSubmit={handleSubmit(onSubmit)}
         className="mt-4 flex flex-col gap-y-3"
       >
-        <textarea
-          {...register("description", { required: "Description is required" })}
-          className={`textarea ${errors.description ? "textarea-error" : ""}`}
-          placeholder="Description"
-        />
+        <div className="group flex w-full flex-col items-start">
+          <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
+            Description
+          </label>
+          <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
+            <textarea
+              {...register("description")}
+              className="text-dark-text h-[50px] max-h-[120px] w-full resize-y bg-transparent p-2 text-sm focus:outline-none"
+              placeholder="Description"
+            />
+          </div>
+        </div>
         <div className="flex flex-row gap-x-2">
           <Button
             type="button"
