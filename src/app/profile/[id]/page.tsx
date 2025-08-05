@@ -1,4 +1,5 @@
 import UserFrameInProfilePage from "@/components/UserFrameInProfilePage";
+import LanguageList from "@/components/language/LanguageList";
 import ProjectList from "@/components/project/ProjectList";
 
 export default async function Page({
@@ -16,6 +17,8 @@ export default async function Page({
       </div>
       <br />
       <ProjectList userId={userId} />
+      <br />
+      <LanguageList userId={userId} />
     </div>
   );
 }
