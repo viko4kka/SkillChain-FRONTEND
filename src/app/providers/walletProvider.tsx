@@ -10,19 +10,6 @@ import { useEffect } from "react";
 
 const queryClient = new QueryClient();
 
-function WalletAutoDisconnect() {
-  const { disconnect } = useDisconnect();
-  const { me, isLoading } = useMe();
-
-  useEffect(() => {
-    if (!isLoading && !me) {
-      disconnect();
-    }
-  }, [me, isLoading, disconnect]);
-
-  return null;
-}
-
 export default function WalletProvider({
   children,
 }: {
@@ -39,7 +26,6 @@ export default function WalletProvider({
             fontStack: "system",
           })}
         >
-          <WalletAutoDisconnect />
           {children}
         </RainbowKitProvider>
       </QueryClientProvider>

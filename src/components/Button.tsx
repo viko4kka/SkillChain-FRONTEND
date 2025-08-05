@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const button = cva(
-  "flex flex-row items-center justify-center rounded-lg transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 whitespace-normal text-center",
+  "flex flex-row items-center justify-center rounded-sm transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 whitespace-normal text-center",
   {
     variants: {
       variant: {

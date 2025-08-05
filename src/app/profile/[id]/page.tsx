@@ -1,3 +1,4 @@
+import ApproveButton from "@/components/ApproveButton";
 import UserFrameInProfilePage from "@/components/UserFrameInProfilePage";
 import ProjectList from "@/components/project/ProjectList";
 
@@ -16,6 +17,9 @@ export default async function Page({
       </div>
       <br />
       <ProjectList userId={userId} />
+      <div className="mt-10">
+        <ApproveButton id={userId} skillId={6} />
+      </div>
     </div>
   );
 }
