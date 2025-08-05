@@ -14,8 +14,6 @@ export function useAllLocations() {
     queryFn: () => getAllLocationsApi(),
   });
 
-
-
   return {
     allLocations,
     isLoading,
