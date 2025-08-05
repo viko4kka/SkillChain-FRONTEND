@@ -5,8 +5,8 @@ import WhiteBackgroundFrame from "../WhiteBackgroundFrame";
 import Spinner from "../Spinner";
 import { useStore } from "@/stores/useStore";
 import LanguageCard from "./LanguageCard";
-import LanguagesHeaderList from "./LanguageHeaderList";
 import useLanguagesByUserId from "@/hooks/useLanguageByUserId";
+import LanguagesListHeader from "./LanguagesListHeader";
 
 interface LanguageListProps {
   userId: number;
@@ -23,9 +23,9 @@ const LanguageList: React.FC<LanguageListProps> = ({ userId }) => {
   };
   return (
     <WhiteBackgroundFrame>
-      <LanguagesHeaderList
-        AddLanguageProps={{
-          onProjectAdded: handleLanguageUpdated,
+      <LanguagesListHeader
+        addLanguageProps={{
+          onLanguageAdded: handleLanguageUpdated,
         }}
         canEdit={canEdit}
       />

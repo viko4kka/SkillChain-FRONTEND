@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import useAllLanguages from "@/hooks/useAllLanguages";
+import { FiChevronDown } from "react-icons/fi";
 
 interface SelectLanguageProps {
   onSelect?: (id: number) => void;
@@ -13,9 +14,7 @@ export default function SelectLanguage({ onSelect }: SelectLanguageProps) {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const id = parseInt(event.target.value);
     setSelectedId(id);
-    if (onSelect) {
-      onSelect(id);
-    }
+    onSelect?.(id);
   };
 
   return (
@@ -42,19 +41,7 @@ export default function SelectLanguage({ onSelect }: SelectLanguageProps) {
         </select>
 
         <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-          <svg
-            className="h-4 w-4 text-gray-500"
-            fill="none"
-            viewBox="0 0 20 20"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M6 8l4 4 4-4"
-            />
-          </svg>
+          <FiChevronDown className="h-4 w-4 text-gray-500" />
         </div>
       </div>
     </div>

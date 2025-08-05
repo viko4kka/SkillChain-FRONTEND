@@ -26,7 +26,7 @@ export default function AddLanguage({
       <button
         onClick={() => setIsModalOpen(true)}
         className="cursor-pointer border-none bg-transparent p-0"
-        aria-label="Dodaj projekt"
+        aria-label="Add language"
       >
         <FiPlus className="text-mainBlue text-lg sm:text-xl lg:text-2xl" />
       </button>

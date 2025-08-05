@@ -1,10 +1,10 @@
 import AddLanguage from "./AddLanguage";
 
-export default function LanguageHeaderList({
-  AddLanguageProps,
+export default function LanguagesListHeader({
+  addLanguageProps,
   canEdit,
 }: {
-  AddLanguageProps?: any;
+  addLanguageProps?: any;
   canEdit?: boolean;
 }) {
   return (
@@ -12,7 +12,7 @@ export default function LanguageHeaderList({
       <h1 className="text-dark-text text-xl font-bold sm:text-2xl lg:text-3xl">
         Languages
       </h1>
-      <div>{canEdit && <AddLanguage {...AddLanguageProps} />}</div>
+      <div>{canEdit && <AddLanguage {...addLanguageProps} />}</div>
     </div>
   );
 }

@@ -19,7 +19,7 @@ const LanguageCard: React.FC<LanguageCardProps> = ({
   const handleEditClick = () => setIsEditOpen(true);
   const handleCloseModal = () => {
     setIsEditOpen(false);
-    if (onLanguageUpdated) onLanguageUpdated();
+    onLanguageUpdated?.();
   };
 
   return (
