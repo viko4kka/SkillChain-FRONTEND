@@ -66,9 +66,6 @@ const AddLanguageModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
           className="mt-4 flex flex-col gap-y-3"
         >
           <div className="group flex w-full flex-col items-start">
-            <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
-              Language name
-            </label>
             <SelectLanguage
               onSelect={(id) => setSelectedLanguageId(Number(id))}
             />
