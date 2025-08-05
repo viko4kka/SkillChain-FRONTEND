@@ -1,10 +1,13 @@
 import { useForm } from "react-hook-form";
 import Button from "../Button";
 import { FiX } from "react-icons/fi";
-import { Language } from "@/types";
+import { AddLanguageInput } from "@/types";
+import SelectLanguage from "../SelectLanguage";
+import { useState } from "react";
 
 type LanguageFormInputs = {
-  language: Language;
+  id: number;
+  description: string | null;
 };
 
 type Props = {
@@ -21,20 +24,24 @@ const AddLanguageModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
     formState: { errors },
   } = useForm<LanguageFormInputs>({
     defaultValues: {
-      language: {
-        id: 0,
-        description: null,
-      },
+      id: 0,
+      description: null,
     },
   });
+  const [selectedLanguageId, setSelectedLanguageId] = useState<number | null>(
+    null,
+  );
 
   if (!isOpen) return null;
 
   const handleFormSubmit = (data: LanguageFormInputs) => {
+    if (!selectedLanguageId) return;
     onSubmit({
-      ...data,
+      id: selectedLanguageId,
+      description: data.description,
     });
     reset();
+    setSelectedLanguageId(null);
   };
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 sm:px-6">
@@ -62,6 +69,35 @@ const AddLanguageModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
             <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
               Language name
             </label>
+            <SelectLanguage
+              onSelect={(id) => setSelectedLanguageId(Number(id))}
+            />
+          </div>
+          <div className="group flex w-full flex-col items-start">
+            <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
+              Description
+            </label>
+            <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
+              <textarea
+                {...register("description")}
+                placeholder="Enter description"
+                rows={4}
+                className="text-dark-text h-[50px] max-h-[120px] w-full resize-y bg-transparent p-2 text-sm focus:outline-none"
+              />
+            </div>
+          </div>
+          <div className="my-2 flex flex-row justify-end gap-x-2">
+            <Button
+              type="button"
+              onClick={onClose}
+              variant="secondary"
+              size="md"
+            >
+              Cancel
+            </Button>
+            <Button type="submit" variant="primary" size="md">
+              Add
+            </Button>
           </div>
         </form>
       </div>

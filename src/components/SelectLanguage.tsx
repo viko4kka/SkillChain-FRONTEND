@@ -1,9 +1,22 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import useAllLanguages from "@/hooks/useAllLanguages";
 
-export default function Select() {
+interface SelectLanguageProps {
+  onSelect?: (id: number) => void;
+}
+
+export default function SelectLanguage({ onSelect }: SelectLanguageProps) {
   const { languages, isLoading } = useAllLanguages();
+  const [selectedId, setSelectedId] = useState(0);
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const id = parseInt(event.target.value);
+    setSelectedId(id);
+    if (onSelect) {
+      onSelect(id);
+    }
+  };
 
   return (
     <div className="flex w-full flex-col items-start gap-y-2 md:justify-between">
@@ -11,7 +24,8 @@ export default function Select() {
       <div className="relative w-full">
         <select
           className="w-full appearance-none rounded-md border border-gray-300 bg-white px-4 py-2 pr-10 text-sm text-gray-500 focus:border-gray-400 focus:outline-none"
-          defaultValue=""
+          value={selectedId}
+          onChange={handleChange}
         >
           <option value="">All languages</option>
           {isLoading ? (
