@@ -4,8 +4,9 @@ import useDebounce from "@/hooks/useDebounce";
 import useUsers from "@/hooks/useUsers";
 import { useState } from "react";
 import SearchFrame from "./SearchFrame";
-import Spinner from "./Spinner";
 import WhiteBackgroundFrame from "./WhiteBackgroundFrame";
+import UsersList from "./UsersList";
+import Spinner from "./Spinner";
 
 export default function Search() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -47,12 +48,7 @@ export default function Search() {
             </div>
           )}
           {error && <div>Error loading users: {error.message}</div>}
-          {/* #TODO  https://trello.com/c/ilLYxSPN/22-fe-add-users-list */}
-          {users && users.length > 0 && (
-            <span className="text-gray-600">
-              Found {users.length} user{users.length > 1 ? "s" : ""}:
-            </span>
-          )}
+          {users && <UsersList users={users} />}
         </div>
       </div>
     </div>
