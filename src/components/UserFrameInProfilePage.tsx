@@ -32,7 +32,7 @@ export default function UserFrameInProfilePage({
   if (isLoading || !userDataById) {
     return (
       <div className="flex h-[300px] w-full items-center justify-center">
-        <Spinner />
+        { <Spinner /> }
       </div>
     );
   }
