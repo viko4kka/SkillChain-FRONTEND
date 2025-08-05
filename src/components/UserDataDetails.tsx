@@ -59,7 +59,7 @@ function UserDataDetails({
       }
     };
     handleSaveWallet();
-  }, [isConnected, address, userId, savedAddress]);
+  }, [isConnected, address, userId, savedAddress, signMessageAsync, saveWallet]);
 
   return (
     <>
