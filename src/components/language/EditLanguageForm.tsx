@@ -98,6 +98,22 @@ function EditLanguageForm({ onCloseModal, initialData }: UpdateLanguageInput) {
       >
         <div className="group flex w-full flex-col items-start">
           <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
+            Language
+          </label>
+          <div className="relative w-full">
+            <select
+              className="w-full cursor-not-allowed appearance-none rounded-md border border-gray-300 bg-white px-4 py-2 pr-10 text-sm text-gray-500 focus:border-gray-400 focus:outline-none"
+              value={initialData?.id ?? ""}
+              disabled
+            >
+              <option value={initialData?.id ?? ""}>
+                {initialData?.name ?? "Language name"}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div className="group flex w-full flex-col items-start">
+          <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
             Description
           </label>
           <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
