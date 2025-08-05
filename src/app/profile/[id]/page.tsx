@@ -20,7 +20,6 @@ export default async function Page({
       <ProjectList userId={userId} />
       <br />
       <LanguageList userId={userId} />
-      <Select />
     </div>
   );
 }
