@@ -18,7 +18,7 @@ export default async function Page({
       <br />
       <ProjectList userId={userId} />
       <div className="mt-10">
-        <ApproveButton id={userId} skillId={2} />
+        <ApproveButton id={userId} skillId={4} />
       </div>
     </div>
   );
