@@ -5,12 +5,12 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 import useMe from "@/hooks/useMe";
 import { GoPencil } from "react-icons/go";
-
-import { useAccount, useSignMessage } from "wagmi";
-import toast from "react-hot-toast";
-import { useSaveWallet } from "@/hooks/useSaveWallet";
 import EditUserProfileForm from "./EditUserProfileForm";
+import { useStore } from "@/stores/useStore";
+import { useAccount, useSignMessage } from "wagmi";
+import { useSaveWallet } from "@/hooks/useSaveWallet";
 import Modal from "../Modal";
+import { WalletAddressDisplay } from "../WalletAddressDisplay";
 
 interface UserDataDetailsProps {
   firstName: string;
@@ -21,6 +21,7 @@ interface UserDataDetailsProps {
   description?: string;
   id: number | undefined;
   imgUrl?: string;
+  walletAddress?: string;
 }
 
 function UserDataDetails({
@@ -32,7 +33,10 @@ function UserDataDetails({
   description,
   id,
   imgUrl,
+  walletAddress,
 }: UserDataDetailsProps) {
+  const { isAuthenticated, user } = useStore();
+  const canEdit = isAuthenticated && user?.id === id;
   const { address, isConnected } = useAccount();
   const { signMessageAsync } = useSignMessage();
   const { me } = useMe();
@@ -40,14 +44,6 @@ function UserDataDetails({
   const saveWallet = useSaveWallet();
   const savedAddress = me?.walletAddress ?? null;
   const userId = me?.id ?? null;
-
-  const handleCopy = async () => {
-    if (savedAddress) {
-      await navigator.clipboard.writeText(savedAddress);
-      toast.dismiss("copy-toast");
-      toast.success("Copied!", { id: "copy-toast" });
-    }
-  };
 
   useEffect(() => {
     const handleSaveWallet = async () => {
@@ -100,12 +96,7 @@ function UserDataDetails({
         <div className="relative max-w-full min-w-[90px]">
           {isOwnProfile ? (
             savedAddress ? (
-              <span
-                className="inline-block max-w-full cursor-pointer rounded-lg border border-[#2563EB] bg-[#2563EB]/10 px-4 py-2 font-mono text-sm break-all text-[#2563EB] shadow transition duration-200 select-none hover:bg-[#2563EB] hover:text-white hover:shadow-lg sm:text-base md:px-5 md:py-2 md:text-lg"
-                onClick={handleCopy}
-              >
-                {savedAddress.slice(0, 5)}...{savedAddress.slice(-3)}
-              </span>
+              <WalletAddressDisplay walletAddress={savedAddress} />
             ) : (
               <ConnectButton
                 label="Connect Wallet"
@@ -117,32 +108,35 @@ function UserDataDetails({
                 showBalance={{ smallScreen: false, largeScreen: false }}
               />
             )
+          ) : walletAddress ? (
+            <WalletAddressDisplay walletAddress={walletAddress} />
           ) : null}
         </div>
-
-        <Modal
-          title="Edit your Profile"
-          button={
-            <button>
-              <GoPencil className="text-mainBlue text-lg sm:text-xl lg:text-2xl" />
-            </button>
-          }
-        >
-          {({ closeModal }) => (
-            <EditUserProfileForm
-              onCloseModal={closeModal}
-              initialData={{
-                id: id,
-                firstName,
-                lastName,
-                job: job || "",
-                gitUrl: gitUrl || "",
-                linkedinUrl: linkedinUrl || "",
-                description: description || "",
-              }}
-            />
-          )}
-        </Modal>
+        {canEdit && (
+          <Modal
+            title="Edit your Profile"
+            button={
+              <button>
+                <GoPencil className="text-mainBlue text-lg sm:text-xl lg:text-2xl" />
+              </button>
+            }
+          >
+            {({ closeModal }) => (
+              <EditUserProfileForm
+                onCloseModal={closeModal}
+                initialData={{
+                  id: id,
+                  firstName,
+                  lastName,
+                  job: job || "",
+                  gitUrl: gitUrl || "",
+                  linkedinUrl: linkedinUrl || "",
+                  description: description || "",
+                }}
+              />
+            )}
+          </Modal>
+        )}
       </div>
     </>
   );

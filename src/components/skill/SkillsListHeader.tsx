@@ -1,18 +1,18 @@
-import AddProject from "./AddProject";
+import AddSkill from "./AddSkill";
 
-export default function ProjectsHeaderList({
-  AddProjectProps,
+export default function SkillsListHeader({
+  addSkillProps,
   canEdit,
 }: {
-  AddProjectProps?: any;
-  canEdit: boolean;
+  addSkillProps?: any;
+  canEdit?: boolean;
 }) {
   return (
     <div className="flex w-full items-center justify-between px-4 pt-4 sm:px-10 sm:pt-8 lg:px-15 lg:pt-13">
       <h1 className="text-dark-text text-xl font-bold sm:text-2xl lg:text-3xl">
-        Projects
+        Skills
       </h1>
-      <div>{canEdit && <AddProject {...AddProjectProps} />}</div>
+      <div>{canEdit && <AddSkill {...addSkillProps} />}</div>
     </div>
   );
 }

@@ -7,11 +7,13 @@ import { BiLinkExternal } from "react-icons/bi";
 interface ProjectCardProps {
   project: Project;
   onProjectUpdated?: () => void;
+  canEdit: boolean;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
   project,
   onProjectUpdated,
+  canEdit,
 }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
 
@@ -21,15 +23,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     setIsEditOpen(false);
     if (onProjectUpdated) onProjectUpdated();
   };
-
   return (
     <div className=":px-15 w-full border-b border-gray-200 px-4 py-5 sm:px-10 lg:px-15">
       <div className="flex items-center gap-2">
         <h2 className="text-dark-text font-semibold">{project.projectName}</h2>
-        <FiEdit2
-          className="cursor-pointer text-blue-600"
-          onClick={handleEditClick}
-        />
+        {canEdit && (
+          <FiEdit2
+            className="cursor-pointer text-blue-600"
+            onClick={handleEditClick}
+          />
+        )}
       </div>
       <p className="text-dark-text mt-1 text-sm">{project.description}</p>
       <div className="mt-2 flex flex-row text-sm text-blue-600">
