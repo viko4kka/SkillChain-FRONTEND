@@ -1,5 +1,6 @@
 import UserFrameInProfilePage from "@/components/UserFrameInProfilePage";
 import ProjectList from "@/components/project/ProjectList";
+import SkillList from "@/components/skill/SkillList";
 
 export default async function Page({
   params,
@@ -16,6 +17,8 @@ export default async function Page({
       </div>
       <br />
       <ProjectList userId={userId} />
+      <br />
+      <SkillList userId={userId} />
     </div>
   );
 }
