@@ -22,6 +22,8 @@ interface UpdateProjectInput {
     description: string;
     githubLink: string;
     websiteLink: string;
+    startDate: string;
+    endDate: string | null;
   };
 }
 
@@ -40,6 +42,10 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
       description: initialData?.description || "",
       githubLink: initialData?.githubLink || "",
       websiteLink: initialData?.websiteLink || "",
+      startDate: initialData?.startDate
+        ? initialData.startDate.slice(0, 10)
+        : "",
+      endDate: initialData?.endDate ? initialData.endDate.slice(0, 10) : "",
     },
   });
 
@@ -50,6 +56,10 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
         description: initialData.description,
         githubLink: initialData.githubLink,
         websiteLink: initialData.websiteLink,
+        startDate: initialData.startDate
+          ? initialData.startDate.slice(0, 10)
+          : "",
+        endDate: initialData.endDate ? initialData.endDate.slice(0, 10) : "",
       });
     }
   }, [initialData, reset]);
@@ -71,6 +81,8 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
         !data.websiteLink || data.websiteLink.trim() === ""
           ? undefined
           : data.websiteLink,
+      startDate: new Date(data.startDate).toISOString(),
+      endDate: data.endDate ? new Date(data.endDate).toISOString() : null,
     };
 
     editProjectDataById(
@@ -134,6 +146,43 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
           {errors.projectName && (
             <span className="mt-1 text-xs text-red-500">
               {errors.projectName.message}
+            </span>
+          )}
+        </div>
+
+        <div className="group flex w-full flex-col items-start">
+          <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
+            Start date <span className="text-red-500">*</span>
+          </label>
+          <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
+            <input
+              type="date"
+              disabled={isLoading}
+              {...register("startDate", { required: "Start date is required" })}
+              className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
+            />
+          </div>
+          {errors.startDate && (
+            <span className="mt-1 text-xs text-red-500">
+              {errors.startDate.message}
+            </span>
+          )}
+        </div>
+        <div className="group flex w-full flex-col items-start">
+          <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
+            End date
+          </label>
+          <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
+            <input
+              type="date"
+              disabled={isLoading}
+              {...register("endDate")}
+              className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
+            />
+          </div>
+          {errors.endDate && (
+            <span className="mt-1 text-xs text-red-500">
+              {errors.endDate.message}
             </span>
           )}
         </div>
