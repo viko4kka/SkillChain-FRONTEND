@@ -22,7 +22,7 @@ export const descriptionValidation = {
   },
 };
 export const githubLinkValidation = {
-  validate: (value: string | null) =>
+  validate: (value: string | undefined | null) =>
     !value ||
     value.startsWith("https://github.com/") ||
     "Github link must start with https://github.com/",
