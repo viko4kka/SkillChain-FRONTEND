@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { User } from "@/components/UserFrameInProfilePage";
+import { User } from "@/components/userProfile/UserFrameInProfilePage";
 
 type StoreProps = {
   user: User | null;
