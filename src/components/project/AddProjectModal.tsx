@@ -6,6 +6,7 @@ import {
   descriptionValidation,
   githubLinkValidation,
   websiteLinkValidation,
+  endDateAfterStartDate,
 } from "@/utils/projectValidation";
 
 type ProjectFormInputs = {
@@ -117,7 +118,7 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
             <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
               <input
                 type="date"
-                {...register("endDate")}
+                {...register("endDate", { validate: endDateAfterStartDate })}
                 className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
               />
             </div>

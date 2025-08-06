@@ -12,6 +12,7 @@ import {
   descriptionValidation,
   githubLinkValidation,
   websiteLinkValidation,
+  endDateAfterStartDate,
 } from "@/utils/projectValidation";
 
 interface UpdateProjectInput {
@@ -176,7 +177,7 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
             <input
               type="date"
               disabled={isLoading}
-              {...register("endDate")}
+              {...register("endDate", { validate: endDateAfterStartDate })}
               className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
