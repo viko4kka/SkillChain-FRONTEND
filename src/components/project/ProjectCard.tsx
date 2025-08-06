@@ -3,6 +3,7 @@ import { FiEdit2 } from "react-icons/fi";
 import { Project } from "../../types";
 import EditProjectForm from "./EditProjectForm";
 import { BiLinkExternal } from "react-icons/bi";
+import { format } from "date-fns";
 
 interface ProjectCardProps {
   project: Project;
@@ -23,6 +24,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     setIsEditOpen(false);
     if (onProjectUpdated) onProjectUpdated();
   };
+
+  const formatDate = (dateStr?: string | null) =>
+    dateStr ? format(new Date(dateStr), "dd.MM.yyyy") : null;
+
   return (
     <div className=":px-15 w-full border-b border-gray-200 px-4 py-5 sm:px-10 lg:px-15">
       <div className="flex items-center gap-2">
@@ -34,6 +39,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           />
         )}
       </div>
+      {project.startDate && (
+        <div className="mt-1 text-xs text-gray-500">
+          {formatDate(project.startDate)}
+          {project.endDate && <> - {formatDate(project.endDate)}</>}
+          {!project.endDate && <> - present</>}
+        </div>
+      )}
       <p className="text-dark-text mt-1 text-sm">{project.description}</p>
       <div className="mt-2 flex flex-row text-sm text-blue-600">
         {project.githubLink && (
