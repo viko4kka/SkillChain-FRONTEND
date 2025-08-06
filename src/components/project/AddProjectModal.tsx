@@ -36,7 +36,7 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
       githubLink: null,
       websiteLink: null,
       startDate: "",
-      endDate: "",
+      endDate: null,
     },
   });
 
@@ -45,6 +45,8 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
   const handleFormSubmit = (data: ProjectFormInputs) => {
     onSubmit({
       ...data,
+      startDate: new Date(data.startDate).toISOString(),
+      endDate: data.endDate ? new Date(data.endDate).toISOString() : null,
     });
     reset();
   };
