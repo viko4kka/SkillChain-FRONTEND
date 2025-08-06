@@ -17,8 +17,8 @@ export default function UserDisplayInfo({
   imgUrl,
 }: Props) {
   return (
-    <div className="flex gap-4">
-      <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full md:h-24 md:w-24">
+    <div className="flex items-center gap-4">
+      <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
         <Image
           src={imgUrl || "/person.jpg"}
           fill
@@ -27,17 +27,17 @@ export default function UserDisplayInfo({
         />
       </div>
 
-      <div className="mb-4 flex flex-col justify-center">
-        <h2 className="text-dark-text text-xl font-bold">
+      <div className="flex flex-col">
+        <h3 className="text-lg font-semibold text-gray-900">
           {firstName} {lastName}
-        </h2>
-        <p className="text-mainBlue text-sm font-medium">
+        </h3>
+        <p className="text-sm font-medium text-blue-600">
           {job || "No job specified"}
         </p>
         {location && (
-          <div className="mt-1 flex items-center gap-1 text-xs text-gray-600">
-            <CiLocationOn className="text-dark-text text-sm md:text-base lg:text-lg" />
-            {location.name}
+          <div className="mt-1 flex items-center gap-1 text-sm text-gray-500">
+            <CiLocationOn className="h-4 w-4" />
+            <span>{location.name}</span>
           </div>
         )}
       </div>

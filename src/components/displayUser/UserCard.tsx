@@ -22,28 +22,30 @@ export default function UserCard({ user }: UserProps) {
 
   return (
     <WhiteBackgroundFrame>
-      <div>
-        <div className="flex flex-col md:flex-row md:items-start">
-          <UserDisplayInfo
-            firstName={user.firstName}
-            lastName={user.lastName}
-            job={user.job}
-            location={user.location}
-            imgUrl={user.imgUrl}
-          />
-
-          <div className="flex flex-col gap-2">
-            <SkillUserDisplay skills={user.userSkills} />
-            <LanguageDisplay languages={user.userLanguages} />
+      <div className="p-6">
+        <div className="flex flex-col items-start justify-between md:flex-row">
+          <div className="flex-1">
+            <UserDisplayInfo
+              firstName={user.firstName}
+              lastName={user.lastName}
+              job={user.job}
+              location={user.location}
+              imgUrl={user.imgUrl}
+            />
+            <div className="gap-2s mt-2 flex flex-wrap">
+              <SkillUserDisplay skills={user.userSkills} />
+              <LanguageDisplay languages={user.userLanguages} />
+            </div>
+          </div>
+          <div className="my-0 sm: my-auto">
+            <div className="mt-2 flex-shrink-0 sm:mt-0 sm:ml-4">
+              <Button onClick={handleSeeDetails}>
+                See details
+                <IoIosArrowRoundForward className="ml-1" />
+              </Button>
+            </div>
           </div>
         </div>
-
-        <Button onClick={handleSeeDetails}>
-          See details
-          <span>
-            <IoIosArrowRoundForward />
-          </span>
-        </Button>
       </div>
     </WhiteBackgroundFrame>
   );
