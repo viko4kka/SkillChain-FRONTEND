@@ -35,7 +35,7 @@ const LanguageList: React.FC<LanguageListProps> = ({ userId }) => {
           <Spinner />
         </div>
       )}
-      {!isLoading && (!languages || languages.length === 0) && (
+      {!isLoading && !languages?.length && (
         <div className="flex flex-col items-center justify-center gap-2 py-10 text-gray-500">
           <FiFlag className="text-mainBlue mb-2 text-4xl" />
           <span className="text-lg font-medium">No languages found</span>

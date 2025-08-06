@@ -84,7 +84,7 @@ function EditLanguageForm({ onCloseModal, initialData }: UpdateLanguageInput) {
         <button
           onClick={onCloseModal}
           className="text-lg text-gray-500 hover:text-gray-700"
-          aria-label="Zamknij modal"
+          aria-label="Close modal"
         >
           <FiX
             size={24}
