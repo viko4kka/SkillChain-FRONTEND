@@ -4,6 +4,7 @@ import { FiEdit2 } from "react-icons/fi";
 import EditSkillForm from "./EditSkillForm";
 import ApproveButton from "../ApproveButton";
 import useMe from "@/hooks/useMe";
+import ApprovedBy from "../ApprovedBy";
 
 interface SkillCardProps {
   skill: UserSkillWithConfirmations;
@@ -39,9 +40,19 @@ const SkillCard: React.FC<SkillCardProps> = ({
           />
         )}
       </div>
-      <div className="mt-1 flex w-full flex-wrap items-center justify-between gap-4">
-        <p className="text-dark-text m-0 text-sm">{skill.description}</p>
-        {me?.id !== userId && <ApproveButton userId={userId} skill={skill} />}
+      <div className="mt-1 flex w-full flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-dark-text m-0 text-sm break-words sm:max-w-[60%]">
+          {skill.description}
+        </p>
+        <div className="flex items-center gap-2 sm:justify-end">
+          {me?.id !== userId && (
+            <ApproveButton
+              userId={userId}
+              skill={skill}
+            />
+          )}
+          <ApprovedBy skill={skill} />
+        </div>
       </div>
       {isEditOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 sm:px-6">

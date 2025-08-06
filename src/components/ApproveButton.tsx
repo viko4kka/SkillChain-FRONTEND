@@ -33,9 +33,9 @@ export default function ApproveButton({
   const [approved, setApproved] = useState(false);
   const [isBackendLoading, setIsBackendLoading] = useState(false);
 
- const alreadyConfirmed = skill.confirmations.some(
-   (confirmation) => confirmation.id === me?.id,
- );
+  const alreadyConfirmed = skill.confirmations.some(
+    (confirmation) => confirmation.id === me?.id,
+  );
 
   const { isLoading: isReceiptLoading, isSuccess: isReceiptSuccess } =
     useWaitForTransactionReceipt({
@@ -64,12 +64,13 @@ export default function ApproveButton({
         setIsBackendLoading(false);
         if (res.ok) {
           setApproved(true);
+          window.location.reload();
         } else {
           console.error("Backend error:", await res.text());
         }
       })();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isReceiptSuccess, txnHash, approved, skill, userDataById]);
 
   if (alreadyConfirmed || approved) {
