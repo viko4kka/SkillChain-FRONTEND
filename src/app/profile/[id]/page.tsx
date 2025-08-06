@@ -1,8 +1,9 @@
-import ApproveButton from "@/components/ApproveButton";
 import UserFrameInProfilePage from "@/components/userProfile/UserFrameInProfilePage";
 import ProjectList from "@/components/project/ProjectList";
 import SkillList from "@/components/skill/SkillList";
 import LanguageList from "@/components/language/LanguageList";
+import ApproveButton from "@/components/ApproveButton";
+import ApprovedByButton from "@/components/ApprovedByButton";
 
 export default async function Page({
   params,
@@ -23,8 +24,10 @@ export default async function Page({
       <SkillList userId={userId} />
       <br />
       <LanguageList userId={userId} />
-      <div className="mt-10">
+
+      <div className="mt-10 bg-white p-4 shadow-md">
         <ApproveButton />
+        <ApprovedByButton />
       </div>
     </div>
   );
