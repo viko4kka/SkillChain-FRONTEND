@@ -13,6 +13,7 @@ import {
   githubLinkValidation,
   websiteLinkValidation,
   endDateAfterStartDate,
+  notInFuture,
 } from "@/utils/projectValidation";
 
 interface UpdateProjectInput {
@@ -159,7 +160,10 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
             <input
               type="date"
               disabled={isLoading}
-              {...register("startDate", { required: "Start date is required" })}
+              {...register("startDate", {
+                required: "Start date is required",
+                validate: notInFuture,
+              })}
               className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>
@@ -177,7 +181,13 @@ function EditProjectForm({ onCloseModal, initialData }: UpdateProjectInput) {
             <input
               type="date"
               disabled={isLoading}
-              {...register("endDate", { validate: endDateAfterStartDate })}
+              {...register("endDate", {
+                validate: (value, formValues) => {
+                  const afterStart = endDateAfterStartDate(value, formValues);
+                  if (afterStart !== true) return afterStart;
+                  return notInFuture(value);
+                },
+              })}
               className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
             />
           </div>

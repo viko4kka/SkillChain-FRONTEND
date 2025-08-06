@@ -58,3 +58,13 @@ export const endDateAfterStartDate = (
     "End date must be after start date"
   );
 };
+
+export const notInFuture = (value: string | null) => {
+  if (!value) return true;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return (
+    new Date(value) <= today || "Date cannot be in the future"
+  );
+};
+

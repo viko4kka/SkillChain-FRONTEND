@@ -7,6 +7,7 @@ import {
   githubLinkValidation,
   websiteLinkValidation,
   endDateAfterStartDate,
+  notInFuture,
 } from "@/utils/projectValidation";
 
 type ProjectFormInputs = {
@@ -101,6 +102,7 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
                 type="date"
                 {...register("startDate", {
                   required: "Start date is required",
+                  validate: notInFuture,
                 })}
                 className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
               />
@@ -118,7 +120,13 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
             <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
               <input
                 type="date"
-                {...register("endDate", { validate: endDateAfterStartDate })}
+                {...register("endDate", {
+                  validate: (value, formValues) => {
+                    const afterStart = endDateAfterStartDate(value, formValues);
+                    if (afterStart !== true) return afterStart;
+                    return notInFuture(value);
+                  },
+                })}
                 className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
               />
             </div>
