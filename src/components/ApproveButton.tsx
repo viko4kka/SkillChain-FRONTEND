@@ -14,16 +14,17 @@ import { config } from "@/wagmiConfig";
 import { abi } from "../abi/abi";
 import Button from "./Button";
 import { FaCheck } from "react-icons/fa";
+import { UserSkillWithConfirmations } from "@/types";
 
 export default function ApproveButton({
-  id,
-  skillId,
+  userId,
+  skill,
 }: {
-  id: number;
-  skillId: number;
+  userId: number;
+  skill: UserSkillWithConfirmations;
 }) {
   const { me } = useMe();
-  const { userDataById, isLoading } = useUserById(id);
+  const { userDataById, isLoading } = useUserById(userId);
   const { isConnected } = useAccount();
   const { connectAsync } = useConnect({ config });
   const { writeContractAsync } = useWriteContract();
@@ -32,10 +33,9 @@ export default function ApproveButton({
   const [approved, setApproved] = useState(false);
   const [isBackendLoading, setIsBackendLoading] = useState(false);
 
-  const alreadyConfirmed = userDataById?.receivedConfirmations?.some(
-    (confirmation) =>
-      confirmation.skillId === skillId && confirmation.approverId === me?.id,
-  );
+ const alreadyConfirmed = skill.confirmations.some(
+   (confirmation) => confirmation.id === me?.id,
+ );
 
   const { isLoading: isReceiptLoading, isSuccess: isReceiptSuccess } =
     useWaitForTransactionReceipt({
@@ -55,7 +55,7 @@ export default function ApproveButton({
             headers: { "Content-Type": "application/json" },
             credentials: "include",
             body: JSON.stringify({
-              skillId,
+              skillId: skill.id,
               receiverWallet: userDataById?.walletAddress,
               txnHash,
             }),
@@ -69,11 +69,12 @@ export default function ApproveButton({
         }
       })();
     }
-  }, [isReceiptSuccess, txnHash, approved, skillId, userDataById]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isReceiptSuccess, txnHash, approved, skill, userDataById]);
 
   if (alreadyConfirmed || approved) {
     return (
-      <span className="inline-flex items-center gap-2 rounded-lg bg-green-50 px-4 py-2 font-semibold text-green-600">
+      <span className="inline-flex items-center gap-2 rounded-lg bg-green-50 px-4 py-2 text-green-600">
         <FaCheck className="text-green-500" />
         Approved
       </span>
@@ -89,7 +90,7 @@ export default function ApproveButton({
         abi,
         address: "0x39D31d1Fa395c1Ce96454B4F93011a7656824692",
         functionName: "mintSkill",
-        args: [userDataById!.walletAddress, skillId],
+        args: [userDataById!.walletAddress, skill.id],
       });
       setTxnHash(hash);
     } catch (error) {

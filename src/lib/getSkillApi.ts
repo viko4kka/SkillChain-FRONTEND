@@ -1,6 +1,6 @@
 "use client";
 
-import { AddSkillInput, EditSkill, Skill } from "@/types";
+import { AddSkillInput, EditSkill, UserSkillWithConfirmations } from "@/types";
 
 const API_DOMAIN = process.env.NEXT_PUBLIC_API_DOMAIN;
 
@@ -15,7 +15,9 @@ export async function getAllSkillsApi() {
   return data.data;
 }
 
-export async function getSkillsByUserId(userId: number): Promise<Skill[]> {
+export async function getSkillsByUserId(
+  userId: number,
+): Promise<UserSkillWithConfirmations[]> {
   try {
     const response = await fetch(`${API_DOMAIN}/skills/user/${userId}`, {
       method: "GET",

@@ -8,6 +8,7 @@ import useSkillsByUserId from "@/hooks/useSkillByUserId";
 import SkillsListHeader from "./SkillsListHeader";
 import SkillCard from "./SkillCard";
 import { FiStar } from "react-icons/fi";
+import { UserSkillWithConfirmations } from "@/types";
 
 interface SkillListProps {
   userId: number;
@@ -48,7 +49,7 @@ const SkillList: React.FC<SkillListProps> = ({ userId }) => {
       )}
       {!isLoading && skills && skills.length > 0 && (
         <>
-          {skills.map((skill) => (
+          {skills.map((skill: UserSkillWithConfirmations) => (
             <SkillCard
               key={skill.id}
               skill={skill}
