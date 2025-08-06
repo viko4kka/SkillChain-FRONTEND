@@ -1,4 +1,3 @@
-
 import { postLanguage } from "@/lib/getLanguageApi";
 import { AddLanguageInput } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
