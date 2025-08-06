@@ -7,6 +7,7 @@ import { useStore } from "@/stores/useStore";
 import LanguageCard from "./LanguageCard";
 import useLanguagesByUserId from "@/hooks/useLanguageByUserId";
 import LanguagesListHeader from "./LanguagesListHeader";
+import { FiFlag } from "react-icons/fi";
 
 interface LanguageListProps {
   userId: number;
@@ -35,7 +36,13 @@ const LanguageList: React.FC<LanguageListProps> = ({ userId }) => {
         </div>
       )}
       {!isLoading && (!languages || languages.length === 0) && (
-        <div>No languages found.</div>
+        <div className="flex flex-col items-center justify-center gap-2 py-10 text-gray-500">
+          <FiFlag className="text-mainBlue mb-2 text-4xl" />
+          <span className="text-lg font-medium">No languages found</span>
+          <span className="text-sm text-gray-400">
+            Add your first language using the <b>+</b> button above!
+          </span>
+        </div>
       )}
       {!isLoading && languages && languages.length > 0 && (
         <>
