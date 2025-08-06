@@ -35,7 +35,7 @@ const SkillList: React.FC<SkillListProps> = ({ userId }) => {
           <Spinner />
         </div>
       )}
-      {!isLoading && (!skills || skills.length === 0) && (
+      {!isLoading && !skills?.length && (
         <div className="flex flex-col items-center justify-center gap-2 py-10 text-gray-500">
           <FiStar className="text-mainBlue mb-2 text-4xl" />
           <span className="text-lg font-medium">No skills found</span>
