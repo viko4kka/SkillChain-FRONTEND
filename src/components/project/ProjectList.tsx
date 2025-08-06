@@ -51,9 +51,11 @@ const ProjectList: React.FC<ProjectListProps> = ({ userId }) => {
         <div className="flex flex-col items-center justify-center gap-2 py-10 text-gray-500">
           <FiFolder className="mb-2 text-4xl text-mainBlue" />
           <span className="text-lg font-medium">No projects found</span>
-          <span className="text-sm text-gray-400">
-            Add your first project using the <b>+</b> button above!
-          </span>
+          {canEdit && (
+            <span className="text-sm text-gray-400">
+              Add your first project using the <b>+</b> button above!
+            </span>
+          )}
         </div>
       )}
       {!isLoading && data && data.itemsCount > 0 && (
