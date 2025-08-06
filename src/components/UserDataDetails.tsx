@@ -48,6 +48,7 @@ function UserDataDetails({
     const handleSaveWallet = async () => {
       if (isConnected && address && userId && !savedAddress) {
         const message = JSON.stringify({ id: userId });
+
         const signature = await signMessageAsync({
           message,
           account: address!,
@@ -59,7 +60,13 @@ function UserDataDetails({
       }
     };
     handleSaveWallet();
-  }, [isConnected, address, userId, savedAddress, signMessageAsync, saveWallet]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    isConnected,
+    address,
+    userId,
+    savedAddress,
+  ]);
 
   return (
     <>
