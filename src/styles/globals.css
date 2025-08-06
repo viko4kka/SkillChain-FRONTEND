@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import '@rainbow-me/rainbowkit/styles.css';
+@import "@rainbow-me/rainbowkit/styles.css";
 
 :root {
   --background: #ffffff;
@@ -18,7 +18,9 @@
   --color-dark-text: #374151;
   --color-mainBlue: #2563eb;
   --color-mainBlueHover: #1d4ed8;
- 
+  --color-mainPurple: #eee1fe;
+  --color-mainPurpleText: #8a38f5;
+
   --shadow-for-white-background-frame: 0 4px 4px rgba(0, 0, 0, 0.25);
 
   --breakpoint-500: 500px;

@@ -3,10 +3,12 @@
 import useDebounce from "@/hooks/useDebounce";
 import useUsers from "@/hooks/useUsers";
 import { useState } from "react";
+
+import WhiteBackgroundFrame from "../WhiteBackgroundFrame";
+
+import Spinner from "../Spinner";
 import SearchFrame from "./SearchFrame";
-import WhiteBackgroundFrame from "./WhiteBackgroundFrame";
-import UsersList from "./UsersList";
-import Spinner from "./Spinner";
+import UsersList from "../displayUser/UsersList";
 
 export default function Search() {
   const [searchQuery, setSearchQuery] = useState("");

@@ -4,13 +4,13 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useUserUpdateDataById } from "@/hooks/useUserUpdateDataById";
 import { User } from "./UserFrameInProfilePage";
-import Button from "./Button";
 import {
   jobValidation,
   gitUrlValidation,
   descriptionValidation,
   linkedinLinkValidation,
 } from "@/utils/userProfileValidation";
+import Button from "../Button";
 
 interface UpdateUserProfileInput {
   onCloseModal?: () => void;

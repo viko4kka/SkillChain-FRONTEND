@@ -2,14 +2,16 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import Modal from "./Modal";
+
 import useMe from "@/hooks/useMe";
 import { GoPencil } from "react-icons/go";
 import EditUserProfileForm from "./EditUserProfileForm";
 import { useStore } from "@/stores/useStore";
 import { useAccount, useSignMessage } from "wagmi";
 import { useSaveWallet } from "@/hooks/useSaveWallet";
-import { WalletAddressDisplay } from "./WalletAddressDisplay";
+import { WalletAddressDisplay } from "../WalletAddressDisplay";
+import Modal from "../Modal";
+
 
 interface UserDataDetailsProps {
   firstName: string;

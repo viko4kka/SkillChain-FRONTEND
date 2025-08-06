@@ -1,8 +1,8 @@
 import ApproveButton from "@/components/ApproveButton";
-import UserFrameInProfilePage from "@/components/UserFrameInProfilePage";
-import LanguageList from "@/components/language/LanguageList";
+import UserFrameInProfilePage from "@/components/userProfile/UserFrameInProfilePage";
 import ProjectList from "@/components/project/ProjectList";
 import SkillList from "@/components/skill/SkillList";
+import LanguageList from "@/components/language/LanguageList";
 
 export default async function Page({
   params,
