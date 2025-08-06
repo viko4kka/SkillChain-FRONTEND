@@ -42,3 +42,29 @@ export const websiteLinkValidation = {
     message: "Website link must be at most 100 characters",
   },
 };
+
+type StartDate = {
+  startDate: string;
+};
+
+export const endDateAfterStartDate = (
+  value: string | null,
+  formValues: StartDate,
+) => {
+  if (!value) return true;
+  if (!formValues?.startDate) return true;
+  return (
+    new Date(value) >= new Date(formValues.startDate) ||
+    "End date must be after start date"
+  );
+};
+
+export const notInFuture = (value: string | null) => {
+  if (!value) return true;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return (
+    new Date(value) <= today || "Date cannot be in the future"
+  );
+};
+

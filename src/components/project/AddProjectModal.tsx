@@ -6,6 +6,8 @@ import {
   descriptionValidation,
   githubLinkValidation,
   websiteLinkValidation,
+  endDateAfterStartDate,
+  notInFuture,
 } from "@/utils/projectValidation";
 
 type ProjectFormInputs = {
@@ -13,6 +15,8 @@ type ProjectFormInputs = {
   description: string;
   githubLink: string | null;
   websiteLink: string | null;
+  startDate: string;
+  endDate: string | null;
 };
 
 type Props = {
@@ -33,6 +37,8 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
       description: "",
       githubLink: null,
       websiteLink: null,
+      startDate: "",
+      endDate: null,
     },
   });
 
@@ -41,6 +47,8 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
   const handleFormSubmit = (data: ProjectFormInputs) => {
     onSubmit({
       ...data,
+      startDate: new Date(data.startDate).toISOString(),
+      endDate: data.endDate ? new Date(data.endDate).toISOString() : null,
     });
     reset();
   };
@@ -85,7 +93,49 @@ const AddProjectModal: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
               </span>
             )}
           </div>
-
+          <div className="group flex w-full flex-col items-start">
+            <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
+              Start date <span className="text-red-500">*</span>
+            </label>
+            <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
+              <input
+                type="date"
+                {...register("startDate", {
+                  required: "Start date is required",
+                  validate: notInFuture,
+                })}
+                className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
+              />
+            </div>
+            {errors.startDate && (
+              <span className="mt-1 text-xs text-red-500">
+                {errors.startDate.message}
+              </span>
+            )}
+          </div>
+          <div className="group flex w-full flex-col items-start">
+            <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
+              End date
+            </label>
+            <div className="border-dark-text/10 group-focus-within:border-mainBlue w-full rounded-sm border transition">
+              <input
+                type="date"
+                {...register("endDate", {
+                  validate: (value, formValues) => {
+                    const afterStart = endDateAfterStartDate(value, formValues);
+                    if (afterStart !== true) return afterStart;
+                    return notInFuture(value);
+                  },
+                })}
+                className="text-dark-text w-full bg-transparent p-2 text-sm focus:outline-none"
+              />
+            </div>
+            {errors.endDate && (
+              <span className="mt-1 text-xs text-red-500">
+                {errors.endDate.message}
+              </span>
+            )}
+          </div>
           <div className="group flex w-full flex-col items-start">
             <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
               Description
