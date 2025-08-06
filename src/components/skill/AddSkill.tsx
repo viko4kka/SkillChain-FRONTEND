@@ -1,22 +1,22 @@
 "use client";
+import useSkillPost from "@/hooks/useSkillPost";
 import { useState } from "react";
-import AddProjectModal from "@/components/project/AddProjectModal";
 import { FiPlus } from "react-icons/fi";
-import useProjectPost from "@/hooks/useProjectPost";
+import AddSkillModal from "./AddSkillModal";
 
-export default function AddProject({
-  onProjectAdded,
+export default function AddSkill({
+  onSkillAdded,
 }: {
-  onProjectAdded?: () => void;
+  onSkillAdded?: () => void;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { addProject } = useProjectPost();
+  const { addSkillInput } = useSkillPost();
 
-  const handleAddProject = (data: any) => {
-    addProject(data, {
+  const handleAddSkill = (data: any) => {
+    addSkillInput(data, {
       onSuccess: () => {
         setIsModalOpen(false);
-        if (onProjectAdded) onProjectAdded();
+        if (onSkillAdded) onSkillAdded();
       },
     });
   };
@@ -26,15 +26,15 @@ export default function AddProject({
       <button
         onClick={() => setIsModalOpen(true)}
         className="cursor-pointer border-none bg-transparent p-0"
-        aria-label="Add project"
+        aria-label="Add skill"
       >
         <FiPlus className="text-mainBlue text-lg sm:text-xl lg:text-2xl" />
       </button>
 
-      <AddProjectModal
+      <AddSkillModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSubmit={handleAddProject}
+        onSubmit={handleAddSkill}
       />
     </div>
   );

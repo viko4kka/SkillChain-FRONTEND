@@ -16,3 +16,45 @@ export interface AddProject {
   startDate: string;
   endDate?: string;
 }
+
+// Languages
+export interface Language {
+  id: number;
+  name: string;
+  description: string | null;
+}
+
+export interface AddLanguageInput {
+  id: number;
+  description: string | null;
+}
+
+export interface LanguageList {
+  id: number;
+  name: string;
+}
+
+export interface EditLanguage {
+  description: string | null;
+}
+
+// Skills
+export interface Skill {
+  id: number;
+  name: string;
+  description: string | null;
+}
+
+export interface AddSkillInput {
+  id: number;
+  description: string | null;
+}
+
+export interface SkillList {
+  id: number;
+  name: string;
+}
+
+export interface EditSkill {
+  description: string | null;
+}
