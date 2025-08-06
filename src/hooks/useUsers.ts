@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/components/UserFrameInProfilePage";
+import { User } from "@/components/userProfile/UserFrameInProfilePage";
 import { getUsers } from "@/lib/getSearchApi";
 
 import { useQuery } from "@tanstack/react-query";

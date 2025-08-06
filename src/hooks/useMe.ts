@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchMe } from "@/lib/getUserApi";
-import { User } from "@/components/UserFrameInProfilePage";
+import { User } from "@/components/userProfile/UserFrameInProfilePage";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 

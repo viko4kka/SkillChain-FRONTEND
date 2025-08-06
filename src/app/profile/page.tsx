@@ -1,6 +1,6 @@
 "use client";
 
-import UserFrameInProfilePage from "@/components/UserFrameInProfilePage";
+import UserFrameInProfilePage from "@/components/userProfile/UserFrameInProfilePage";
 import { useStore } from "@/stores/useStore";
 
 export default function ProfilePage() {

@@ -1,9 +1,11 @@
 import React from "react";
-import Select from "./Select";
+
 import { useAllSkills } from "@/hooks/useAllSkills";
-import Spinner from "./Spinner";
+
 import { useAllLanguages } from "@/hooks/useAllLanguages";
 import { useAllLocations } from "@/hooks/useAllLocations";
+import Spinner from "../Spinner";
+import Select from "./Select";
 
 interface FilterPanelProps {
   filters: {

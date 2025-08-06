@@ -1,5 +1,5 @@
 import ApproveButton from "@/components/ApproveButton";
-import UserFrameInProfilePage from "@/components/UserFrameInProfilePage";
+import UserFrameInProfilePage from "@/components/userProfile/UserFrameInProfilePage";
 import ProjectList from "@/components/project/ProjectList";
 
 export default async function Page({
