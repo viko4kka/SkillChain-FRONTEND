@@ -54,6 +54,7 @@ const SkillList: React.FC<SkillListProps> = ({ userId }) => {
               skill={skill}
               onSkillUpdated={handleSkillUpdated}
               canEdit={canEdit}
+              userId={userId}
             />
           ))}
         </>
