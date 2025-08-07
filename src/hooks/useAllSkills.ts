@@ -1,6 +1,6 @@
 import { getAllSkillsApi } from "@/lib/getSkillApi";
-import { useQuery } from "@tanstack/react-query";
 import { SkillList } from "@/types";
+import { useQuery } from "@tanstack/react-query";
 
 export default function useAllSkills() {
   const {

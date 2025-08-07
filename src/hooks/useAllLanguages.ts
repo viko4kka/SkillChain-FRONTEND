@@ -1,6 +1,6 @@
 import { getAllLanguagesApi } from "@/lib/getLanguageApi";
-import { useQuery } from "@tanstack/react-query";
 import { LanguageList } from "@/types";
+import { useQuery } from "@tanstack/react-query";
 
 export default function useAllLanguages() {
   const {

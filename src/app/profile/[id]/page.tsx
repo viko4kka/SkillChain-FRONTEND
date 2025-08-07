@@ -1,7 +1,7 @@
-import UserFrameInProfilePage from "@/components/UserFrameInProfilePage";
 import LanguageList from "@/components/language/LanguageList";
 import ProjectList from "@/components/project/ProjectList";
 import SkillList from "@/components/skill/SkillList";
+import UserFrameInProfilePage from "@/components/userProfile/UserFrameInProfilePage";
 
 export default async function Page({
   params,

@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/components/UserFrameInProfilePage";
+import { User } from "@/components/userProfile/UserFrameInProfilePage";
 
 interface UserUpdateData {
   id: number;
