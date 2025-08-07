@@ -4,6 +4,8 @@ export interface Project {
   description: string;
   githubLink: string;
   websiteLink: string;
+  startDate: string;
+  endDate: string | null;
 }
 
 export interface AddProject {
@@ -11,6 +13,8 @@ export interface AddProject {
   description: string;
   githubLink?: string;
   websiteLink?: string;
+  startDate: string;
+  endDate: string | null;
 }
 
 // Languages
