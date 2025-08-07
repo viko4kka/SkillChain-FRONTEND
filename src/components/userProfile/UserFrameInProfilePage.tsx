@@ -6,8 +6,8 @@ import { CiLocationOn } from "react-icons/ci";
 import { FaLinkedinIn } from "react-icons/fa";
 import { LiaGithub } from "react-icons/lia";
 import UserDataDetails from "./UserDataDetails";
-import Spinner from "./Spinner";
-import WhiteBackgroundFrame from "./WhiteBackgroundFrame";
+import Spinner from "../Spinner";
+import WhiteBackgroundFrame from "../WhiteBackgroundFrame";
 
 export interface Confirmation {
   skillId: number;
@@ -38,7 +38,7 @@ export default function UserFrameInProfilePage({
   if (isLoading || !userDataById) {
     return (
       <div className="flex h-[300px] w-full items-center justify-center">
-        <Spinner />
+        {<Spinner />}
       </div>
     );
   }

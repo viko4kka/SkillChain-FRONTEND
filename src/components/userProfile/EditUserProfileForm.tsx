@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useUserUpdateDataById } from "@/hooks/useUserUpdateDataById";
+import Button from "../Button";
 import { User } from "./UserFrameInProfilePage";
-import Button from "./Button";
 import {
   jobValidation,
   gitUrlValidation,

@@ -3,9 +3,12 @@
 import useDebounce from "@/hooks/useDebounce";
 import useUsers from "@/hooks/useUsers";
 import { useState } from "react";
+
+import WhiteBackgroundFrame from "../WhiteBackgroundFrame";
+
+import Spinner from "../Spinner";
 import SearchFrame from "./SearchFrame";
-import WhiteBackgroundFrame from "./WhiteBackgroundFrame";
-import UsersList from "./UsersList";
+import UsersList from "../displayUser/UsersList";
 
 export default function Search() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,8 +30,6 @@ export default function Search() {
     filters.locationId,
   );
 
-  //correct design spinner and error handling here
-
   return (
     <div className="flex h-screen flex-col items-center justify-start">
       <div className="mt-[40px] w-full max-w-4xl px-4">
@@ -41,8 +42,13 @@ export default function Search() {
           />
         </WhiteBackgroundFrame>
 
-        <div className="p-4">
-          {isLoading && <div>Loading users...</div>}
+        <div className="items-center justify-center p-4">
+          {isLoading && (
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <Spinner />
+              <p className="mt-4 text-sm text-gray-600">Loading users...</p>
+            </div>
+          )}
           {error && <div>Error loading users: {error.message}</div>}
           {users && <UsersList users={users} />}
         </div>

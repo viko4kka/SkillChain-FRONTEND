@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/components/UserFrameInProfilePage";
+import { User } from "@/components/userProfile/UserFrameInProfilePage";
 import { getUsers } from "@/lib/getSearchApi";
 
 import { useQuery } from "@tanstack/react-query";
@@ -21,13 +21,9 @@ type UserLocationType = {
 };
 
 export interface DisplayUser extends User {
-  userSkills: {
-    skill: UserSkillType;
-  }[];
+  userSkills: UserSkillType[];
   location: UserLocationType;
-  userLanguages: {
-    language: UserLanguageType;
-  }[];
+  userLanguages: UserLanguageType[];
 }
 
 export default function useUsers(

@@ -1,6 +1,7 @@
 import { GoSearch } from "react-icons/go";
 import FilterPanel from "./FilterPanel";
 
+
 interface SearchFrameProps {
   filters: {
     skillId: number | null;
