@@ -55,8 +55,9 @@ export default function DropDownProfile() {
         <div className="border-dark-text/10 absolute right-0 z-50 mt-2 w-44 rounded-lg border bg-white shadow-lg">
           <div className="py-1">
             <Link
-              href="/profile"
-              className="text-dark-text flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100 sm:hidden"
+              href={`/profile/${user?.id}`}
+              className="text-dark-text flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+              onClick={() => setIsOpen(false)}
             >
               <BsPerson />
               Profile

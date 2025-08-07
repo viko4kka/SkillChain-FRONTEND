@@ -8,6 +8,7 @@ import { LiaGithub } from "react-icons/lia";
 import UserDataDetails from "./UserDataDetails";
 import Spinner from "../Spinner";
 import WhiteBackgroundFrame from "../WhiteBackgroundFrame";
+import {useAllLocations} from "@/hooks/useAllLocations";
 
 export interface Confirmation {
   skillId: number;
@@ -26,6 +27,7 @@ export interface User {
   linkedinId?: string;
   walletAddress?: string;
   receivedConfirmations?: Confirmation[];
+  location?: number;
 }
 
 export default function UserFrameInProfilePage({
@@ -34,17 +36,20 @@ export default function UserFrameInProfilePage({
   id: number | undefined;
 }) {
   const { userDataById, isLoading } = useUserById(id);
+  const { allLocations } = useAllLocations();
 
   if (isLoading || !userDataById) {
     return (
       <div className="flex h-[300px] w-full items-center justify-center">
-        {<Spinner />}
+        <Spinner />
       </div>
     );
   }
 
-  const { firstName, lastName, job, gitUrl, linkedinUrl, description, imgUrl, walletAddress } =
+  const { firstName, lastName, job, gitUrl, linkedinUrl, description, imgUrl, walletAddress, locationId } =
     userDataById;
+
+  const location = allLocations?.data?.find((loc) => loc.id === locationId);
 
   return (
     <WhiteBackgroundFrame>
@@ -60,6 +65,7 @@ export default function UserFrameInProfilePage({
             walletAddress={walletAddress}
             description={description}
             linkedinUrl={linkedinUrl}
+            location={location}
           />
         </div>
 
@@ -70,7 +76,7 @@ export default function UserFrameInProfilePage({
           <p className="text-mainBlue text-sm font-bold sm:text-base">{job}</p>
           <div className="text-dark-text mt-2 flex flex-row items-center gap-x-0.5 text-xs tracking-wide md:text-sm">
             <CiLocationOn className="text-dark-text text-sm md:text-base" />
-            Rzeszów, Polska
+            {location?.name || "Not specified"}
           </div>
         </div>
 

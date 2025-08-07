@@ -22,6 +22,7 @@ interface UserDataDetailsProps {
   id: number | undefined;
   imgUrl?: string;
   walletAddress?: string;
+  location?: { id: number, name: string };
 }
 
 function UserDataDetails({
@@ -34,6 +35,7 @@ function UserDataDetails({
   id,
   imgUrl,
   walletAddress,
+  location,
 }: UserDataDetailsProps) {
   const { isAuthenticated, user } = useStore();
   const canEdit = isAuthenticated && user?.id === id;
@@ -89,7 +91,7 @@ function UserDataDetails({
         </p>
         <div className="text-dark-text mt-2 flex flex-row items-center gap-x-0.5 text-xs tracking-wide md:text-sm">
           <CiLocationOn className="text-dark-text text-sm md:text-base lg:text-lg" />
-          Rzeszów, Polska
+          {location?.name || "Not specified"}
         </div>
       </div>
       <div className="mt-2 flex flex-row flex-wrap items-center justify-start gap-x-2 gap-y-2 sm:gap-x-4 lg:gap-x-6">

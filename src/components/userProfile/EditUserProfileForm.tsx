@@ -22,6 +22,7 @@ interface UpdateUserProfileInput {
     gitUrl: string;
     linkedinUrl: string;
     description: string;
+    location?: { id: number; name: string };
   };
 }
 
