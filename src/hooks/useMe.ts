@@ -19,10 +19,13 @@ export default function useMe() {
 
   useEffect(() => {
     if (error) {
+      toast.dismiss("auth-toast");
       if (error.message === "Unauthorized") {
-        toast.error("You are not authorized. Please log in.");
+        toast.error("You are not authorized. Please log in.", {
+          id: "auth-toast",
+        });
       } else {
-        toast.error("Failed to fetch user data");
+        toast.error("Failed to fetch user data", { id: "auth-toast" });
       }
     }
   }, [error]);

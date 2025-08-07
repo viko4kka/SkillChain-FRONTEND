@@ -91,7 +91,7 @@ export default function ApproveButton({
       }
       const hash = await writeContractAsync({
         abi,
-        address: "0x39D31d1Fa395c1Ce96454B4F93011a7656824692",
+        address: "0xF14C6D319c582511Af0268e7187D59C4d75b467C",
         functionName: "mintSkill",
         args: [userDataById!.walletAddress, skill.id],
       });
