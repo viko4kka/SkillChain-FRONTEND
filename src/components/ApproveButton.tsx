@@ -15,6 +15,7 @@ import { abi } from "../abi/abi";
 import Button from "./Button";
 import { FaCheck } from "react-icons/fa";
 import { UserSkillWithConfirmations } from "@/types";
+import useSkillsByUserId from "@/hooks/useSkillByUserId";
 
 export default function ApproveButton({
   userId,
@@ -28,6 +29,7 @@ export default function ApproveButton({
   const { isConnected } = useAccount();
   const { connectAsync } = useConnect({ config });
   const { writeContractAsync } = useWriteContract();
+  const { refetch } = useSkillsByUserId(userId);
 
   const [txnHash, setTxnHash] = useState<`0x${string}` | undefined>();
   const [approved, setApproved] = useState(false);
@@ -64,7 +66,7 @@ export default function ApproveButton({
         setIsBackendLoading(false);
         if (res.ok) {
           setApproved(true);
-          window.location.reload();
+          await refetch();
         } else {
           console.error("Backend error:", await res.text());
         }
