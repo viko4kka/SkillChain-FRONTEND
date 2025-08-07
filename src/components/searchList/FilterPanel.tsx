@@ -1,11 +1,8 @@
-import React from "react";
-
-import { useAllSkills } from "@/hooks/useAllSkills";
-
-import { useAllLanguages } from "@/hooks/useAllLanguages";
-import { useAllLocations } from "@/hooks/useAllLocations";
+import useAllSkills from "@/hooks/useAllSkills";
 import Spinner from "../Spinner";
 import Select from "./Select";
+import useAllLanguages from "@/hooks/useAllLanguages";
+import { useAllLocations } from "@/hooks/useAllLocations";
 
 interface FilterPanelProps {
   filters: {
@@ -23,8 +20,8 @@ interface FilterPanelProps {
 }
 
 export default function FilterPanel({ filters, setFilters }: FilterPanelProps) {
-  const { allSkills, isLoading: isLoadingSkills } = useAllSkills();
-  const { allLanguages, isLoading: isLoadingLanguages } = useAllLanguages();
+  const { skills, isLoading: isLoadingSkills } = useAllSkills();
+  const { languages, isLoading: isLoadingLanguages } = useAllLanguages();
   const { allLocations, isLoading: isLoadingLocations } = useAllLocations();
 
   if (isLoadingSkills || isLoadingLanguages || isLoadingLocations) {
@@ -39,7 +36,7 @@ export default function FilterPanel({ filters, setFilters }: FilterPanelProps) {
         onChange={(value) =>
           setFilters((prev) => ({ ...prev, skillId: value }))
         }
-        options={allSkills?.data.map((skill) => ({
+        options={skills?.map((skill) => ({
           id: skill.id,
           label: skill.name,
         }))}
@@ -51,7 +48,7 @@ export default function FilterPanel({ filters, setFilters }: FilterPanelProps) {
         onChange={(value) =>
           setFilters((prev) => ({ ...prev, languageId: value }))
         }
-        options={allLanguages?.data.map((language) => ({
+        options={languages?.map((language) => ({
           id: language.id,
           label: language.name,
         }))}

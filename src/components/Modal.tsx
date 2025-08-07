@@ -33,10 +33,14 @@ export default function Modal({
           onClick={closeModal}
         >
           <div
-            className="flex h-full max-h-[60vh] w-full max-w-[95vw] flex-col overflow-hidden rounded-lg bg-white p-4 sm:max-w-[80vw] lg:max-h-[70vh] lg:max-w-[60vw]"
+            className="flex w-full max-w-[95vw] flex-col overflow-hidden rounded-lg bg-white p-4 sm:max-w-[80vw] lg:max-w-[60vw]"
+            style={{ maxHeight: "80vh" }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="custom-scrollbar relative flex-1 overflow-y-auto pr-2">
+            <div
+              className="custom-scrollbar relative flex-1 overflow-y-auto pr-2"
+              style={{ maxHeight: "70vh" }}
+            >
               <div className="mb-2 flex items-center justify-between px-4 pt-2">
                 <h2 className="text-dark-text text-xl font-bold md:text-2xl">
                   {title}

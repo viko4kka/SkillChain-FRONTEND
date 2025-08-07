@@ -1,10 +1,12 @@
-import { Skill } from "@/types";
+import { SkillWithConfirmations } from "@/hooks/useConfirmations";
 import React, { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
+import ApproveButton from "../ApproveButton";
+import ApprovedByButton from "../ApprovedByButton";
 import EditSkillForm from "./EditSkillForm";
 
 interface SkillCardProps {
-  skill: Skill;
+  skill: SkillWithConfirmations;
   onSkillUpdated?: () => void;
   canEdit: boolean;
 }
@@ -33,17 +35,27 @@ const SkillCard: React.FC<SkillCardProps> = ({
           />
         )}
       </div>
-      <p className="text-dark-text mt-1 text-sm">{skill.description}</p>
-      {isEditOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 sm:px-6">
-          <div className="relative w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
-            <EditSkillForm
-              initialData={skill}
-              onCloseModal={handleCloseModal}
-            />
+      <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+        <p className="text-dark-text mt-1 max-w-full text-sm break-words md:max-w-[50%]">
+          {skill.description}
+        </p>
+
+        {isEditOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 sm:px-6">
+            <div className="relative w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+              <EditSkillForm
+                initialData={skill}
+                onCloseModal={handleCloseModal}
+              />
+            </div>
           </div>
+        )}
+
+        <div className="flex flex-row items-center gap-x-2 md:justify-end">
+          <ApproveButton />
+          <ApprovedByButton confirmations={skill.confirmations ?? []}  skillName={skill.name}/>
         </div>
-      )}
+      </div>
     </div>
   );
 };

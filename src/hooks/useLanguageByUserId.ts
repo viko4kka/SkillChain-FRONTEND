@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { Language } from "@/types";
 import { getLanguagesByUserId } from "@/lib/getLanguageApi";

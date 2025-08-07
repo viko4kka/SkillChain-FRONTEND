@@ -12,7 +12,6 @@ import { useSaveWallet } from "@/hooks/useSaveWallet";
 import { WalletAddressDisplay } from "../WalletAddressDisplay";
 import Modal from "../Modal";
 
-
 interface UserDataDetailsProps {
   firstName: string;
   lastName: string;
@@ -61,7 +60,7 @@ function UserDataDetails({
       }
     };
     handleSaveWallet();
-  }, [isConnected, address, userId, savedAddress, signMessageAsync, saveWallet]);
+  }, [isConnected, address, userId, savedAddress]);
 
   return (
     <>

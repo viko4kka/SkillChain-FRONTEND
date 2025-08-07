@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const button = cva(
-  "flex flex-row items-center justify-center rounded-sm transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 whitespace-normal text-center",
+  "flex cursor-pointer flex-row items-center justify-center rounded-sm transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 whitespace-normal text-center",
   {
     variants: {
       variant: {
@@ -12,6 +12,7 @@ const button = cva(
           "bg-main-background text-mainBlue hover:bg-mainLightBlueHover",
       },
       size: {
+        xs: "py-1 px-2 text-xs",
         sm: "py-1 px-3 text-sm",
         md: "py-1.5 px-3.5 text-base",
       },

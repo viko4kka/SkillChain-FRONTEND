@@ -1,20 +1,15 @@
-import { getAllLanguagesApi } from "@/lib/getSearchApi";
+import { getAllLanguagesApi } from "@/lib/getLanguageApi";
+import { LanguageList } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
-interface LanguageOptions {
-  data: {
-    id: number;
-    name: string;
-  }[];
-}
-
-export function useAllLanguages() {
-  const { data: allLanguages, isLoading } = useQuery<LanguageOptions>({
+export default function useAllLanguages() {
+  const {
+    data: languages,
+    isLoading,
+    refetch,
+  } = useQuery<LanguageList[]>({
     queryKey: ["allLanguages"],
-    queryFn: async () => getAllLanguagesApi(),
+    queryFn: getAllLanguagesApi,
   });
-
-  console.log(allLanguages);
-
-  return { allLanguages, isLoading };
+  return { languages, isLoading, refetch };
 }
