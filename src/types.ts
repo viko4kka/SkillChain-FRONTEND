@@ -54,3 +54,16 @@ export interface SkillList {
 export interface EditSkill {
   description: string | null;
 }
+
+export interface SkillConfirmation {
+  id: number;
+  firstName: string;
+  lastName: string;
+}
+
+export interface UserSkillWithConfirmations {
+  id: number;
+  name: string;
+  description: string;
+  confirmations: SkillConfirmation[];
+}

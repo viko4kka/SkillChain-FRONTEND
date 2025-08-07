@@ -1,4 +1,3 @@
-
 import { postSkill } from "@/lib/getSkillApi";
 import { AddSkillInput } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Skill } from "@/types";
+import { UserSkillWithConfirmations } from "@/types";
 import { getSkillsByUserId } from "@/lib/getSkillApi";
 
 export default function useSkillsByUserId(userId: number) {
@@ -7,7 +7,7 @@ export default function useSkillsByUserId(userId: number) {
     data: skills,
     isLoading,
     refetch,
-  } = useQuery<Skill[]>({
+  } = useQuery<UserSkillWithConfirmations[]>({
     queryKey: ["skillsByUserId", userId],
     queryFn: () => getSkillsByUserId(userId),
   });

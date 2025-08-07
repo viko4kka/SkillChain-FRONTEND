@@ -1,18 +1,23 @@
-import { Skill } from "@/types";
+import { UserSkillWithConfirmations } from "@/types";
 import React, { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import EditSkillForm from "./EditSkillForm";
+import ApproveButton from "../ApproveButton";
+import useMe from "@/hooks/useMe";
+import ApprovedBy from "../ApprovedBy";
 
 interface SkillCardProps {
-  skill: Skill;
+  skill: UserSkillWithConfirmations;
   onSkillUpdated?: () => void;
   canEdit: boolean;
+  userId: number;
 }
 
 const SkillCard: React.FC<SkillCardProps> = ({
   skill,
   onSkillUpdated,
   canEdit,
+  userId,
 }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
 
@@ -22,8 +27,10 @@ const SkillCard: React.FC<SkillCardProps> = ({
     onSkillUpdated?.();
   };
 
+  const { me } = useMe();
+
   return (
-    <div className=":px-15 w-full border-b border-gray-200 px-4 py-5 sm:px-10 lg:px-15">
+    <div className="w-full border-b border-gray-200 px-4 py-5 sm:px-10 lg:px-15">
       <div className="flex items-center gap-2">
         <h2 className="text-dark-text font-semibold">{skill.name}</h2>
         {canEdit && (
@@ -33,7 +40,20 @@ const SkillCard: React.FC<SkillCardProps> = ({
           />
         )}
       </div>
-      <p className="text-dark-text mt-1 text-sm">{skill.description}</p>
+      <div className="mt-1 flex w-full flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-dark-text m-0 text-sm break-words sm:max-w-[60%]">
+          {skill.description}
+        </p>
+        <div className="flex items-center gap-2 sm:justify-end">
+          {me?.id !== userId && (
+            <ApproveButton
+              userId={userId}
+              skill={skill}
+            />
+          )}
+          <ApprovedBy skill={skill} />
+        </div>
+      </div>
       {isEditOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 sm:px-6">
           <div className="relative w-full max-w-md rounded-xl bg-white p-6 shadow-xl">

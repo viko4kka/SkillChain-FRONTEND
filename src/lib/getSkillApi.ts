@@ -1,13 +1,11 @@
 "use client";
 
-import { AddSkillInput, EditSkill, Skill } from "@/types";
+import { AddSkillInput, EditSkill, UserSkillWithConfirmations } from "@/types";
 
 const API_DOMAIN = process.env.NEXT_PUBLIC_API_DOMAIN;
 
 export async function getAllSkillsApi() {
-  const response = await fetch(
-    `${API_DOMAIN}/common/skills?perPage=50&page=1`,
-  );
+  const response = await fetch(`${API_DOMAIN}/common/skills?perPage=50&page=1`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch skills");
@@ -19,7 +17,7 @@ export async function getAllSkillsApi() {
 
 export async function getSkillsByUserId(
   userId: number,
-): Promise<Skill[]> {
+): Promise<UserSkillWithConfirmations[]> {
   try {
     const response = await fetch(`${API_DOMAIN}/skills/user/${userId}`, {
       method: "GET",
