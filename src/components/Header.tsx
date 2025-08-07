@@ -2,8 +2,8 @@ import Navigation from "./Navigation";
 
 export default function Header() {
   return (
-    <div className="max-w-7xl flex items-center justify-between mx-auto  ">
-      <div className=" bg-white-text w-full ">
+    <div className="flex items-center justify-center bg-white">
+      <div className="bg-white-text w-[1200px]">
         <Navigation />
       </div>
     </div>

@@ -37,7 +37,7 @@ export default function UserDisplayInfo({
         {location && (
           <div className="mt-1 flex items-center gap-1 text-sm text-gray-500">
             <CiLocationOn className="h-4 w-4" />
-            <span>{location.name}</span>
+            <span>{location?.name || "Location not Specified"}</span>
           </div>
         )}
       </div>

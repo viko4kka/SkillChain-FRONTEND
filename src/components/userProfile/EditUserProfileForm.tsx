@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useUserUpdateDataById } from "@/hooks/useUserUpdateDataById";
 import Button from "../Button";
+import SelectLocation from "../SelectLocation";
 import { User } from "./UserFrameInProfilePage";
 import {
   jobValidation,
@@ -22,6 +23,7 @@ interface UpdateUserProfileInput {
     gitUrl: string;
     linkedinUrl: string;
     description: string;
+    locationId?: number | null;
     location?: { id: number; name: string };
   };
 }
@@ -75,6 +77,7 @@ function EditUserProfileForm({
           job: data.job,
           gitUrl: data.gitUrl,
           linkedinUrl: data.linkedinUrl,
+          locationId: selectedLocationId,
         },
       });
     } catch (error) {
@@ -83,6 +86,10 @@ function EditUserProfileForm({
 
     onCloseModal?.();
   }
+
+  const [selectedLocationId, setSelectedLocationId] = useState<number | null>(
+    initialData?.locationId ?? null,
+  );
 
   return (
     <div className="flex h-[500px] w-full flex-col px-4">
@@ -121,7 +128,12 @@ function EditUserProfileForm({
             />
           </div>
         </div>
-
+        <div className="group flex w-full flex-col items-start">
+          <SelectLocation
+            selectedId={selectedLocationId}
+            onSelect={(id) => setSelectedLocationId(Number(id))}
+          />
+        </div>
         <div className="group flex w-full flex-col items-start">
           <label className="text-dark-text group-focus-within:text-mainBlue mb-1 text-sm transition-colors duration-300">
             Job

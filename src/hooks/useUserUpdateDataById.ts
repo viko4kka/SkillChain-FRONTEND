@@ -13,6 +13,7 @@ export function useUserUpdateDataById() {
         job?: string;
         gitUrl?: string;
         linkedinUrl?: string;
+        locationId?: number | null;
       };
     }) => {
       const result = await editUserDataByIdApi(editUserData);

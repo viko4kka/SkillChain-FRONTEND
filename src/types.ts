@@ -71,3 +71,8 @@ export interface UserSkillWithConfirmations {
   description: string;
   confirmations: SkillConfirmation[];
 }
+
+export interface LocationList {
+  id: number;
+  name: string;
+}

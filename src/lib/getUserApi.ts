@@ -9,6 +9,7 @@ interface UserUpdateData {
     job?: string;
     gitUrl?: string;
     linkedinUrl?: string;
+    locationId?: number | null;
   };
 }
 
@@ -42,6 +43,7 @@ export async function editUserDataById({
       job: updatedData.job || null,
       gitUrl: updatedData.gitUrl || null,
       linkedinUrl: updatedData.linkedinUrl || null,
+      locationId: updatedData.locationId || null,
     }),
   };
 

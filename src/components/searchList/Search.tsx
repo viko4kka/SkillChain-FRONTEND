@@ -42,7 +42,7 @@ export default function Search() {
           />
         </WhiteBackgroundFrame>
 
-        <div className="items-center justify-center p-4">
+        <div className="items-center justify-center py-4">
           {isLoading && (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <Spinner />
